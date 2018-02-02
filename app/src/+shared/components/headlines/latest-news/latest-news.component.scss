@@ -1,0 +1,119 @@
+@import '/../../../../styles/mixins';
+@import '/../../../../styles/variables';
+
+// latest news
+@media all and (max-width: 1250px) {
+  .latest-news-wrap {
+    border-bottom: 1px solid $light-grey-lighter;
+  }
+}
+
+.latest-news {
+  width: 100%;
+  height: 190px;
+  padding-bottom: 34px;
+  border-bottom: 1px solid $light-grey-lighter;
+  @media all and (max-width: 1250px) {
+    height: auto;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+  .img-wrap {
+    height: 155px;
+    @include dib-vt;
+    width: 264px;
+    margin-right: 39px;
+    @media all and (max-width: 1250px) {
+      display: none;
+    }
+    img {
+      object-fit: cover;
+    }
+  }
+  & > div {
+    @include dib-vt;
+    padding-top: 6px;
+    height: 155px;
+    position: relative;
+    width: calc(100% - (265px + 40px));
+    @media all and (max-width: 1250px) {
+      width: 100%;
+      height: auto;
+      padding-bottom: 25px;
+    }
+    .head-time {
+      padding-bottom: 19px;
+      @media all and (max-width: 1250px) {
+        padding-bottom: 5px;
+      }
+      & > * {
+        font-weight: 400;
+        @include dib-vt;
+        text-transform: uppercase;
+      }
+      .head {
+        width: calc(100% - 80px);
+        color: $light-black;
+        @include fOswald;
+        @include  fz16;
+        line-height: 24px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        //@media  (min-device-pixel-ratio: 2),
+        //(min-resolution: 192dpi) {
+        width: calc(100% - 90px);
+        //}
+        em {
+          cursor: pointer;
+          @extend .hover-black-small;
+        }
+      }
+      .time {
+        margin-right: 5px;
+        float: right;
+        margin-top: 7px;
+        color: $grey;
+        @include fOswald;
+        @include fz8;
+        line-height: 12px;
+      }
+    }
+    .post {
+      color: $light-black;
+      @include fRoboto;
+      @include fz12;
+      font-weight: 300;
+      line-height: 20px;
+      margin-bottom: 20px;
+    }
+    .fb-lv-post-footer {
+      height: 18px;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      .readmore {
+        height: 18px;
+        float: right;
+      }
+      @media all and (max-width: 1250px) {
+        bottom: 16px;
+      }
+    }
+  }
+  & + .latest-news {
+    margin-top: 32px;
+    @media all and (max-width: 1250px) {
+      margin-top: 0;
+      padding-top: 32px;
+      border-top: 1px solid #e4e6e9;
+    }
+  }
+  @media all and (max-width: 1250px) {
+    .author {
+      display: none;
+    }
+  }
+}
+
+

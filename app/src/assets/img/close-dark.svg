@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Close" fill="#3f4c5e">
+            <path d="M8.70349983,9.16046121 L-2.29650017,9.16046121 L-2.29650017,11.1604612 L8.70349983,11.1604612 L8.70349983,22.1604612 L10.7034998,22.1604612 L10.7034998,11.1604612 L21.7034998,11.1604612 L21.7034998,9.16046121 L10.7034998,9.16046121 L10.7034998,-1.83953879 L8.70349983,-1.83953879 L8.70349983,9.16046121 Z" id="Combined-Shape" transform="translate(9.703500, 10.160461) rotate(-315.000000) translate(-9.703500, -10.160461) "></path>
+        </g>
+    </g>
+</svg>

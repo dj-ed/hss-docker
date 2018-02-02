@@ -1,0 +1,708 @@
+@import '../../../../styles/mixins';
+@import '../../../../styles/variables';
+
+.head-switcher {
+  text-align: center;
+  margin-bottom: 74px;
+  position: relative;
+  @media all and (max-width: 900px) {
+    margin-bottom: 46px;
+  }
+  .switch {
+    width: 210px;
+    cursor: pointer;
+    color: #fff;
+    @include fOswald;
+    text-transform: uppercase;
+    word-spacing: -3px;
+    white-space: nowrap;
+    @media all and (max-width: 1024px) {
+      margin-top: 15px;
+    }
+    @media all and (max-width: 850px) {
+      margin-top: 0;
+    }
+    .teams {
+      width: 127px;
+      height: 108px;
+      background-color: rgba(63, 76, 94, 0.77);
+      display: inline-block;
+      vertical-align: top;
+      word-spacing: normal;
+      padding-top: 13px;
+      margin-left: -1px;
+      @media all and (max-width: 1024px) {
+        width: 109px;
+        height: 93px;
+        padding-top: 7px;
+      }
+      a:hover .name em {
+        background: url(/img/hover-bg.svg) repeat-x bottom left;
+      }
+      .name, .img-wrap {
+        display: inline-block;
+        vertical-align: middle;
+      }
+      .name {
+        width: 28px;
+        color: #fff;
+        @include fOswald;
+        @include fz12;
+        line-height: 14px;
+        margin-right: 15px;
+        text-align: right;
+        @media all and (max-width: 1024px) {
+          margin-right: 8px;
+        }
+      }
+      .img-wrap {
+        height: 35px;
+        width: 35px;
+        img {
+          object-fit: contain;
+        }
+      }
+      .vs {
+        text-align: right;
+        padding-right: 77px;
+        color: #b2b7bf;
+        @include fz11;
+        line-height: 14px;
+        text-transform: none;
+        @media all and (max-width: 1024px) {
+          padding-right: 65px;
+        }
+      }
+    }
+    .date {
+      width: 80px;
+      height: 108px;
+      background-color: #fff;
+      display: inline-block;
+      vertical-align: top;
+      word-spacing: normal;
+      text-align: center;
+      padding-top: 20px;
+      margin-right: -1px;
+      @media all and (max-width: 1024px) {
+        width: 55px;
+        height: 93px;
+        padding-top: 14px;
+      }
+      .day {
+        color: $light-black;
+        @include fz32;
+        line-height: 36px;
+        @media all and (max-width: 1024px) {
+          font-size: 19px;
+          line-height: 26px;
+        }
+      }
+      .month {
+        color: #f41b1a;
+        @include fz14;
+        line-height: 18px;
+        margin-top: 2px;
+        margin-bottom: 2px;
+        @media all and (max-width: 1024px) {
+          @include fz10;
+        }
+      }
+      .type {
+        color: #556278;
+        @include fz10;
+        line-height: 12px;
+        em {
+          display: none;
+        }
+        @media all and (max-width: 1024px) {
+          span {
+            display: none;
+          }
+          em {
+            display: inline-block;
+          }
+        }
+      }
+    }
+  }
+  .prew {
+    float: left;
+  }
+  .next {
+    float: right;
+    .teams {
+      .name {
+        margin-right: auto;
+        margin-left: 15px;
+        text-align: left;
+      }
+      .vs {
+        padding-right: 42px;
+        @media all and (max-width: 1024px) {
+          padding-right: 33px;
+        }
+      }
+    }
+  }
+  .head {
+    display: inline-block;
+    vertical-align: top;
+    width: calc(100% - 420px);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    @media all and (max-width: 1024px) {
+      width: calc(100% - 350px);
+    }
+    .top {
+      width: 100%;
+      color: #fff;
+      @include fOswald;
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 46px;
+      @media all and (max-width: 1024px) {
+        margin-bottom: 8px;
+      }
+      @media all and (max-width: 850px) {
+        margin-bottom: 16px;
+      }
+      p {
+        display: inline-block;
+        vertical-align: middle;
+        @include fz14;
+        padding-right: 35px;
+        width: 130px;
+        @media all and (max-width: 1024px) {
+          @include fz10;
+          width: 90px;
+          padding-right: 8px;
+        }
+        & + p {
+          padding-left: 35px;
+          @media all and (max-width: 1024px) {
+            padding-left: 8px;
+          }
+        }
+        &:nth-child(2) {
+          border-left: 1px solid #fff;
+          border-right: 1px solid #fff;
+        }
+        &:last-child {
+          padding-right: 0;
+        }
+        &.date {
+          @include fz20;
+          @media all and (max-width: 1024px) {
+            @include fz14;
+          }
+        }
+      }
+    }
+    .versus {
+      .team, .and {
+        display: inline-block;
+        vertical-align: bottom;
+        @media all and (max-width: 850px) {
+          vertical-align: middle;
+        }
+      }
+      .team {
+        text-align: right;
+        min-width: 310px;
+        .left, .img-wrap {
+          display: inline-block;
+          vertical-align: bottom;
+        }
+        .left {
+          color: #fff;
+          @include fOswald;
+          text-align: inherit;
+          .points {
+            width: 82px;
+            height: 58px;
+            text-align: center;
+            line-height: 58px;
+            color: #fff;
+            @include fz32;
+            margin-bottom: 8px;
+            display: inline-block;
+            @media all and (max-width: 1024px) {
+              width: 60px;
+              @include fz24;
+            }
+            @media all and (max-width: 850px) {
+              height: 30px;
+              line-height: 30px;
+              width: 40px;
+              @include fz16;
+            }
+            &.win {
+              background-color: #4990e2;
+            }
+            &.lose {
+              background-color: #f41b1a;
+            }
+          }
+          a {
+            color: #fff;
+            @include fz16;
+            text-transform: uppercase;
+            margin-right: 4px;
+            em {
+              display: none;
+            }
+            &:hover {
+              background: url(/img/hover-bg.svg) repeat-x bottom left;
+            }
+          }
+          & + .img-wrap {
+            margin-left: 12px;
+          }
+        }
+        .img-wrap {
+          height: 86px;
+          width: 86px;
+          color: #b2b7bf;
+          background: url(/img/line.svg) no-repeat center/100%;
+          @media all and (max-width: 850px) {
+            width: 50px;
+            height: 50px;
+          }
+          img {
+            object-fit: contain;
+          }
+          & + .left {
+            margin-left: 12px;
+          }
+        }
+        &:last-child {
+          text-align: left;
+        }
+        @media all and (max-width: 1200px) {
+          min-width: 195px;
+          .left a {
+            span {
+              display: none;
+            }
+            em {
+              display: inline-block;
+            }
+          }
+        }
+        @media all and (max-width: 1024px) {
+          min-width: 170px;
+        }
+        @media all and (max-width: 850px) {
+          min-width: 115px;
+        }
+      }
+      .and {
+        text-align: center;
+        @include fOswald;
+        text-transform: uppercase;
+        margin-left: 30px;
+        margin-right: 30px;
+        @media all and (max-width: 850px) {
+          margin-left: 15px;
+          margin-right: 15px;
+        }
+        p {
+          color: #b2b7bf;
+          @include fz12;
+          line-height: 14px;
+          @media all and (max-width: 850px) {
+            @include fz8;
+            line-height: 12px;
+          }
+        }
+        .vs {
+          color: #556278;
+          @include fz24;
+          line-height: 32px;
+          margin-bottom: 8px;
+          padding-left: 10px;
+          padding-right: 10px;
+          padding-bottom: 8px;
+          border-bottom: 1px solid #fff;
+          @media all and (max-width: 850px) {
+            @include fz10;
+            line-height: 14px;
+          }
+        }
+      }
+    }
+  }
+}
+.detail-wrap {
+  @include fOswald;
+  text-transform: uppercase;
+  overflow: hidden;
+  .table-wrap {
+    padding-top: 34px;
+    padding-left: 118px;
+    padding-right: 118px;
+    margin-bottom: 47px;
+    @media all and (max-width: 1200px) {
+      padding-left: 25px;
+      padding-right: 25px;
+    }
+    @media all and (max-width: 1000px) {
+      padding-left: 0;
+      padding-right: 0;
+    }
+    .tab {
+      width: 432px;
+      float: left;
+      counter-reset: sced-tab-counter;
+      opacity: 1;
+      transition: opacity 180ms;
+      will-change: opacity;
+      padding-bottom: 5px;
+      @media all and (max-width: 975px) {
+        width: calc((100% / 2) - 24px);
+      }
+      &:nth-child(2) {
+        float: right;
+      }
+      .head {
+        @include fz20;
+        margin-bottom: 11px;
+        padding-left: 25px;
+        &:empty {
+          margin-bottom: 0;
+        }
+        .img-wrap {
+          width: 30px;
+          height: 30px;
+          margin-right: 16px;
+          display: inline-block;
+          vertical-align: middle;
+          img {
+            object-fit: contain;
+          }
+        }
+      }
+      .t-row {
+        justify-content: space-around;
+        @include fz10;
+        align-items: center;
+        &>*:last-child{
+          height: 29px;
+          line-height: 29px;
+          width: 40px;
+        }
+        &>*:not(:last-child) p{
+          width: 15px;
+        }
+        .num{
+          width: 10px;
+        }
+        .player {
+          width: 180px;
+          &.tal{
+            text-align: left;
+          }
+          a {
+            color: $middle-grey;
+            &:hover {
+              em {
+                display: inline;
+                @extend .hover-black-small;
+              }
+            }
+          }
+          span {
+            width: 30px;
+            display: inline-block;
+            text-align: left;
+            &:before {
+              content: "# ";
+            }
+          }
+          em {
+            display: inline-block;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            max-width: calc(100% - 30px);
+          }
+        }
+        &.t-head {
+          border-top: 1px solid $grey-blue;
+          border-bottom: 1px solid rgba(63, 76, 94, 0.44);
+          height: auto;
+          padding-bottom: 8px;
+          padding-top: 8px;
+          color: rgba(11, 19, 30, 0.7);
+          margin-bottom: 24px;
+        }
+        &:not(.t-head) {
+          counter-increment: sced-tab-counter;
+          color: $middle-grey;
+          &:nth-child(odd) {
+            background: url(/img/Noise-on-white.png);
+          }
+          .num {
+            &:after {
+              content: counter(sced-tab-counter) ".";
+            }
+          }
+          &>*:last-child {
+            @include fz14;
+            background-color: $blue-on-dark;
+            color: #fff;
+          }
+          &:last-child {
+            p{
+              position: relative;
+              background-color: inherit;
+              &:after {
+                position: absolute;
+                bottom: -5px;
+                left: 0;
+                height: 5px;
+                width: 100%;
+                content: "";
+                background-color: inherit;
+              }
+            }
+          }
+        }
+        & > * {
+          text-align: center;
+        }
+      }
+      &:hover {
+        .t-row:not(.t-head) {
+          opacity: 0.4;
+          transition: opacity 180ms;
+        }
+        .t-row:hover {
+          opacity: 1;
+          transition: opacity 180ms;
+        }
+      }
+    }
+    .lower-tab {
+      .t-head {
+        .player {
+          padding-left: 20px;
+        }
+      }
+      .t-row{
+        justify-content: space-around;
+        &>*:last-child {
+          @include fz14;
+          height: 36px;
+          line-height: 36px;
+          width: 40px;
+        }
+        .img-wraper{
+          width: 30px;
+        }
+      }
+      .t-row:not(.t-head) {
+        height: auto;
+        .img-wraper {
+          img {
+            width: 30px;
+          }
+          &:after {
+            display: none;
+          }
+        }
+        &>*:last-child {
+          background-color: $blue-on-dark;
+          color: #fff;
+        }
+      }
+      &:hover {
+        .t-row:not(.t-head) {
+          opacity: 1;
+          transition: opacity 180ms;
+        }
+      }
+    }
+  }
+  .players-wrap {
+    .switch {
+      text-align: center;
+      border-bottom: 1px solid $grey-blue;
+      margin-bottom: 24px;
+      button {
+        display: inline-block;
+        vertical-align: bottom;
+        margin-bottom: -1px;
+        padding-bottom: 5px;
+        color: $grey-blue;
+        @include fz14;
+        border-bottom: 4px solid transparent;
+        opacity: 0.4;
+        transition: opacity, border-bottom 180ms;
+        will-change: opacity, border-bottom;
+        .img-wrap {
+          width: 30px;
+          height: 30px;
+          display: inline-block;
+          vertical-align: middle;
+          margin-right: 8px;
+          img {
+            object-fit: contain;
+          }
+        }
+        & + button {
+          margin-left: 42px;
+        }
+        &.active, &:hover {
+          border-bottom: 4px solid #f41b1a;
+          opacity: 1;
+          transition: opacity, border-bottom 180ms;
+        }
+      }
+    }
+    .players {
+      padding-bottom: 36px;
+      margin-bottom: 46px;
+      border-bottom: 1px solid rgba(178, 183, 191, 0.2);
+      white-space: nowrap;
+      overflow: hidden;
+      .one {
+        display: inline-block;
+        vertical-align: top;
+        padding: 8px 0;
+        width: 310px;
+        box-shadow: 0 1px 14px 0 rgba(4, 8, 13, 0);
+        opacity:1;
+        transition-property:box-shadow, opacity;
+        transition-duration: 180ms, 250ms;
+        transition-timing-function: ease-in-out, ease-in-out;
+        @for $i from 1 through 50 {
+          &:nth-child(n + #{$i}) {
+            transition-delay:0ms, calc(#{$i} * 100ms);
+          }
+        }
+        &.active{
+          opacity:0;
+          transition:opacity 0ms;
+        }
+        & + .one {
+          margin-left: 34px;
+        }
+        .img-wrap {
+          width: 82px;
+          height: 82px;
+          display: inline-block;
+          vertical-align: bottom;
+          margin-right: 24px;
+          img {
+            object-fit: cover;
+          }
+        }
+        .right {
+          display: inline-block;
+          vertical-align: bottom;
+          width: calc(100% - 110px);
+          .left {
+            display: inline-block;
+            vertical-align: bottom;
+            width: 100px;
+            .img-wrap {
+              width: 40px;
+              height: 40px;
+              img {
+                object-fit: contain;
+              }
+            }
+            .num {
+              color: #556278;
+              @include fz14;
+              line-height: 18px;
+              margin-top: 8px;
+              &:before {
+                content: "#";
+              }
+            }
+            .name {
+              color: $light-black;
+              @include fz14;
+              line-height: 18px;
+              margin-bottom: -2px;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              max-width: 100%;
+              display: inline-block;
+              &:hover {
+                background: url(/img/hover-bg.svg) repeat-x bottom left;
+              }
+            }
+          }
+          .fav {
+            display: inline-block;
+            vertical-align: bottom;
+            padding: 0;
+            span {
+              width: 20px;
+              height: 20px;
+              display: inline-block;
+            }
+            &.in-fav span {
+            }
+          }
+          .right {
+            width: calc(100% - 130px);
+            text-align: center;
+            p {
+              color: #f41b1a;
+              @include  fz15;
+              line-height: 20px;
+              margin-bottom: 36px;
+              &.points {
+                color: #000000;
+                font-size: 28px;
+                line-height: 26px;
+                margin-bottom: 0;
+              }
+            }
+          }
+        }
+        .bottom {
+          margin-top: 8px;
+          border-top: 1px solid rgba(178, 183, 191, 0.2);
+          background: url(/img/Noise-on-white.png);
+          padding: 8px;
+          @include fz11;
+          color: #b2b7bf;
+          & > * {
+            display: inline-block;
+            vertical-align: middle;
+            p {
+              line-height: 17px;
+            }
+          }
+          .stats_info {
+            width: 50px;
+            margin-right: 40px;
+            p {
+              text-transform: none;
+            }
+          }
+          .stats {
+            text-align: center;
+            width: auto;
+            min-width: 34px;
+            .numes {
+              @include fz14;
+              color: $grey-blue;
+            }
+            + .stats {
+              margin-left: 18px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

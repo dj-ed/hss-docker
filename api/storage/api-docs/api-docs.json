@@ -1,0 +1,4829 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "HS-SPORT API",
+        "version": "1.0"
+    },
+    "basePath": "/api",
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "paths": {
+        "/auth/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "User login",
+                "description": "User login",
+                "operationId": "api.auth.login",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "email",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "password",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/auth/get-user": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Get user",
+                "description": "Get user",
+                "operationId": "api.auth.get-user",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/comment/get-comments": {
+            "post": {
+                "tags": [
+                    "Comments"
+                ],
+                "summary": "Get comments list in post",
+                "description": "Get comments list in post",
+                "operationId": "api.comment.get-comments",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "modelId",
+                        "in": "query",
+                        "description": "ID \u0435\u043b\u0435\u043c\u0435\u043d\u0442\u0430 \u0441\u0435\u043a\u0446\u0456\u0457",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "modelType",
+                        "in": "query",
+                        "description": "gallery, news, ...",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/comment/post-text": {
+            "post": {
+                "tags": [
+                    "Comments Auth User"
+                ],
+                "summary": "Add message from comment",
+                "description": "Add message from comment",
+                "operationId": "api.comment.post-text",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "modelId",
+                        "in": "query",
+                        "description": "ID \u0435\u043b\u0435\u043c\u0435\u043d\u0442\u0430 \u0441\u0435\u043a\u0446\u0456\u0457",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "modelType",
+                        "in": "query",
+                        "description": "gallery, news, ...",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "text",
+                        "in": "query",
+                        "description": "text comments",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "reply",
+                        "in": "query",
+                        "description": "ID of comment to reply or null",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/comment/post-audio": {
+            "post": {
+                "tags": [
+                    "Comments Auth User"
+                ],
+                "summary": "Add audio file from comment",
+                "description": "Add audio file from comment",
+                "operationId": "api.comment.post-audio",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "modelId",
+                        "in": "query",
+                        "description": "ID \u0435\u043b\u0435\u043c\u0435\u043d\u0442\u0430 \u0441\u0435\u043a\u0446\u0456\u0457",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "modelType",
+                        "in": "query",
+                        "description": "gallery, news, ...",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "file",
+                        "in": "query",
+                        "description": "blob file data",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "reply",
+                        "in": "query",
+                        "description": "ID of comment to reply or null",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/comment/add-like": {
+            "post": {
+                "tags": [
+                    "Comments"
+                ],
+                "summary": "Add like from comment",
+                "description": "Add like from comment",
+                "operationId": "api.comment.add-like",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "comment ID",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/comment/remove-like": {
+            "post": {
+                "tags": [
+                    "Comments"
+                ],
+                "summary": "Remove like from comment",
+                "description": "Remove like from comment",
+                "operationId": "api.comment.remove-like",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "comment ID",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/comment/report-abuse": {
+            "post": {
+                "tags": [
+                    "Comments"
+                ],
+                "summary": "Report abuse from comment",
+                "description": "Report abuse from comment",
+                "operationId": "api.comment.report-abuse",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "comment ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "reportType",
+                        "in": "query",
+                        "description": "string with type",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/events/add-event": {
+            "post": {
+                "tags": [
+                    "Events Auth User"
+                ],
+                "summary": "Events add - upcoming games",
+                "description": "Events - upcoming games",
+                "operationId": "api.events.add-event",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "token auth",
+                        "required": true,
+                        "type": "string",
+                        "default": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NzksImlzcyI6Imh0dHA6XC9cL2hzcy1hcGkudjEiLCJhdWQiOiJodHRwOlwvXC9oc3MtYXBpLnYxIiwiaWF0IjoxNTEzODg5MDAyLCJleHAiOjE1NDU0MjUwMDJ9.eB-Gcx4Dkko-C7Nfql0525nfOCJlGkLsl7m-GGhCPF4"
+                    },
+                    {
+                        "name": "modelId",
+                        "in": "query",
+                        "description": "ID \u0435\u043b\u0435\u043c\u0435\u043d\u0442\u0430 \u0441\u0435\u043a\u0446\u0456\u0457",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "modelType",
+                        "in": "query",
+                        "description": "game",
+                        "required": true,
+                        "type": "string",
+                        "default": "game"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/events/get-event": {
+            "post": {
+                "tags": [
+                    "Events Auth User"
+                ],
+                "summary": "Events - list",
+                "description": "Events - list",
+                "operationId": "api.events.get-event",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "token auth",
+                        "required": true,
+                        "type": "string",
+                        "default": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NzksImlzcyI6Imh0dHA6XC9cL2hzcy1hcGkudjEiLCJhdWQiOiJodHRwOlwvXC9oc3MtYXBpLnYxIiwiaWF0IjoxNTEzODg5MDAyLCJleHAiOjE1NDU0MjUwMDJ9.eB-Gcx4Dkko-C7Nfql0525nfOCJlGkLsl7m-GGhCPF4"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/events/remove-event": {
+            "post": {
+                "tags": [
+                    "Events Auth User"
+                ],
+                "summary": "Events remove - upcoming games",
+                "description": "Events - upcoming games",
+                "operationId": "api.events.remove-event",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "token auth",
+                        "required": true,
+                        "type": "string",
+                        "default": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NzksImlzcyI6Imh0dHA6XC9cL2hzcy1hcGkudjEiLCJhdWQiOiJodHRwOlwvXC9oc3MtYXBpLnYxIiwiaWF0IjoxNTEzODg5MDAyLCJleHAiOjE1NDU0MjUwMDJ9.eB-Gcx4Dkko-C7Nfql0525nfOCJlGkLsl7m-GGhCPF4"
+                    },
+                    {
+                        "name": "modelId",
+                        "in": "query",
+                        "description": "ID \u0435\u043b\u0435\u043c\u0435\u043d\u0442\u0430 \u0441\u0435\u043a\u0446\u0456\u0457",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "modelType",
+                        "in": "query",
+                        "description": "game",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/favorites/post-favorite": {
+            "post": {
+                "tags": [
+                    "Favorites Auth User"
+                ],
+                "summary": "Favorite and unfavorite",
+                "description": "Favorite and unfavorite",
+                "operationId": "api.favorites.post-favorite",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "token auth",
+                        "required": true,
+                        "type": "string",
+                        "default": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NzksImlzcyI6Imh0dHA6XC9cL2hzcy1hcGkudjEiLCJhdWQiOiJodHRwOlwvXC9oc3MtYXBpLnYxIiwiaWF0IjoxNTEzODg5MDAyLCJleHAiOjE1NDU0MjUwMDJ9.eB-Gcx4Dkko-C7Nfql0525nfOCJlGkLsl7m-GGhCPF4"
+                    },
+                    {
+                        "name": "seasonId",
+                        "in": "query",
+                        "description": "season ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "modelId",
+                        "in": "query",
+                        "description": "ID \u0435\u043b\u0435\u043c\u0435\u043d\u0442\u0430 \u0441\u0435\u043a\u0446\u0456\u0457",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "modelType",
+                        "in": "query",
+                        "description": "player, team, school",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/favorites/get-favorite": {
+            "post": {
+                "tags": [
+                    "Favorites Auth User"
+                ],
+                "summary": "Favorites list",
+                "description": "Favorites list",
+                "operationId": "api.favorites.get-favorite",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "token auth",
+                        "required": true,
+                        "type": "string",
+                        "default": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NzksImlzcyI6Imh0dHA6XC9cL2hzcy1hcGkudjEiLCJhdWQiOiJodHRwOlwvXC9oc3MtYXBpLnYxIiwiaWF0IjoxNTEzODg5MDAyLCJleHAiOjE1NDU0MjUwMDJ9.eB-Gcx4Dkko-C7Nfql0525nfOCJlGkLsl7m-GGhCPF4"
+                    },
+                    {
+                        "name": "seasonId",
+                        "in": "query",
+                        "description": "season ID",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/gallery/calendar": {
+            "post": {
+                "tags": [
+                    "Gallery"
+                ],
+                "summary": "Gallery Sports Calendar",
+                "description": "Gallery Sports Calendar",
+                "operationId": "api.gallery.calendar",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "seasonId",
+                        "in": "query",
+                        "description": "season ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "sportId",
+                        "in": "query",
+                        "description": "sport ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "page number",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/gallery/albums": {
+            "post": {
+                "tags": [
+                    "Gallery"
+                ],
+                "summary": "Gallery list albums",
+                "description": "Gallery list albums",
+                "operationId": "api.gallery.albums",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "teamId",
+                        "in": "query",
+                        "description": "team ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "playerId",
+                        "in": "query",
+                        "description": "Player ID",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/gallery/view-album": {
+            "post": {
+                "tags": [
+                    "Gallery"
+                ],
+                "summary": "Gallery view album",
+                "description": "Gallery view album",
+                "operationId": "api.gallery.view-album",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "albumId",
+                        "in": "query",
+                        "description": "album ID",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/game/upcoming": {
+            "post": {
+                "tags": [
+                    "Game"
+                ],
+                "summary": "Upcoming game",
+                "description": "Upcoming game",
+                "operationId": "api.game.upcoming",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "sportId",
+                        "in": "query",
+                        "description": "1 or 2",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "genderId",
+                        "in": "query",
+                        "description": "1 or 2 or null",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "teamId",
+                        "in": "query",
+                        "description": "ID team",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "schoolId",
+                        "in": "query",
+                        "description": "ID school",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "schoolId",
+                        "in": "query",
+                        "description": "ID school",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "stateId",
+                        "in": "query",
+                        "description": "ID state",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "cityId",
+                        "in": "query",
+                        "description": "ID city",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/game/schedule-today": {
+            "post": {
+                "tags": [
+                    "Game"
+                ],
+                "summary": "Games Schedule - Today",
+                "description": "Games Schedule - Today",
+                "operationId": "api.game.schedule-today",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "date",
+                        "in": "query",
+                        "description": "Y-m-d",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "sportId",
+                        "in": "query",
+                        "description": "sport ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "teamId",
+                        "in": "query",
+                        "description": "team ID",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "schoolId",
+                        "in": "query",
+                        "description": "school ID",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "stateId",
+                        "in": "query",
+                        "description": "ID state",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "cityId",
+                        "in": "query",
+                        "description": "ID city",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/game/schedule-calendar": {
+            "post": {
+                "tags": [
+                    "Game"
+                ],
+                "summary": "Games Schedule - Calendar",
+                "description": "Games Schedule - Calendar",
+                "operationId": "api.game.schedule-calendar",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "calendarType",
+                        "in": "query",
+                        "description": "week || month || year",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "startDate",
+                        "in": "query",
+                        "description": "Y-m-d",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "endDate",
+                        "in": "query",
+                        "description": "Y-m-d",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "sportId",
+                        "in": "query",
+                        "description": "sport ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "teamId",
+                        "in": "query",
+                        "description": "team ID",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "schoolId",
+                        "in": "query",
+                        "description": "school ID",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "stateId",
+                        "in": "query",
+                        "description": "ID state",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "cityId",
+                        "in": "query",
+                        "description": "ID city",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/game/schedule-full": {
+            "post": {
+                "tags": [
+                    "Game"
+                ],
+                "summary": "Games Schedule - Full Timetable",
+                "description": "Games Schedule - Full Timetable",
+                "operationId": "api.game.schedule-full",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "allGames",
+                        "in": "query",
+                        "description": "0 - limit 30 || 1 - all",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "sportId",
+                        "in": "query",
+                        "description": "sport ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "teamId",
+                        "in": "query",
+                        "description": "team ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "schoolId",
+                        "in": "query",
+                        "description": "school ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "stateId",
+                        "in": "query",
+                        "description": "ID state",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "cityId",
+                        "in": "query",
+                        "description": "ID city",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/likes/post-like": {
+            "post": {
+                "tags": [
+                    "Like Auth User"
+                ],
+                "summary": "Like and dislike",
+                "description": "Like and dislike",
+                "operationId": "api.likes.post-like",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "modelId",
+                        "in": "query",
+                        "description": "ID \u0435\u043b\u0435\u043c\u0435\u043d\u0442\u0430 \u0441\u0435\u043a\u0446\u0456\u0457",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "modelType",
+                        "in": "query",
+                        "description": "news, gallery, game",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/location/states": {
+            "post": {
+                "tags": [
+                    "Location"
+                ],
+                "summary": "Location states list",
+                "description": "Location states list",
+                "operationId": "api.location.states",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "seasonId",
+                        "in": "query",
+                        "description": "season ID",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/location/city": {
+            "post": {
+                "tags": [
+                    "Location"
+                ],
+                "summary": "Location current city or default city by most popular school",
+                "description": "Location current city or default city by most popular school",
+                "operationId": "api.location.city",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "seasonId",
+                        "in": "query",
+                        "description": "season ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "cityId",
+                        "in": "query",
+                        "description": "city ID",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/location/cities": {
+            "post": {
+                "tags": [
+                    "Location"
+                ],
+                "summary": "Location cities list",
+                "description": "Location cities list",
+                "operationId": "api.location.cities",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "seasonId",
+                        "in": "query",
+                        "description": "season ID",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/location/teams": {
+            "post": {
+                "tags": [
+                    "Location"
+                ],
+                "summary": "Location teams list",
+                "description": "Location teams list",
+                "operationId": "api.location.teams",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "seasonId",
+                        "in": "query",
+                        "description": "season ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "stateId",
+                        "in": "query",
+                        "description": "state ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "cityId",
+                        "in": "query",
+                        "description": "city ID",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/location/zip-code": {
+            "post": {
+                "tags": [
+                    "Location"
+                ],
+                "summary": "Location search from zip code",
+                "description": "Location search from zip code",
+                "operationId": "api.location.zip.code",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "seasonId",
+                        "in": "query",
+                        "description": "season ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "zipCode",
+                        "in": "query",
+                        "description": "zip code",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/my-account": {
+            "post": {
+                "tags": [
+                    "My Account"
+                ],
+                "summary": "My Account - index",
+                "description": "My Account - index",
+                "operationId": "api.my-account",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "token auth",
+                        "required": true,
+                        "type": "string",
+                        "default": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NzksImlzcyI6Imh0dHA6XC9cL2hzcy1hcGkudjEiLCJhdWQiOiJodHRwOlwvXC9oc3MtYXBpLnYxIiwiaWF0IjoxNTEzODg5MDAyLCJleHAiOjE1NDU0MjUwMDJ9.eB-Gcx4Dkko-C7Nfql0525nfOCJlGkLsl7m-GGhCPF4"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/my-account/get-settings": {
+            "post": {
+                "tags": [
+                    "My Account"
+                ],
+                "summary": "My Account - get settings",
+                "description": "My Account - get settings",
+                "operationId": "api.my-account.get-settings",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "token auth",
+                        "required": true,
+                        "type": "string",
+                        "default": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NzksImlzcyI6Imh0dHA6XC9cL2hzcy1hcGkudjEiLCJhdWQiOiJodHRwOlwvXC9oc3MtYXBpLnYxIiwiaWF0IjoxNTEzODg5MDAyLCJleHAiOjE1NDU0MjUwMDJ9.eB-Gcx4Dkko-C7Nfql0525nfOCJlGkLsl7m-GGhCPF4"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/my-account/get-favorites": {
+            "post": {
+                "tags": [
+                    "My Account"
+                ],
+                "summary": "My Account - get favorites",
+                "description": "My Account - get favorites",
+                "operationId": "api.my-account.get-favorites",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "token auth",
+                        "required": true,
+                        "type": "string",
+                        "default": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NzksImlzcyI6Imh0dHA6XC9cL2hzcy1hcGkudjEiLCJhdWQiOiJodHRwOlwvXC9oc3MtYXBpLnYxIiwiaWF0IjoxNTEzODg5MDAyLCJleHAiOjE1NDU0MjUwMDJ9.eB-Gcx4Dkko-C7Nfql0525nfOCJlGkLsl7m-GGhCPF4"
+                    },
+                    {
+                        "name": "seasonId",
+                        "in": "query",
+                        "description": "season ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "modelType",
+                        "in": "query",
+                        "description": "player, team, school",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "sportId",
+                        "in": "query",
+                        "description": "sport ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "page number",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/my-account/get-events-calendar": {
+            "post": {
+                "tags": [
+                    "My Account"
+                ],
+                "summary": "My Account - get events calendar",
+                "description": "My Account - get events calendar",
+                "operationId": "api.my-account.get-events-calendar",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "token auth",
+                        "required": true,
+                        "type": "string",
+                        "default": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NzksImlzcyI6Imh0dHA6XC9cL2hzcy1hcGkudjEiLCJhdWQiOiJodHRwOlwvXC9oc3MtYXBpLnYxIiwiaWF0IjoxNTEzODg5MDAyLCJleHAiOjE1NDU0MjUwMDJ9.eB-Gcx4Dkko-C7Nfql0525nfOCJlGkLsl7m-GGhCPF4"
+                    },
+                    {
+                        "name": "calendarType",
+                        "in": "query",
+                        "description": "week || month || year",
+                        "required": true,
+                        "type": "string",
+                        "default": "year"
+                    },
+                    {
+                        "name": "startDate",
+                        "in": "query",
+                        "description": "Y-m-d",
+                        "required": true,
+                        "type": "string",
+                        "default": "2016-01-01"
+                    },
+                    {
+                        "name": "endDate",
+                        "in": "query",
+                        "description": "Y-m-d",
+                        "required": true,
+                        "type": "string",
+                        "default": "2017-12-31"
+                    },
+                    {
+                        "name": "sportId",
+                        "in": "query",
+                        "description": "sport ID",
+                        "required": false,
+                        "type": "integer",
+                        "default": 1
+                    },
+                    {
+                        "name": "modelType",
+                        "in": "query",
+                        "description": "game",
+                        "required": true,
+                        "type": "string",
+                        "default": "game"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/my-account/get-events-log": {
+            "post": {
+                "tags": [
+                    "My Account"
+                ],
+                "summary": "My Account - get events log",
+                "description": "My Account - get events log",
+                "operationId": "api.my-account.get-events-log",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "token auth",
+                        "required": true,
+                        "type": "string",
+                        "default": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NzksImlzcyI6Imh0dHA6XC9cL2hzcy1hcGkudjEiLCJhdWQiOiJodHRwOlwvXC9oc3MtYXBpLnYxIiwiaWF0IjoxNTEzODg5MDAyLCJleHAiOjE1NDU0MjUwMDJ9.eB-Gcx4Dkko-C7Nfql0525nfOCJlGkLsl7m-GGhCPF4"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "page number",
+                        "required": true,
+                        "type": "integer",
+                        "default": 1
+                    },
+                    {
+                        "name": "tabs",
+                        "in": "query",
+                        "description": "all || comments || events || likes || tags || publishing",
+                        "required": true,
+                        "type": "string",
+                        "default": "all"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/my-account/post-events-log-read": {
+            "post": {
+                "tags": [
+                    "My Account"
+                ],
+                "summary": "My Account - post events log mark all as read or one read",
+                "description": "My Account - post events log mark all as read or one read",
+                "operationId": "api.my-account.post-events-log-read",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "token auth",
+                        "required": true,
+                        "type": "string",
+                        "default": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NzksImlzcyI6Imh0dHA6XC9cL2hzcy1hcGkudjEiLCJhdWQiOiJodHRwOlwvXC9oc3MtYXBpLnYxIiwiaWF0IjoxNTEzODg5MDAyLCJleHAiOjE1NDU0MjUwMDJ9.eB-Gcx4Dkko-C7Nfql0525nfOCJlGkLsl7m-GGhCPF4"
+                    },
+                    {
+                        "name": "tabs",
+                        "in": "query",
+                        "description": "all || comments || events || likes || tags || publishing",
+                        "required": true,
+                        "type": "string",
+                        "default": "all"
+                    },
+                    {
+                        "name": "modelId",
+                        "in": "query",
+                        "description": "ID or array list ID",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/my-account/get-scrapbook": {
+            "post": {
+                "tags": [
+                    "My Account"
+                ],
+                "summary": "My Account - get scrapbook",
+                "description": "My Account - get scrapbook",
+                "operationId": "api.my-account.get-scrapbook",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "token auth",
+                        "required": true,
+                        "type": "string",
+                        "default": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NzksImlzcyI6Imh0dHA6XC9cL2hzcy1hcGkudjEiLCJhdWQiOiJodHRwOlwvXC9oc3MtYXBpLnYxIiwiaWF0IjoxNTEzODg5MDAyLCJleHAiOjE1NDU0MjUwMDJ9.eB-Gcx4Dkko-C7Nfql0525nfOCJlGkLsl7m-GGhCPF4"
+                    },
+                    {
+                        "name": "tabs",
+                        "in": "query",
+                        "description": "all || comments || events || likes || tags || publishing",
+                        "required": true,
+                        "type": "string",
+                        "default": "all"
+                    },
+                    {
+                        "name": "modelId",
+                        "in": "query",
+                        "description": "ID or array list ID",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/news/top-news": {
+            "post": {
+                "tags": [
+                    "News"
+                ],
+                "summary": "Top news slider",
+                "description": "Top news slider",
+                "operationId": "api.news.top-news",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "sportId",
+                        "in": "query",
+                        "description": "1 or 2",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "genderId",
+                        "in": "query",
+                        "description": "1 or 2 or null",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/news/latest-top-news": {
+            "post": {
+                "tags": [
+                    "News"
+                ],
+                "summary": "Headlines - Latest News",
+                "description": "Headlines - Latest News",
+                "operationId": "api.news.latest-top-news",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "sportId",
+                        "in": "query",
+                        "description": "1 or 2",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "genderId",
+                        "in": "query",
+                        "description": "1 or 2 or null",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "section",
+                        "in": "query",
+                        "description": "'main' || 'sport' || 'teams' || 'schools' || 'players'",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "sectionId",
+                        "in": "query",
+                        "description": "required for  'teams', 'schools', 'players'",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/news/last-video-news": {
+            "post": {
+                "tags": [
+                    "News"
+                ],
+                "summary": "Headlines - Last Video News",
+                "description": "Headlines - Last Video News",
+                "operationId": "api.news.last-video-news",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "sportId",
+                        "in": "query",
+                        "description": "1 or 2",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "genderId",
+                        "in": "query",
+                        "description": "1 or 2 or null",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "section",
+                        "in": "query",
+                        "description": "'main' || 'sport' || 'teams' || 'schools' || 'players'",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "sectionId",
+                        "in": "query",
+                        "description": "required for  'teams', 'schools', 'players'",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/news/latest-news": {
+            "post": {
+                "tags": [
+                    "News"
+                ],
+                "summary": "Headlines - Latest News",
+                "description": "Headlines - Latest News",
+                "operationId": "api.news.latest-news",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "sportId",
+                        "in": "query",
+                        "description": "1 or 2",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "genderId",
+                        "in": "query",
+                        "description": "1 or 2 or null",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "section",
+                        "in": "query",
+                        "description": "'main' || 'sport' || 'teams' || 'schools' || 'players'",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "sectionId",
+                        "in": "query",
+                        "description": "required for  'teams', 'schools', 'players'",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/news/news-list": {
+            "post": {
+                "tags": [
+                    "News"
+                ],
+                "summary": "Headlines - News List",
+                "description": "Headlines - News List",
+                "operationId": "api.news.news-list",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "sportId",
+                        "in": "query",
+                        "description": "1 or 2",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "genderId",
+                        "in": "query",
+                        "description": "1 or 2 or null",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "section",
+                        "in": "query",
+                        "description": "'teams' || 'schools' || 'players'",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "sectionId",
+                        "in": "query",
+                        "description": "required for  'teams', 'schools', 'players'",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "firstLoad",
+                        "in": "query",
+                        "description": "equal 'true' if it's first loading, otherwise always 'false'",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "direction",
+                        "in": "query",
+                        "description": "direction for  loading",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "newsSlug",
+                        "in": "query",
+                        "description": "current news slug that need to be first of the list",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/news/news-list-headlines": {
+            "post": {
+                "tags": [
+                    "News"
+                ],
+                "summary": "Headlines - News List Headlines",
+                "description": "Headlines - News List Headlines",
+                "operationId": "api.news.news-list-headlines",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "sportId",
+                        "in": "query",
+                        "description": "1 or 2",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "genderId",
+                        "in": "query",
+                        "description": "1 or 2 or null",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "section",
+                        "in": "query",
+                        "description": "'main'",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "firstLoad",
+                        "in": "query",
+                        "description": "equal 'true' if it's first loading, otherwise always 'false'",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "direction",
+                        "in": "query",
+                        "description": "direction for  loading",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "newsSlug",
+                        "in": "query",
+                        "description": "current news slug that need to be first of the list",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "newsIds",
+                        "in": "query",
+                        "description": "array of numbers",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/news/news-by-id": {
+            "post": {
+                "tags": [
+                    "News"
+                ],
+                "summary": "Get news by ID",
+                "description": "Get news by ID",
+                "operationId": "api.news.news-by-id",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "newsId",
+                        "in": "query",
+                        "description": "news ID",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/news/most-popular": {
+            "post": {
+                "tags": [
+                    "News"
+                ],
+                "summary": "Headlines - Most Popular News",
+                "description": "Headlines - Most Popular News",
+                "operationId": "api.news.most-popular",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "sportId",
+                        "in": "query",
+                        "description": "1 or 2",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "genderId",
+                        "in": "query",
+                        "description": "1 or 2 or null",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "isHeadline",
+                        "in": "query",
+                        "description": "0 or 1",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/news/hot-tags": {
+            "post": {
+                "tags": [
+                    "News"
+                ],
+                "summary": "Headlines - Hot Tags",
+                "description": "Headlines - Hot Tags",
+                "operationId": "api.news.hot-tags",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "sportId",
+                        "in": "query",
+                        "description": "1 or 2",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "genderId",
+                        "in": "query",
+                        "description": "1 or 2 or null",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "isHeadline",
+                        "in": "query",
+                        "description": "0 or 1",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "section",
+                        "in": "query",
+                        "description": "'main'",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "newsIds",
+                        "in": "query",
+                        "description": "array of numbers",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "tagName",
+                        "in": "query",
+                        "description": "dynamic tags name (tagType = all)",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "tagType",
+                        "in": "query",
+                        "description": "'news' or 'video' or 'popular' or 'all'",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "firstLoad",
+                        "in": "query",
+                        "description": "equal 'true' if it's first loading, otherwise always 'false'",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "newsSlug",
+                        "in": "query",
+                        "description": "current news slug that need to be first of the list",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "direction",
+                        "in": "query",
+                        "description": "direction for  loading",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "sectionId",
+                        "in": "query",
+                        "description": "required for  'teams', 'schools', 'players'",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/news/get-hot-tags": {
+            "post": {
+                "tags": [
+                    "News"
+                ],
+                "summary": "Headlines - get list Hot Tags",
+                "description": "Headlines - get list Hot Tags",
+                "operationId": "api.news.get-hot-tags",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "sportId",
+                        "in": "query",
+                        "description": "1 or 2",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "genderId",
+                        "in": "query",
+                        "description": "1 or 2 or null",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "isHeadline",
+                        "in": "query",
+                        "description": "0 or 1",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "section",
+                        "in": "query",
+                        "description": "'main' or 'sport' or 'teams' or 'schools' or 'players'",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "sectionId",
+                        "in": "query",
+                        "description": "required for 'teams', 'schools', 'players'",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/player": {
+            "post": {
+                "tags": [
+                    "Player"
+                ],
+                "summary": "Get player",
+                "description": "Get player",
+                "operationId": "api.player",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "playerId",
+                        "in": "query",
+                        "description": "player ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "sizeSystem",
+                        "in": "query",
+                        "description": "size system name",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/player/about": {
+            "post": {
+                "tags": [
+                    "Player"
+                ],
+                "summary": "About",
+                "description": "About",
+                "operationId": "api.player.about",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "playerId",
+                        "in": "query",
+                        "description": "player ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "sizeSystem",
+                        "in": "query",
+                        "description": "size system name",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/player/about-stats": {
+            "post": {
+                "tags": [
+                    "Player"
+                ],
+                "summary": "About - stats",
+                "description": "About - stats",
+                "operationId": "api.player.about.stats",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "playerId",
+                        "in": "query",
+                        "description": "player ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "seasonId",
+                        "in": "query",
+                        "description": "season ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "sportId",
+                        "in": "query",
+                        "description": "sport ID",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/player/player-standings": {
+            "post": {
+                "tags": [
+                    "Player"
+                ],
+                "summary": "Player Standings",
+                "description": "Player Standings",
+                "operationId": "api.player.player.standings",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "playerId",
+                        "in": "query",
+                        "description": "player ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "viewType",
+                        "in": "query",
+                        "description": "state || school || team",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/player/player-standings-page": {
+            "post": {
+                "tags": [
+                    "Player"
+                ],
+                "summary": "Get Player Standings - pagination number",
+                "description": "Get Player Standings - pagination number",
+                "operationId": "api.player.player.standings.page",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "token auth",
+                        "required": true,
+                        "type": "string",
+                        "default": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NzksImlzcyI6Imh0dHA6XC9cL2hzcy1hcGkudjEiLCJhdWQiOiJodHRwOlwvXC9oc3MtYXBpLnYxIiwiaWF0IjoxNTEzODg5MDAyLCJleHAiOjE1NDU0MjUwMDJ9.eB-Gcx4Dkko-C7Nfql0525nfOCJlGkLsl7m-GGhCPF4"
+                    },
+                    {
+                        "name": "playerId",
+                        "in": "query",
+                        "description": "player ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "viewType",
+                        "in": "query",
+                        "description": "state || school || team",
+                        "required": true,
+                        "type": "string",
+                        "default": "state"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "page",
+                        "required": true,
+                        "type": "integer",
+                        "default": 2
+                    },
+                    {
+                        "name": "isFavorite",
+                        "in": "query",
+                        "description": "use favorite filter",
+                        "required": true,
+                        "type": "boolean",
+                        "default": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/player/player-standings-search": {
+            "post": {
+                "tags": [
+                    "Player"
+                ],
+                "summary": "Player Standings - Search",
+                "description": "Player Standings - Search",
+                "operationId": "api.player.player.standings.search",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "token auth",
+                        "required": true,
+                        "type": "string",
+                        "default": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NzksImlzcyI6Imh0dHA6XC9cL2hzcy1hcGkudjEiLCJhdWQiOiJodHRwOlwvXC9oc3MtYXBpLnYxIiwiaWF0IjoxNTEzODg5MDAyLCJleHAiOjE1NDU0MjUwMDJ9.eB-Gcx4Dkko-C7Nfql0525nfOCJlGkLsl7m-GGhCPF4"
+                    },
+                    {
+                        "name": "playerId",
+                        "in": "query",
+                        "description": "player ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "viewType",
+                        "in": "query",
+                        "description": "state || school || team",
+                        "required": true,
+                        "type": "string",
+                        "default": "state"
+                    },
+                    {
+                        "name": "q",
+                        "in": "query",
+                        "description": "query search",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "isFavorite",
+                        "in": "query",
+                        "description": "use favorite filter",
+                        "required": true,
+                        "type": "boolean",
+                        "default": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/reviews/post-views": {
+            "post": {
+                "tags": [
+                    "Reviews"
+                ],
+                "summary": "Add reviews news from users",
+                "description": "Add reviews news from users",
+                "operationId": "api.reviews.post-views",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "modelId",
+                        "in": "query",
+                        "description": "ID \u0435\u043b\u0435\u043c\u0435\u043d\u0442\u0430 \u0441\u0435\u043a\u0446\u0456\u0457",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "modelType",
+                        "in": "query",
+                        "description": "media, news, ...",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/root/current-variables": {
+            "post": {
+                "tags": [
+                    "Root"
+                ],
+                "summary": "Root data",
+                "description": "Root data",
+                "operationId": "api.root.current-variables",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "url",
+                        "in": "query",
+                        "description": "url parse",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "stateId",
+                        "in": "query",
+                        "description": "state ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "cityId",
+                        "in": "query",
+                        "description": "city ID",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/school": {
+            "post": {
+                "tags": [
+                    "School"
+                ],
+                "summary": "Get school by ID",
+                "description": "Get school by ID",
+                "operationId": "api.school",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "schoolId",
+                        "in": "query",
+                        "description": "school ID",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/school/sports": {
+            "post": {
+                "tags": [
+                    "School"
+                ],
+                "summary": "School Home - Sports",
+                "description": "School Home - Sports",
+                "operationId": "api.school.sports",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "schoolId",
+                        "in": "query",
+                        "description": "school ID",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/school/info": {
+            "post": {
+                "tags": [
+                    "School"
+                ],
+                "summary": "School Info",
+                "description": "School Info",
+                "operationId": "api.school.info",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "schoolId",
+                        "in": "query",
+                        "description": "school ID",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/all-schools/full-list": {
+            "post": {
+                "tags": [
+                    "School"
+                ],
+                "summary": "List states and county from all schools page",
+                "description": "List states and county from all schools page",
+                "operationId": "api.all-schools.full-list",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "seasonId",
+                        "in": "query",
+                        "description": "season ID",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/all-schools/full-list-schools": {
+            "post": {
+                "tags": [
+                    "School"
+                ],
+                "summary": "School List",
+                "description": "School List",
+                "operationId": "api.all-schools.full-list-schools",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "seasonId",
+                        "in": "query",
+                        "description": "season ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "countyId",
+                        "in": "query",
+                        "description": "county ID",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/all-schools/schools-by-char": {
+            "post": {
+                "tags": [
+                    "School"
+                ],
+                "summary": "Schools List By Char",
+                "description": "Schools List By Char",
+                "operationId": "api.all-schools.schools-by-char",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "seasonId",
+                        "in": "query",
+                        "description": "season ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "char",
+                        "in": "query",
+                        "description": "Char",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/all-schools/search-school": {
+            "post": {
+                "tags": [
+                    "School"
+                ],
+                "summary": "Search School by Name - State",
+                "description": "Search School by Name - State",
+                "operationId": "api.all-schools.search-school",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "seasonId",
+                        "in": "query",
+                        "description": "season ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "searchText",
+                        "in": "query",
+                        "description": "search text",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "countyId",
+                        "in": "query",
+                        "description": "county ID",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "stateId",
+                        "in": "query",
+                        "description": "state ID",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/all-schools/search-schools-global": {
+            "post": {
+                "tags": [
+                    "School"
+                ],
+                "summary": "Search School by Name - Global",
+                "description": "Search School by Name - Global",
+                "operationId": "api.all-schools.search-school",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "seasonId",
+                        "in": "query",
+                        "description": "season ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "searchText",
+                        "in": "query",
+                        "description": "search text",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/scrapbook/post-scrapbook": {
+            "post": {
+                "tags": [
+                    "Scrap Book Auth User"
+                ],
+                "summary": "Scrap Book - Media, News",
+                "description": "Scrap Book - Media, News",
+                "operationId": "api.scrapbook.post-scrapbook",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "modelId",
+                        "in": "query",
+                        "description": "ID \u0435\u043b\u0435\u043c\u0435\u043d\u0442\u0430 \u0441\u0435\u043a\u0446\u0456\u0457",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "modelType",
+                        "in": "query",
+                        "description": "gallery, news",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/scrapbook/get-scrapbook": {
+            "post": {
+                "tags": [
+                    "Scrap Book Auth User"
+                ],
+                "summary": "Scrap Book - list",
+                "description": "Scrap Book - list",
+                "operationId": "api.scrapbook.get-scrapbook",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/search": {
+            "post": {
+                "tags": [
+                    "Search"
+                ],
+                "summary": "All search",
+                "description": "All search",
+                "operationId": "api.search",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "q",
+                        "in": "query",
+                        "description": "search query",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "seasonId",
+                        "in": "query",
+                        "description": "season ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "sportId",
+                        "in": "query",
+                        "description": "sport ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "stateId",
+                        "in": "query",
+                        "description": "state ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "cityId",
+                        "in": "query",
+                        "description": "city ID",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/search/news": {
+            "post": {
+                "tags": [
+                    "Search"
+                ],
+                "summary": "News search",
+                "description": "News search",
+                "operationId": "api.search.news",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "q",
+                        "in": "query",
+                        "description": "search query",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "sportId",
+                        "in": "query",
+                        "description": "sport ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "page number pagination",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/search/player": {
+            "post": {
+                "tags": [
+                    "Search"
+                ],
+                "summary": "Player search",
+                "description": "Player search",
+                "operationId": "api.search.player",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "q",
+                        "in": "query",
+                        "description": "search query",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "seasonId",
+                        "in": "query",
+                        "description": "season ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "sportId",
+                        "in": "query",
+                        "description": "sport ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "stateId",
+                        "in": "query",
+                        "description": "state ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "cityId",
+                        "in": "query",
+                        "description": "city ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "page number pagination",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/search/coach": {
+            "post": {
+                "tags": [
+                    "Search"
+                ],
+                "summary": "Coach search",
+                "description": "Coach search",
+                "operationId": "api.search.coach",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "q",
+                        "in": "query",
+                        "description": "search query",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "seasonId",
+                        "in": "query",
+                        "description": "season ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "sportId",
+                        "in": "query",
+                        "description": "sport ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "stateId",
+                        "in": "query",
+                        "description": "state ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "cityId",
+                        "in": "query",
+                        "description": "city ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "page number pagination",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/search/school": {
+            "post": {
+                "tags": [
+                    "Search"
+                ],
+                "summary": "School search",
+                "description": "School search",
+                "operationId": "api.search.school",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "q",
+                        "in": "query",
+                        "description": "search query",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "seasonId",
+                        "in": "query",
+                        "description": "season ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "sportId",
+                        "in": "query",
+                        "description": "sport ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "stateId",
+                        "in": "query",
+                        "description": "state ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "cityId",
+                        "in": "query",
+                        "description": "city ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "page number pagination",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/search/team": {
+            "post": {
+                "tags": [
+                    "Search"
+                ],
+                "summary": "Team search",
+                "description": "Team search",
+                "operationId": "api.search.team",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "q",
+                        "in": "query",
+                        "description": "search query",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "seasonId",
+                        "in": "query",
+                        "description": "season ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "sportId",
+                        "in": "query",
+                        "description": "sport ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "stateId",
+                        "in": "query",
+                        "description": "state ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "cityId",
+                        "in": "query",
+                        "description": "city ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "page number pagination",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/search/games": {
+            "post": {
+                "tags": [
+                    "Search"
+                ],
+                "summary": "Game search",
+                "description": "Game search",
+                "operationId": "api.search.games",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "q",
+                        "in": "query",
+                        "description": "search query",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "seasonId",
+                        "in": "query",
+                        "description": "season ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "sportId",
+                        "in": "query",
+                        "description": "sport ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "stateId",
+                        "in": "query",
+                        "description": "state ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "cityId",
+                        "in": "query",
+                        "description": "city ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "page number pagination",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/search/media": {
+            "post": {
+                "tags": [
+                    "Search"
+                ],
+                "summary": "Media search",
+                "description": "Media search",
+                "operationId": "api.search.media",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "q",
+                        "in": "query",
+                        "description": "search query",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "mediaType",
+                        "in": "query",
+                        "description": "default = all, photo || video || album",
+                        "required": true,
+                        "type": "string",
+                        "default": "all"
+                    },
+                    {
+                        "name": "seasonId",
+                        "in": "query",
+                        "description": "season ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "sportId",
+                        "in": "query",
+                        "description": "sport ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "stateId",
+                        "in": "query",
+                        "description": "state ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "cityId",
+                        "in": "query",
+                        "description": "city ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "default = 1,page number pagination",
+                        "required": true,
+                        "type": "integer",
+                        "default": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/statistics/leaderboard": {
+            "post": {
+                "tags": [
+                    "Statistics"
+                ],
+                "summary": "Stats - Leaderboard",
+                "description": "Stats - Leaderboard",
+                "operationId": "api.statistics.leaderboard",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "sportId",
+                        "in": "query",
+                        "description": "1 or 2",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "seasonId",
+                        "in": "query",
+                        "description": "season ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "genderId",
+                        "in": "query",
+                        "description": "1 or 2 or null",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "varsityId",
+                        "in": "query",
+                        "description": "varsity ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "teamId",
+                        "in": "query",
+                        "description": "team ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "stateId",
+                        "in": "query",
+                        "description": "state ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "cityId",
+                        "in": "query",
+                        "description": "city ID",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/statistics/scoreboard": {
+            "post": {
+                "tags": [
+                    "Statistics"
+                ],
+                "summary": "Stats - Scoreboard",
+                "description": "Stats - Scoreboard",
+                "operationId": "api.statistics.scoreboard",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "sportId",
+                        "in": "query",
+                        "description": "sport ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "seasonId",
+                        "in": "query",
+                        "description": "season ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "teamId",
+                        "in": "query",
+                        "description": "team ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "page",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "stateId",
+                        "in": "query",
+                        "description": "state ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "cityId",
+                        "in": "query",
+                        "description": "city ID",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/statistics/sport-scoreboard": {
+            "post": {
+                "tags": [
+                    "Statistics"
+                ],
+                "summary": "Stats - Sport Scoreboard",
+                "description": "Stats - Sport Scoreboard",
+                "operationId": "api.statistics.sport-scoreboard",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "sportId",
+                        "in": "query",
+                        "description": "sport ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "seasonId",
+                        "in": "query",
+                        "description": "season ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "genderId",
+                        "in": "query",
+                        "description": "gender ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "teamType",
+                        "in": "query",
+                        "description": "team TYPE",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/statistics/sport-leaderboard": {
+            "post": {
+                "tags": [
+                    "Statistics"
+                ],
+                "summary": "Stats - Sport Leaderboard",
+                "description": "Stats - Sport Leaderboard",
+                "operationId": "api.statistics.sport-leaderboard",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "sportId",
+                        "in": "query",
+                        "description": "sport ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "seasonId",
+                        "in": "query",
+                        "description": "season ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "genderId",
+                        "in": "query",
+                        "description": "gender ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "teamType",
+                        "in": "query",
+                        "description": "team TYPE",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "withoutTypes",
+                        "in": "query",
+                        "description": "without TYPE",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/statistics/sport-team-standings": {
+            "post": {
+                "tags": [
+                    "Statistics"
+                ],
+                "summary": "Stats - Sport Team Standings",
+                "description": "Stats - Sport Team Standings",
+                "operationId": "api.statistics.sport-team-standings",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "sportId",
+                        "in": "query",
+                        "description": "sport ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "seasonId",
+                        "in": "query",
+                        "description": "season ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "genderId",
+                        "in": "query",
+                        "description": "gender ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "teamType",
+                        "in": "query",
+                        "description": "team TYPE",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "withoutTypes",
+                        "in": "query",
+                        "description": "without TYPE",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/statistics/scoreboard-game-detail": {
+            "post": {
+                "tags": [
+                    "Statistics"
+                ],
+                "summary": "Stats - Scoreboard detail",
+                "description": "Stats - Scoreboard detail",
+                "operationId": "api.statistics.scoreboard-game-detail",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "gameId",
+                        "in": "query",
+                        "description": "game ID",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/statistics/full-board": {
+            "post": {
+                "tags": [
+                    "Statistics"
+                ],
+                "summary": "Stats - Full Board",
+                "description": "Stats - Full Board",
+                "operationId": "api.statistics.full-board",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "sportId",
+                        "in": "query",
+                        "description": "1 or 2",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "seasonId",
+                        "in": "query",
+                        "description": "season ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "genderId",
+                        "in": "query",
+                        "description": "1 or 2 or null",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "varsityId",
+                        "in": "query",
+                        "description": "varsity ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "page number pagination",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "stateId",
+                        "in": "query",
+                        "description": "state ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "cityId",
+                        "in": "query",
+                        "description": "city ID",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/statistics/standings": {
+            "post": {
+                "tags": [
+                    "Statistics"
+                ],
+                "summary": "Stats - Team Standings",
+                "description": "Stats - Team Standings",
+                "operationId": "api.statistics.standings",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "sportId",
+                        "in": "query",
+                        "description": "1 or 2",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "seasonId",
+                        "in": "query",
+                        "description": "season ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "genderId",
+                        "in": "query",
+                        "description": "1 or 2 or null",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "teamId",
+                        "in": "query",
+                        "description": "team ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "stateId",
+                        "in": "query",
+                        "description": "state ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "cityId",
+                        "in": "query",
+                        "description": "city ID",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/team": {
+            "post": {
+                "tags": [
+                    "Team"
+                ],
+                "summary": "Team - get by ID",
+                "description": "Team - get by ID",
+                "operationId": "api.team",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "teamId",
+                        "in": "query",
+                        "description": "team ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "stateId",
+                        "in": "query",
+                        "description": "state ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "cityId",
+                        "in": "query",
+                        "description": "city ID",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/all-teams/short-list": {
+            "post": {
+                "tags": [
+                    "Team"
+                ],
+                "summary": "Teams short list",
+                "description": "Teams",
+                "operationId": "api.all-teams.short-list",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "sportId",
+                        "in": "query",
+                        "description": "sport ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "seasonId",
+                        "in": "query",
+                        "description": "season ID",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/team/game-recap": {
+            "post": {
+                "tags": [
+                    "Team"
+                ],
+                "summary": "Home Court - Game Recap",
+                "description": "Home Court - Game Recap",
+                "operationId": "api.team.game-recap",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "teamId",
+                        "in": "query",
+                        "description": "team ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "gameId",
+                        "in": "query",
+                        "description": "game ID",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/team/game-recap-detail": {
+            "post": {
+                "tags": [
+                    "Team"
+                ],
+                "summary": "Home Court - Game Recap details",
+                "description": "Home Court - Game Recap details",
+                "operationId": "api.team.game-recap-detail",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "gameId",
+                        "in": "query",
+                        "description": "game ID",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/team/coach-corner": {
+            "post": {
+                "tags": [
+                    "Team"
+                ],
+                "summary": "Home Court - Coach Corner",
+                "description": "Home Court - Coach Corner",
+                "operationId": "api.team.coach-corner",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "teamId",
+                        "in": "query",
+                        "description": "team ID",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/team/roster": {
+            "post": {
+                "tags": [
+                    "Team"
+                ],
+                "summary": "Roster List",
+                "description": "Roster List",
+                "operationId": "api.team.roster",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "teamId",
+                        "in": "query",
+                        "description": "team ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "sportId",
+                        "in": "query",
+                        "description": "sport ID",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/all-teams/full-list": {
+            "post": {
+                "tags": [
+                    "Team"
+                ],
+                "summary": "List states and county from all teams page",
+                "description": "List states and county from all teams page",
+                "operationId": "api.all-teams.full-list",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "seasonId",
+                        "in": "query",
+                        "description": "season ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "sportId",
+                        "in": "query",
+                        "description": "sport ID",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/all-teams/full-list-teams": {
+            "post": {
+                "tags": [
+                    "Team"
+                ],
+                "summary": "Team List",
+                "description": "Team List",
+                "operationId": "api.all-teams.full-list-teams",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "seasonId",
+                        "in": "query",
+                        "description": "season ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "schoolId",
+                        "in": "query",
+                        "description": "school ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "sportId",
+                        "in": "query",
+                        "description": "sport ID",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/texts": {
+            "post": {
+                "tags": [
+                    "Text pages"
+                ],
+                "summary": "Texts",
+                "description": "Text list",
+                "operationId": "api.texts",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/texts/page": {
+            "post": {
+                "tags": [
+                    "Text pages"
+                ],
+                "summary": "Texts page",
+                "description": "Text page",
+                "operationId": "api.texts.page",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "url",
+                        "in": "query",
+                        "description": "url",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Show error message"
+                    },
+                    "401": {
+                        "description": "Redirect to login page"
+                    },
+                    "409": {
+                        "description": "Redirect to page 404"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {}
+}

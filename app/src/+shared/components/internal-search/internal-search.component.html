@@ -1,0 +1,7 @@
+<input [@changeTrigger]="searchBtnState" #searchText value="{{text}}" (keyup)="change($event)" (focus)="inputFocus()" (blur)="inputBlur($event)" change="writeText($event)" focus="writeText($event)" type="text">
+
+<button [@clearBtnTrigger]="clearBtnState" (click)="clearInputAction()" *ngIf="active" class="clear-input"></button>
+
+<button [@searchIconTrigger]="searchIconState" (click)="searchAction();" class="search" [ngClass]="{'closer': searched}">
+    <span></span>
+</button>

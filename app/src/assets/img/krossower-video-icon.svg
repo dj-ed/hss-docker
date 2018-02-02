@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="19px" height="14px" viewBox="0 0 19 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch -->
+    <title>Video</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="School-Administer---Krossover---Game-List" transform="translate(-396.000000, -467.000000)" stroke="#F63A39">
+            <g id="Video" transform="translate(396.671137, 467.968000)">
+                <rect id="Rectangle-11" x="0.5" y="0.5" width="17" height="12" rx="1"></rect>
+                <path d="M9.94061108,4.74037418 C9.89715168,4.66587237 9.83515896,4.60387964 9.76065714,4.56042025 C9.52213118,4.42128011 9.21597232,4.50184823 9.07683217,4.74037418 L7.31665695,7.75781743 C7.27205059,7.83428546 7.2485464,7.92122563 7.2485464,8.00975295 C7.2485464,8.28589532 7.47240402,8.50975295 7.7485464,8.50975295 L11.2688969,8.50975295 C11.3574242,8.50975295 11.4443643,8.48624875 11.5208324,8.4416424 C11.7593583,8.30250226 11.8399264,7.99634339 11.7007863,7.75781743 L9.94061108,4.74037418 Z" id="Polygon-Copy" transform="translate(9.508803, 6.500950) rotate(-270.000000) translate(-9.508803, -6.500950) "></path>
+                <path d="M3.5,1.5 L3.5,11.5" id="Line-15" stroke-linecap="square"></path>
+                <path d="M14.5,1.5 L14.5,11.5" id="Line-15-Copy" stroke-linecap="square"></path>
+                <path d="M0.5,3.5 L3.5,3.5" id="Line-16" stroke-linecap="square"></path>
+                <path d="M0.5,6.5 L3.5,6.5" id="Line-16-Copy" stroke-linecap="square"></path>
+                <path d="M0.5,9.5 L3.5,9.5" id="Line-16-Copy-2" stroke-linecap="square"></path>
+                <path d="M14.5,3.5 L17.5,3.5" id="Line-16-Copy-5" stroke-linecap="square"></path>
+                <path d="M14.5,6.5 L17.5,6.5" id="Line-16-Copy-4" stroke-linecap="square"></path>
+                <path d="M14.5,9.5 L17.5,9.5" id="Line-16-Copy-3" stroke-linecap="square"></path>
+            </g>
+        </g>
+    </g>
+</svg>

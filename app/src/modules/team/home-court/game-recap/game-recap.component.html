@@ -1,0 +1,359 @@
+<div *ngIf="currentGame">
+    <div class="dark">
+        <div class="container">
+            <div class="wide-heading">
+                <p>Game Recap</p>
+                <a href="team-stats-statistics.html" class="readmore"><em>Statistics</em></a>
+            </div>
+        </div>
+        <div class="head-switcher clearfix">
+            <div class="switch prew">
+                <div [routerLink]="['/team', prevGame.team.id, {view: prevGame.id}]" *ngIf="prevGame" class="teams">
+                    <a>
+                        <p class="name"><em>{{prevGame.team.shortName}}</em></p>
+                        <span class="img-wrap">
+                                <img src="{{prevGame.team.logoUrl}}" alt="">
+                            </span>
+                    </a>
+                    <p class="vs">{{(prevGame.where=='away')?'@':'vs'}}</p>
+                    <a>
+                        <p class="name"><em>{{prevGame.opponentTeam.shortName}}</em></p>
+                        <span class="img-wrap">
+                                <img src="{{prevGame.opponentTeam.logoUrl}}" alt="">
+                            </span>
+                    </a>
+                </div>
+                <div [routerLink]="['/team', prevGame.team.id, {view: prevGame.id}]" *ngIf="prevGame" class="date">
+                    <p class="day">{{prevGame.dateObj().getDate()}}</p>
+                    <p class="month">{{prevGame.dateObj()|date:'MMM' }}</p>
+                    <p class="type"><span>{{prevGame.getFullType()}}</span><em>{{prevGame.gameType}}</em></p>
+                </div>
+            </div>
+
+            <div class="head">
+                <div class="top">
+                    <p *ngIf="!currentGame.dateTime" class="time"></p>
+                    <p *ngIf="currentGame.dateTime" class="time">{{currentGame.dateObj()|date:'shortTime'}}</p>
+                    <p class="date">{{currentGame.dateObj()|date:'MMM d'}}</p>
+                    <p class="type">{{currentGame.gameType}}</p>
+                </div>
+                <div class="versus">
+                    <div class="team">
+                        <div class="left">
+                            <div [class.win]="(currentGame.scoreTeam||currentGame.scoreOpponent) && currentGame.win"
+                                 [class.lose]="(currentGame.scoreTeam||currentGame.scoreOpponent) && !currentGame.win"
+                                 class="points">
+                                {{currentGame.scoreTeam}}
+                            </div>
+                            <br>
+                            <a><span>{{currentGame.team.name}}</span></a>
+                        </div>
+                        <div class="img-wrap line">
+                            <img src="{{currentGame.team.logoUrl}}" alt="{{currentGame.team.name}}">
+                        </div>
+                    </div>
+                    <div class="and">
+                        <div class="vs">{{(currentGame.where=='away')?'@':'vs'}}</div>
+                        <p>SEMI-FINAL 1</p>
+                    </div>
+                    <div class="team">
+                        <div class="img-wrap line">
+                            <img src="{{currentGame.opponentTeam.logoUrl}}" alt="{{currentGame.opponentTeam.name}}">
+                        </div>
+                        <div class="left">
+                            <div [class.win]="(currentGame.scoreTeam||currentGame.scoreOpponent) && !currentGame.win"
+                                 [class.lose]="(currentGame.scoreTeam||currentGame.scoreOpponent) && currentGame.win"
+                                 class="points">
+                                {{currentGame.scoreOpponent}}
+                            </div>
+                            <br>
+                            <a><span>{{currentGame.opponentTeam.name}}</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="switch next">
+                <div [routerLink]="['/team', nextGame.team.id, {view: nextGame.id}]" *ngIf="nextGame" class="date">
+                    <p class="day">{{nextGame.dateObj().getDate()}}</p>
+                    <p class="month">{{nextGame.dateObj()|date:'MMM' }}</p>
+                    <p class="type"><span>{{nextGame.getFullType()}}</span><em>{{nextGame.gameType}}</em></p>
+                </div>
+                <div [routerLink]="['/team', nextGame.team.id, {view: nextGame.id}]" *ngIf="nextGame" class="teams">
+                    <a>
+                            <span class="img-wrap">
+                                <img src="{{nextGame.team.logoUrl}}" alt="">
+                            </span>
+                        <p class="name"><em>{{nextGame.team.shortName}}</em></p>
+                    </a>
+                    <p class="vs">{{(nextGame.where=='away')?'@':'vs'}}</p>
+                    <a>
+                            <span class="img-wrap">
+                                <img src="{{nextGame.opponentTeam.logoUrl}}" alt="">
+                            </span>
+                        <p class="name"><em>{{nextGame.opponentTeam.shortName}}</em></p>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <!--<div class="media-wrap">-->
+            <!--<div class="main-media">-->
+            <!--<div class="media-bottom">-->
+            <!--<div class="taged">-->
+            <!--<a href="">-->
+            <!--<span>10</span>-->
+            <!--<em>Hawk Noga</em>-->
+            <!--</a>-->
+            <!--<a href="">-->
+            <!--<span>11</span>-->
+            <!--<em>Loyd Gonzalez</em>-->
+            <!--</a>-->
+            <!--<a href="">-->
+            <!--<span>03</span>-->
+            <!--<em>Corie Archibald</em>-->
+            <!--</a>-->
+            <!--<a href="">-->
+            <!--<span>12</span>-->
+            <!--<em>Riley Oldham</em>-->
+            <!--</a>-->
+            <!--<a href="">-->
+            <!--<span>06</span>-->
+            <!--<em>Kevin Fischer</em>-->
+            <!--</a>-->
+            <!--<button class="show-more"></button>-->
+            <!--</div>-->
+            <!--<div class="fb-share-like">-->
+            <!--<div class="like">109 <em></em></div>-->
+            <!--<div class="comments">27 <em></em></div>-->
+            <!--</div>-->
+            <!--<button class="share"><em>share</em></button>-->
+            <!--<div class="options">-->
+            <!--<button>-->
+            <!--<img src="/img/play-white.svg" alt="">-->
+            <!--</button>-->
+            <!--<button>-->
+            <!--<img src="/img/full-screan.svg" alt="">-->
+            <!--</button>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<div class="other-media-wrap">-->
+            <!--&lt;!&ndash; Активний .active, якшо з відео то .video &ndash;&gt;-->
+            <!--<div class="one-media"><img src="/img/temp/live-baneer.jpg" alt=""></div>-->
+            <!--<div class="one-media"><img src="/img/temp/leqderboard_banner.jpg" alt=""></div>-->
+            <!--<div class="one-media"><img src="/img/temp/headlines1.jpg" alt=""></div>-->
+            <!--<div class="one-media active"><img src="/img/temp/slice-4.jpg" alt=""></div>-->
+            <!--<div class="one-media"><img src="/img/temp/live-baneer.jpg" alt=""></div>-->
+            <!--<div class="one-media video"><img src="/img/temp/leqderboard_banner.jpg" alt=""></div>-->
+            <!--<div class="one-media"><img src="/img/temp/headlines1.jpg" alt=""></div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <div class="media-wrap">
+                <div *ngIf="gameMedia.type=='photo'" [style.background-image]="'url(' + gameMedia.link + ')'"
+                     class="main-media"></div>
+
+                <div *ngIf="gameMedia.type=='embed'" [innerHtml]="gameMedia.embedHtml" class="main-media">
+                </div>
+                <div *ngIf="gameMedia.type=='video' && rootService.isBrowser()" class="main-media">
+                    <video [src]="gameMedia.link">
+                    </video>
+
+                    <vg-player >
+                        <vg-overlay-play></vg-overlay-play>
+                        <vg-buffering></vg-buffering>
+
+                        <vg-scrub-bar>
+                            <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                            <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+                        </vg-scrub-bar>
+
+                        <vg-controls>
+                            <vg-play-pause></vg-play-pause>
+                            <vg-playback-button></vg-playback-button>
+
+                            <vg-time-display vgProperty="current" vgFormat="mm:ss"></vg-time-display>
+                            <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
+                            <vg-scrub-bar style="pointer-events: none;"></vg-scrub-bar>
+
+                            <vg-mute></vg-mute>
+                            <vg-volume></vg-volume>
+
+                            <vg-fullscreen></vg-fullscreen>
+                        </vg-controls>
+
+                        <video [vgMedia]="media" #media id="singleVideo" preload="auto" crossorigin>
+                            <source [src]="gameMedia.link" type="video/mp4">
+                        </video>
+                    </vg-player>
+                </div>
+
+
+            </div>
+            <div (click)="showRecapDetail()" [class.open]="recapDetail" class="show-more">
+                <button></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div *ngIf="recapDetail" [@slideDownAnimation] class="detail-wrap">
+            <div *ngIf="scoreboard.main || scoreboard.opponent" class="table-wrap clearfix">
+                <div class="tab lower-tab">
+                    <div class="head">
+                        <div class="img-wrap">
+                            <img src="{{currentGame.team.logoUrl}}" alt="{{currentGame.team.name}}">
+                        </div>
+                        {{currentGame.team.shortName}}
+                    </div>
+                    <div class="t-row t-head">
+                        <div class="img-wraper"></div>
+                        <div *ngFor="let column of scoreboard.columns">
+                            <p>{{column}}</p>
+                        </div>
+                    </div>
+                    <div *ngIf="scoreboard.main" class="t-row">
+                        <div class="img-wraper">
+                            <img src="{{currentGame.team.logoUrl}}" alt="{{currentGame.team.name}}">
+                        </div>
+                        <div *ngFor="let column of scoreboard.columns">
+                            <p>{{(scoreboard.main[column])?scoreboard.main[column]:0}}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="currentGame.opponentTeam" class="tab lower-tab">
+                    <div class="head">
+                        <div class="img-wrap">
+                            <img [routerLink]="['/team', currentGame.opponentTeam.id]"
+                                 src="{{currentGame.opponentTeam.logoUrl}}"
+                                 alt="{{currentGame.opponentTeam.name}}">
+                        </div>
+                        {{currentGame.opponentTeam.shortName}}
+                    </div>
+                    <div class="t-row t-head">
+                        <div class="img-wraper"></div>
+                        <div *ngFor="let column of scoreboard.columns">
+                            <div>{{column}}</div>
+                        </div>
+                    </div>
+                    <div *ngIf="scoreboard.opponent" class="t-row">
+                        <div>
+                            <div class="img-wraper">
+                                <img [routerLink]="['/team', currentGame.opponentTeam.id]"
+                                     src="{{currentGame.opponentTeam.logoUrl}}"
+                                     alt="{{currentGame.opponentTeam.name}}">
+                            </div>
+                        </div>
+
+                        <div *ngFor="let column of scoreboard.columns">
+                            <p>{{(scoreboard.opponent[column])?scoreboard.opponent[column]:0}}</p>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div *ngIf="topGamePlayers.main.length || topGamePlayers.opponent && topGamePlayers.opponent.length"
+                 class="table-wrap clearfix">
+                <div *ngIf="topGamePlayers.main.length" class="tab">
+                    <div class="t-row t-head">
+                        <div class="num">#</div>
+                        <div class="player tal">TOP PLAYERS OF A GAME</div>
+                        <div *ngFor="let field of topGamePlayers.columnsName">
+                            <div>{{field}}</div>
+                        </div>
+                    </div>
+                    <div *ngFor="let player of topGamePlayers.main" class="t-row">
+                        <div class="num"></div>
+                        <div class="player tal">
+                            <a [routerLink]="['/player', player.id]"><span>{{player.number}}</span>
+                                <em>
+                                    {{player.first_name+' '+player.last_name}}
+                                </em></a>
+                        </div>
+                        <div *ngFor="let column of topGamePlayers.columns">
+                            <p>{{player[column]}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="topGamePlayers.opponent && topGamePlayers.opponent.length" class="tab">
+                    <div class="t-row t-head">
+                        <div class="num">#</div>
+                        <div class="player tal">TOP PLAYERS OF A GAME</div>
+                        <div *ngFor="let field of topGamePlayers.columnsName">
+                            <p>{{field}}</p>
+                        </div>
+                    </div>
+                    <div *ngFor="let player of topGamePlayers.opponent" class="t-row">
+                        <div class="num"></div>
+                        <div class="player tal">
+                            <a [routerLink]="['/player', player.id]"><span>{{player.number}}</span>
+                                <em>
+                                    {{player.first_name+' '+player.last_name}}
+                                </em></a>
+                        </div>
+                        <div *ngFor="let column of topGamePlayers.columns">
+                            <p>{{player[column]}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="players-wrap">
+                <div class="switch">
+                    <button (click)="tabActive='main'; grider();" [class.active]="tabActive=='main'">
+                        <span class="img-wrap"><img src="{{currentGame.team.logoUrl}}"></span>{{currentGame.team.shortName}}
+                    </button>
+                    <button *ngIf="topPlayers.opponent" (click)="tabActive='opponent'; grider();"
+                            [class.active]="tabActive=='opponent'">
+                        <span class="img-wrap"><img src="{{currentGame.opponentTeam.logoUrl}}"></span>{{currentGame.opponentTeam.shortName}}
+                    </button>
+                </div>
+                <div *ngIf="topPlayers[tabActive]" class="players">
+                    <div *ngFor="let playerStat of topPlayers[tabActive]" [ngClass]="{active:!detailPlayers}" class="one">
+                        <div *ngIf="playerStat.stats.length" class="top">
+                            <div class="img-wrap">
+                                <img src="{{playerStat.stats[0].user_photo}}">
+                            </div>
+                            <div class="right">
+                                <div class="left">
+                                    <div class="img-wrap">
+                                        <img [routerLink]="['/player', playerStat.stats[0].player_id]" src="{{playerStat.stats[0].team_logo}}">
+                                    </div>
+                                    <div class="num">
+                                        {{playerStat.stats[0].number}}
+                                    </div>
+                                    <a [routerLink]="['/player', playerStat.stats[0].player_id]" class="name" title="{{playerStat.stats[0].first_name+' '+playerStat.stats[0].last_name}}">
+                                        {{playerStat.stats[0].first_name+' '+playerStat.stats[0].last_name}}
+                                    </a>
+                                </div>
+                                <div class="fav" [subsBtn]="{modelType: 'players', modelId:  playerStat.stats[0].player_id, type: 'favorite', role: 'subs'}">
+                                    <span></span>
+                                </div>
+                                <div class="right">
+                                    <p>{{playerStat.statName}}</p>
+                                    <p class="points">{{playerStat.stats[0].points}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="playerStat.stats.length" class="bottom">
+                            <div class="stats_info">
+                                <p>Stats Info:</p>
+                                <p>Scores:</p>
+                            </div>
+                            <!--Baskatball-->
+
+                            <div *ngFor="let column of topPlayers.innerColumns;let i=index" class="stats">
+                                <p>{{topPlayers.innerColumnsName[i]}}</p>
+                                <p class="numes">{{playerStat.stats[0][column]}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="inner-wrap">
+                    <one-news [sliderType]="'contain'" [newsId]="null"></one-news>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,444 @@
+@import 'mixins';
+@import 'variables';
+
+.time-line-wrap {
+  z-index: 2;
+}
+
+.open-game-wrap.dark {
+  margin-top: -45px;
+  padding-top: 102px;
+  padding-bottom: 15px;
+  color: #fff;
+  @include fOswald;
+  text-transform: uppercase;
+  display: none;
+  transition: height 180ms;
+  will-change: height;
+  overflow: hidden;
+  &.open {
+    display: block;
+  }
+  .top-wrap {
+    text-align: center;
+    margin-bottom: 20px;
+    span {
+      display: inline-block;
+      vertical-align: middle;
+      @include fz20;
+      & + span {
+        padding-left: 20px;
+        margin-left: 16px;
+        border-left: 2px solid;
+      }
+    }
+  }
+  .time {
+    cursor: default;
+    text-align: center;
+    margin-bottom: 48px;
+    p {
+      color: #f41b1a;
+      @include fz16;
+      line-height: 18px;
+    }
+  }
+  .versus-wrap {
+    text-align: center;
+    white-space: nowrap;
+    margin-bottom: 60px;
+    & > * {
+      display: inline-block;
+      vertical-align: bottom;
+    }
+    .team {
+      text-align: right;
+      &:not(:first-child) {
+        text-align: left;
+      }
+      & > * {
+        display: inline-block;
+        vertical-align: top;
+      }
+      .img-wrap {
+        width: 80px;
+        height: 67px;
+        text-align: center;
+        margin-left: 25px;
+        margin-right: 25px;
+        img {
+          display: inline-block;
+          object-fit: contain;
+        }
+      }
+      .points {
+        display: inline-block;
+        width: 82px;
+        height: 58px;
+        background-color: $blue-on-dark;
+        line-height: 58px;
+        text-align: center;
+        color: #fff;
+        @include fz32;
+        margin-bottom: 9px;
+        margin-right: -3px;
+      }
+      a {
+        width: 100%;
+        color: #fff;
+        @include fz16;
+        line-height: 18px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        abbr {
+          display: none;
+          color: #fff;
+          @include fOswald;
+          @include fz16;
+          line-height: 32px;
+          text-transform: uppercase;
+        }
+        &:hover {
+          @extend .hover-black-small;
+        }
+      }
+    }
+    .vs {
+      margin-left: 25px;
+      margin-right: 25px;
+      width: 70px;
+      &:before {
+        content: "vs";
+        display: inline-block;
+        color: #fff;
+        @include fz18;
+        line-height: 24px;
+        width: 100%;
+        padding-bottom: 10px;
+        margin-bottom: 12px;
+      }
+      &.away:after {
+        content: "@";
+      }
+      p {
+        color: $grey-blue;
+        @include fz12;
+        line-height: 14px;
+      }
+    }
+  }
+  .heppenning-line {
+    border-top: 1px solid rgba(178, 183, 191, 0.2);
+    border-bottom: 1px solid rgba(178, 183, 191, 0.2);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+    margin-bottom: 43px;
+    & > * {
+      display: inline-block;
+      vertical-align: middle;
+      color: #b2b7bf;
+      @include fz12;
+      text-transform: uppercase;
+      line-height: 25px;
+      &:not(:first-child) {
+        padding-left: 33px;
+        margin-left: 29px;
+        border-left: 1px solid rgba(178, 183, 191, 0.2);
+      }
+      .live {
+        color: #f41b1a;
+        &:after {
+          vertical-align: 9px;
+        }
+      }
+    }
+    .readmore {
+      color: #fff;
+      background-position: right top 8px;
+      padding-right: 15px;
+      &:hover em {
+        @extend .hover-black-small;
+      }
+    }
+    .add_to {
+      span, img {
+        display: inline-block;
+        vertical-align: middle;
+      }
+      span {
+        margin-left: 14px;
+        line-height: 16px;
+      }
+      &:hover {
+        span {
+          @extend .hover-black-small;
+        }
+      }
+    }
+    .watch:hover {
+      span, em {
+        @extend .hover-black-small;
+      }
+    }
+  }
+  .table-wrap {
+    padding-left: 118px;
+    padding-right: 118px;
+    margin-bottom: 69px;
+    @media all and (max-width: 1200px) {
+      padding-left: 25px;
+      padding-right: 25px;
+    }
+    @media all and (max-width: 1000px) {
+      padding-left: 0;
+      padding-right: 0;
+    }
+    .tab {
+      width: 432px;
+      float: left;
+      counter-reset: sced-tab-counter;
+      opacity: 1;
+      transition: opacity 180ms;
+      will-change: opacity;
+      padding-bottom: 5px;
+      @media all and (max-width: 975px) {
+        width: calc((100% / 2) - 24px);
+      }
+      &:last-child {
+        float: right;
+      }
+      .head {
+        @include fz20;
+        margin-bottom: 11px;
+        padding-left: 60px;
+        &:empty {
+          margin-bottom: 0;
+        }
+      }
+      .t-row {
+        @include fz10;
+        height: 22px;
+        &.t-head {
+          border-top: 1px solid #979797;
+          height: auto;
+          padding-bottom: 17px;
+          padding-top: 24px;
+          color: rgba(255, 255, 255, 0.7);
+        }
+        &:not(.t-head) {
+          counter-increment: sced-tab-counter;
+          color: $middle-grey;
+          &:nth-child(odd) {
+            background: url(/img/Noise-on-white.png);
+          }
+          .num {
+            &:after {
+              content: counter(sced-tab-counter) ".";
+            }
+          }
+          .player {
+            a {
+              color: $middle-grey;
+              &:hover {
+                em {
+                  @extend .hover-black-small;
+                }
+              }
+            }
+            span {
+              width: 30px;
+              display: inline-block;
+              text-align: left;
+              &:before {
+                content: "# ";
+              }
+            }
+
+          }
+          .ft {
+            color: #556278;
+            @include fz12;
+            &:after {
+              content: "%";
+            }
+          }
+          .total {
+            @include fz12;
+            width: 37px;
+            background-color: $blue-on-dark;
+            color: #fff;
+            height: 22px;
+            line-height: 22px;
+          }
+        }
+        &:last-child {
+          .total {
+            &:after {
+              position: absolute;
+              bottom: -5px;
+              left: 0;
+              height: 5px;
+              width: 100%;
+              content: "";
+              background-color: inherit;
+            }
+          }
+        }
+        & > * {
+          text-align: center;
+        }
+        .tal {
+          text-align: left;
+        }
+        .divider {
+          flex-grow: 3;
+          flex-basis: auto;
+          flex-shrink: 1;
+          &.fg1 {
+            flex-grow: 1;
+          }
+          &.fg2 {
+            flex-grow: 2;
+          }
+          &.fg4 {
+            flex-grow: 4;
+          }
+        }
+        .num {
+          width: 37px;
+        }
+        .player {
+          width: 120px;
+        }
+        .ft {
+          width: 25px;
+        }
+        .total {
+          width: 37px;
+          position: relative;
+        }
+      }
+      &:hover {
+        .t-row:not(.t-head) {
+          opacity: 0.4;
+          transition: opacity 180ms;
+        }
+        .t-row:hover {
+          opacity: 1;
+          transition: opacity 180ms;
+        }
+      }
+    }
+    .lower-tab {
+      .t-head {
+        .player {
+          padding-left: 20px;
+        }
+      }
+      .t-row:not(.t-head) {
+        height: auto;
+        .num {
+          img {
+            width: 30px;
+          }
+          &:after {
+            display: none;
+          }
+        }
+        .player {
+          padding-left: 20px;
+          p {
+            display: inline-block;
+            vertical-align: middle;
+            @include fz14;
+            color: #fff;
+          }
+        }
+        .ft {
+          color: $middle-grey;
+          @include fz10;
+          padding-top: 6px;
+          padding-bottom: 6px;
+          line-height: 12px;
+        }
+        .total {
+          @include fz14;
+          height: 36px;
+          line-height: 36px;
+        }
+      }
+      &:hover {
+        .t-row:not(.t-head) {
+          opacity: 1;
+          transition: opacity 180ms;
+        }
+      }
+    }
+  }
+}
+
+.dark .location {
+  border-top: 1px solid rgba(178, 183, 191, 0.2);
+  margin-top: 34px;
+  padding-top: 44px;
+  padding-bottom: 60px;
+  text-align: center;
+  div {
+    width: 400px;
+    display: inline-block;
+    vertical-align: top;
+    text-align: left;
+    @media all and (max-width: 1000px) {
+      width: 270px;
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+  }
+  .head {
+    @include fz20;
+    text-transform: capitalize;
+    margin-bottom: 12px;
+  }
+  .text {
+    color: $middle-grey;
+    @include fRoboto;
+    @include fz12;
+    line-height: 20px;
+    text-transform: none;
+  }
+}
+
+.map {
+  width: 100%;
+  height: 500px;
+  background: url(/img/temp/map.jpg) no-repeat center / cover;
+  @media all and (max-width: 1000px) {
+    height: 265px;
+  }
+  iframe {
+    width: 100%;
+    height: 500px;
+    @media all and (max-width: 1000px) {
+      height: 265px;
+    }
+  }
+}
+
+.calendar-wrap {
+  .game-recap {
+    em {
+      @include fz8;
+      white-space: nowrap;
+      float: left;
+      color: $grey-blue;
+      margin-top: 47px;
+      line-height: 12px;
+      margin-left: 8px;
+    }
+    &:hover em{
+      background: url(/img/hover-bg-white.svg) repeat-x 0 100%;
+    }
+  }
+}

@@ -1,0 +1,21 @@
+<school-list-nav [title]="'Headlines'"></school-list-nav>
+<div *ngIf="!loadingPrevNews && isPreviousNews" class="btn" style="width: 200px; margin: 0 auto; margin-top: 120px;  line-height: 50px; background-color:green; color: #fff; vertical-align: center; text-align: center;" (click)="viewPreviousNews()">View Previous news</div>
+<div *ngIf="loadingPrevNews" class="btn btn-active"  style="width: 200px; margin: 0 auto; margin-top: 120px;  line-height: 50px; background-color:blue; color: #fff; vertical-align: center; text-align: center;" >Loading news</div>
+<div class="hot-tags"
+     [ngClass]="{'down': (activeSliders == newsList[scroll.current.index]?.id && scroll.current.preTitle) ||
+      activeSliders == scroll.bottom && scroll.current.id != scroll.bottom && scroll.bottom}">
+    <hot-tags [section]="'main'"></hot-tags>
+</div>
+
+<div class="cont-wrap" #wrap scrollLoad [isLoadingBottom]="isLoadingBottom" (loadBottom)="loadNews('next')"
+     (scroll)="scroll = $event; headlinesService.changeRoute(route, $event.current.slug, dataRequest, $event.current.id);">
+    <div class="one-news-wrap" *ngFor="let news of newsList; let idx = index;" [attr.data-indx]="idx" [attr.data-id]="news.id" [attr.data-slug]="news.slug">
+        <one-news [i]="idx"  [scrollObservable]="scrollLoad.scroll$" [sliderType]="'swiper'" [activeSlider]="activeSliders == news.id" [open]="activePost == news.slug" [news]="news" [section]="dataRequest.type" (activateSlider)="activeSliders = $event" (openPost)="activePost = $event" (openComment)="activeComments = $event" ></one-news>
+    </div>
+</div>
+
+<div class="one_more_news_wrap" [ngClass]="{'in-view': scroll.current.index > 0 && !scroll.current.endBottom}" *ngIf="newsList.length>0">
+    <div *ngIf="rootService.isBrowser()">
+        <news-line [newsList]="newsList" [scrollObservable]="scrollLoad.scroll$" (fixedPost)="fixedPosition($event.slug, $event.id)" (readPost)="activePost=$event"></news-line>
+    </div>
+</div>

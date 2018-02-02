@@ -1,0 +1,38 @@
+<div *ngIf="visible" class="report-abuse-popup">
+    <img src="/img/close-grey.svg" alt="close" (click)="hide()" class="close">
+    <h3>Report comment</h3>
+
+    <div *ngIf="!sent; else reportSent">
+        <label class="report-label">
+            <input type="radio"
+                   (click)="selectedType='spam'"
+                   required/>
+            Unwanted commercial content or spam
+        </label>
+        <label class="report-label">
+            <input type="radio"
+                   (click)="selectedType='pornography'"
+                   required/>
+            Pornography or sexually explicit material
+        </label>
+        <label class="report-label">
+            <input type="radio"
+                   (click)="selectedType='hate'"
+                   required/>
+            Hate speech or graphic violence
+        </label>
+        <label class="report-label">
+            <input type="radio"
+                   (click)="selectedType='bullying'"
+                   required/>
+            Harassment or bullying
+        </label>
+
+        <div class="report-buttons">
+            <button (click)="hide()">Cancel</button>
+            <button (click)="report()" [disabled]="!selectedType">Report</button>
+        </div>
+    </div>
+
+    <ng-template #reportSent>Report Sent</ng-template>
+</div>

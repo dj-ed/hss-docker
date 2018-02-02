@@ -1,0 +1,76 @@
+@import '/../../../../styles/mixins';
+@import '/../../../../styles/variables';
+
+.most-popular-news-wrap {
+  & + .most-popular-news-wrap {
+    margin-top: 23px;
+  }
+  & + .small-heading {
+    margin-top: 45px;
+  }
+}
+
+
+
+
+.pop-news-blk {
+  height: 465px;
+  @include dib-vt;
+  width: calc(50% - 19px);
+  border-bottom: none;
+  margin-top: 0;
+  position: relative;
+
+  @media all and (max-width: 1250px) {
+    width: calc(50% - 10.5px);
+    height: 368px;
+  }
+  img {
+    width: 100%;
+    & ~ * {
+      padding-left: 19px;
+      padding-right: 19px;
+      @media all and (max-width: 1250px) {
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+  }
+  .head-time .head {
+    height: 40px;
+    overflow: hidden;
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+      width: calc(100% - 55px);
+    @media all and (max-width: 1250px) {
+      width: 100%;
+    }
+  }
+  @media all and (max-width: 1250px) {
+    .post, .author {
+      display: none;
+    }
+  }
+  &:nth-child(2n) {
+    margin-left: 42px;
+    @media all and (max-width: 1250px) {
+      margin-left: 21px;
+    }
+  }
+  & + .pop-news-blk {
+    margin-top: 0;
+  }
+  @media all and (max-width: 1250px) {
+    .time {
+      display: none;
+    }
+    .fb-share-like {
+      width: 140px;
+    }
+  }
+  .fb-lv-post-footer{
+    position: absolute;
+    bottom: 45px;
+    width: 100%;
+  }
+}

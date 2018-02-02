@@ -1,0 +1,102 @@
+<div #wrap>
+<div *ngIf="news"  class="one-news-wrap"  [ngClass]="{'activeComment': activeComments, 'active' : open }">
+    <!-- swiper slider -->
+    <div class="top-slider-wrap" *ngIf="news.media.data.length>1 && sliderType == 'swiper'" [swiper]="{freeMode: false, observer: true}" [ngClass]="{'active': _sctiveSlider}">
+        <div class="top-slider-carousel swiper-wrapper grab"  (mousedown)="activeSlider = true; activateSlider.emit(news.id)" >
+            <div class="top-slider-item swiper-slide"  *ngFor="let media of news.media.data; let i = index;" >
+                <div class="img-wrap" *ngIf="media.type == 'image'">
+                    <img [src]="media.fileUrl">
+                </div>
+                <div class="img-wrap" *ngIf="media.type == 'iframe'" [innerHtml]="media.embedHtml" (click)="$event.target.classList.add('active'); playVideo(i)"></div>
+                <div class="title">
+                    <div class="num"></div>
+                    <p>{{media.title}}</p>
+                </div>
+                <!-- <div class="top-slider-wrap-nav" *ngIf="slider?.lengthOnRight && slider?.lengthOnRight > 1">+{{slider?.lengthOnRight}}</div> -->
+            </div>
+        </div>
+    </div>
+
+    <!-- swiper slider END -->
+
+    <!-- contain slider -->
+
+    <div class="media-wrap video" *ngIf="sliderType=='contain'">
+        <div class="video-wrap" *ngIf="news.media?.current?.type == 'image' || (!news.media.current && news.media.data[0].type == 'image')">
+            <img [src]="news.media?.current?.fileUrl || news.media.data[0].fileUrl">
+        </div>
+        <div class="video-wrap" *ngIf="news.media?.current?.type == 'iframe' || (!news.media.current && news.media.data[0].type == 'iframe')" [innerHtml]="news.media?.current?.embedHtml || news.media.data[0].embedHtml">
+        </div>
+        <div class="slider-contain-wrap" (transitionend)="setDataSlider()">
+            <div *ngIf="slider.init">
+                <span class="counter counterPrev" *ngIf="slider.isViewPrev && slider.currentIndex != 0" (click)="changeSlides(-1)">{{slider.currentIndex}}</span>
+            </div>
+            <div class="other-media-wrap swiper-wrap" *ngIf="news.media.data.length > 1" [swiper]="{freeMode:false, observer:true}">
+                <div class="other-media-wrap other-media-wrap-carousel swiper-wrapper grab">
+                    <!-- Активний .active -->
+                    <div *ngFor="let media of news.media.data; let i = index;"  (click)="news.media.current = {type : media.type, fileUrl: media.fileUrl, embedHtml: media.embedHtml, id: media.id};"  class="one-media swiper-slide" [ngClass]="{'video': media.type == 'iframe', 'active' : news.media?.current?.id == media.id || !news.media.current && i == 0  }">
+                        <img *ngIf="media.type == 'image'"  [src]="media.thumbUrl" [alt]="media.title || ''" >
+                        <img *ngIf="media.type == 'iframe'" [src]="media.thumbUrl" [alt]="media.title || ''">
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="slider.init">
+                <span class="counter counterNext" *ngIf="slider.isViewNext && slider.allMedia - (slider.countInContain + slider.currentIndex) > 0"   (click)="changeSlides(1)">{{ slider.allMedia - (slider.countInContain + slider.currentIndex) }}</span>
+            </div>
+            </div>
+    </div>
+
+
+    <!-- contain slider END -->
+
+    <div class="container">
+        <div class="inner-wrap">
+            <h1>{{news?.title}}</h1>
+            <div class="heading clearfix">
+                <div class="avatar" *ngIf="news.authorName">
+                    <img src="/img/temp/avatar.jpg" alt="">
+                </div>
+                <div class="author" *ngIf="news.authorName">
+                    <em>{{news.authorName}}</em>
+                </div>
+                <div class="author source" *ngIf="news.source">
+                    <em>{{news.source}}</em>
+                </div>
+                <div class="time">{{news.date | date:'mediumDate'}}</div>
+            </div>
+            <div class="cont" [innerHtml]="news.text"></div>
+            <div class="share-tags clearfix">
+                <div class="share-social">
+                    <p>Share ARTICLE</p>
+                    <share-component [types]="['fb', 'tw', 'gp']" [text]="news.title"></share-component>
+                </div>
+                <div class="tags">
+                    <p>TAGS</p>
+                    <a href="" *ngFor="let tag of news?.tags">{{tag}}</a>
+                </div>
+            </div>
+            <div class="like-comments clearfix">
+                <div class="fb-share-like">
+                    <div class="like" likeBtn [id]="news.id" [typeModel]="'news'" (updateCount)="news.likes = $event">{{news.likes}}<em></em></div>
+                    <div class="comments" (click)="comments.getComments(); toggleComment('open'); activeComments = true">{{news.comments}}<em></em></div>
+                </div>
+                <button class="pin" [subsBtn]="{modelType: 'news', modelId:  news.id, type: 'scrapbook', role: 'subs'}"></button>
+                <div class="most-top" *ngIf="activeComments">
+                   <simple-select (change)="comments.changeOrder($event)" [values]="comments.commentService.orderOptions"></simple-select>
+                </div>
+                <button class="readmore"  *ngIf="!open"   (click)="togglePost('open');">
+                    <em>read full article</em>
+                    <span></span>
+                </button>
+                <button class="readmore" *ngIf="open" (click)="togglePost('close');">
+                    <em>read less</em>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+        <div class="inner-wrap">
+            <comments-component (closeComment)="toggleComment('close')" #comments [modelId]="news.id" [modelType]="'news'"></comments-component>
+        </div>
+    </div>
+</div>
+</div>

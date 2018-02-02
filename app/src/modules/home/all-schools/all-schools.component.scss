@@ -1,0 +1,162 @@
+@import '../../../styles/mixins';
+@import '../../../styles/variables';
+
+.upcomming-games-wrap, .schools-wrap, .headline-wrap {
+  background-color: #fff; }
+
+.schools-wrap {
+  padding-bottom: 47px;
+  width: 100%; }
+@media all and (max-width: 1250px) {
+  .schools-wrap {
+    padding-bottom: 0; }
+  .schools-wrap .wide-heading {
+    display: none; } }
+
+.schools-line {
+  height: 131px;
+  overflow: hidden;
+  position: relative;
+  white-space: nowrap; }
+@media all and (max-width: 1025px) {
+  .schools-line {
+    padding-top: 8px;
+    padding-bottom: 8px; } }
+.schools-line .all-schools-mob {
+  display: none; }
+@media all and (max-width: 1250px) {
+  .schools-line .all-schools-mob {
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 140px;
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.85) 4%, #ffffff 54%);
+    z-index: 2;
+    color: $grey-blue;
+    @include fOswald;
+    @include fz12;
+    line-height: 115px;
+    text-transform: uppercase;
+    text-align: center;
+    vertical-align: middle; }
+  .schools-line .all-schools-mob:after {
+    content: "";
+    display: inline-block;
+    width: 8px;
+    height: 17px;
+    vertical-align: middle;
+    background-image: url(/img/arrows.svg);
+    background-repeat: no-repeat;
+    background-position: right top 2px; } }
+
+.upcomming-games-wrap {
+  padding-bottom: 60px; }
+@media all and (max-width: 1250px) {
+  .upcomming-games-wrap {
+    padding-bottom: 8px; } }
+
+.upcoming-games-line {
+  height: 90px;
+  overflow: hidden;
+  white-space: nowrap; }
+@media all and (max-width: 1025px) {
+  .upcoming-games-line {
+    height: auto;
+    padding-top: 8px;
+    padding-bottom: 8px; } }
+@media all and (max-width: 1250px) {
+  .upcoming-games-line {
+    margin-left: 35px; } }
+
+.headline-wrap .wide-heading {
+  margin-bottom: 81px; }
+@media all and (max-width: 1250px) {
+  .headline-wrap .wide-heading {
+    margin-bottom: 22px; } }
+
+
+
+
+
+// MASCOT
+.mascot {
+  width: 160px;
+  height: 131px;
+  padding: 8px 0 16px 0;
+  @include dib-vt;
+  cursor: pointer;
+  transition: color 180ms;
+  text-align: center;
+  @media all and (max-width: 1250px) {
+    width: 120px;
+  }
+  .mascot-varsity{
+    color: #000;
+    @include fz8;
+    line-height: 14px;
+    text-transform: uppercase;
+    @include fOswald;
+  }
+  .img-wrap {
+    position: relative;
+    width: 76px;
+    height: 76px;
+    display: block;
+    margin: 0 auto 5px;
+    color: $vs-color;
+    background: url(/img/line.svg) no-repeat center / 100%;
+    img {
+      position: relative;
+      object-fit: contain;
+      z-index: 2;
+    }
+    @media all and (max-width: 1025px) {
+      width: 50px;
+      height: 50px;
+    }
+  }
+  .name {
+    @include fOswald;
+    display: inline-block;
+    text-align: center;
+    color: #000;
+    @include fz10;
+    line-height: 14px;
+    text-transform: uppercase;
+    transition: color 180ms;
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    abbr {
+      display: none;
+    }
+    @media all and (max-width: 1025px) {
+      span {
+        display: none;
+      }
+      abbr {
+        display: block;
+      }
+    }
+  }
+  .under-name {
+    width: 100%;
+    text-align: center;
+    color: $vs-color;
+    @include fOswald;
+    @include fz9;
+    font-weight: 300;
+    line-height: 14px;
+    &:after {
+      content: " PTS / Season";
+    }
+  }
+  &:hover .name {
+    color: $grey-blue;
+    transition: color 180ms;
+    background: url(/img/hover-bg.svg) repeat-x bottom left;
+  }
+}

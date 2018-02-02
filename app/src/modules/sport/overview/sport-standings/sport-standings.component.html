@@ -1,0 +1,93 @@
+<div class="team-stending-wrap dark">
+    <div class="container">
+        <div class="wide-heading">
+            <p>Team standings</p>
+            <p class="powered-by">
+                <span>Powered by</span>
+                <a href="">
+                    <img src="/img/krossower-white.png" alt="">
+                </a>
+            </p>
+            <a href="" class="readmore"><em>All stars</em></a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="l-switch-heading">
+            <ng-container *ngFor="let type of teamTypes;let i=index">
+                <button (click)="loadTeams(type);indexActiveTab=i;" [class.active]="i==indexActiveTab"><img
+                        src="{{type.gender.imgLogo}}" alt="">{{type.gender.name+'
+                    '+type.teamType.name}}
+                </button>
+            </ng-container>
+        </div>
+    </div>
+    <div class="container">
+        <div class="team-standing-table">
+            <div class="t-inner-wrap open">
+                <div class="t-row t-head">
+                    <div class="divider fg1"></div>
+                    <div class="num">#</div>
+                    <div class="divider fg3"></div>
+                    <div class="team">team</div>
+                    <div class="divider fg2"></div>
+                    <div class="fav"></div>
+                    <div class="divider fg2"></div>
+                    <div class="county">location</div>
+                    <div class="divider fg6"></div>
+                    <div class="location">county</div>
+                    <div class="divider fg6"></div>
+                    <div class="wl">w - l</div>
+                    <div class="divider"></div>
+                    <div class="wl">win %</div>
+                    <div class="divider fg5"></div>
+                    <div class="nd">d</div>
+                    <div class="divider"></div>
+                    <div class="nd">nd</div>
+                    <div class="divider"></div>
+                    <div class="nd">t</div>
+                    <div class="divider fg6"></div>
+                    <div class="pf">pf</div>
+                    <div class="divider fg5"></div>
+                    <div class="total">pts</div>
+                    <div class="open"></div>
+                </div>
+                <div *ngFor="let item of teams" class="t-row">
+                    <div class="divider fg1"></div>
+                    <div class="num"></div>
+                    <div class="divider fg3"></div>
+                    <div class="team">
+                        <a>
+                            <div class="img-wrap">
+                                <img src="{{item.team_logo}}" alt="">
+                            </div>
+                            <abbr title="{{item.team_name}}">flgw</abbr><span [routerLink]="['/team', item.team_id]">{{item.team_name}}</span>
+                        </a>
+                    </div>
+                    <div class="divider fg2"></div>
+                    <div class="fav" [subsBtn]="{modelType: 'teams', modelId:  item.team_id, type: 'favorite', role: 'subs'}"><span></span></div>
+                    <div class="divider fg2"></div>
+                    <div class="county"><span>{{item.city}}, {{item.short_state_name}}</span>
+                        <p>{{item.city}}, {{item.short_state_name}}</p></div>
+                    <div class="divider fg6"></div>
+                    <div class="location"><span>{{item.county_name}}</span>
+                        <p>{{item.county_name}}</p></div>
+                    <div class="divider fg6"></div>
+                    <div class="wl">{{item.win}} - {{item.gp}}</div>
+                    <div class="divider"></div>
+                    <div class="wl">{{item.win_pct}}%</div>
+                    <div class="divider fg5"></div>
+                    <div class="nd">{{item.d_count}}</div>
+                    <div class="divider"></div>
+                    <div class="nd">{{item.nd_count}}</div>
+                    <div class="divider"></div>
+                    <div class="nd">{{item.t_count}}</div>
+                    <div class="divider fg6"></div>
+                    <div class="pf">{{item.gp}}</div>
+                    <div class="divider fg5"></div>
+                    <div class="total">{{(item.score_team)?item.score_team:0}}</div>
+                    <div class="open"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

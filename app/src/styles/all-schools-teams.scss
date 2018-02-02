@@ -1,0 +1,446 @@
+@import 'mixins';
+@import 'variables';
+
+.all-schools-teams-wrap {
+  background-color: #f5f7f8;
+  &>.region-wrap:first-child{
+    border-top: 0 solid rgba(248, 248, 249, 0.67);
+    padding-top: 0;
+    margin-top: -6px;
+  }
+}
+
+.live-heading .type-switcher .switch {
+  @media all and (max-width: 850px) {
+    @include fz10;
+    .sorting {
+      @include fz10;
+    }
+    & + .switch {
+      padding-left: 12px;
+      margin-left: 8px;
+    }
+  }
+}
+
+.all-schools-fixed-header {
+  box-shadow: 0 2px 7px rgba(178, 183, 191, 0.2);
+  z-index: 4;
+  position: relative;
+  background-color: #fff;
+  width: 100%;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  &.fixed {
+    position: fixed;
+    top: 54px;
+    .live-heading {
+      padding-top: 24px;
+      padding-bottom: 24px;
+      transition: padding-top, padding-bottom 180ms;
+    }
+  }
+  .live-heading {
+    padding-top: 42px;
+    padding-bottom: 42px;
+    transition: padding-top, padding-bottom 180ms;
+  }
+}
+
+.pull-left, .pull-right {
+  width: auto;
+  & > * {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+
+.arrow {
+  margin-left: 15px;
+  width: 10px;
+  height: 10px;
+  background: url(/img/dropdown.svg) no-repeat center / contain;
+  will-change: transform;
+  transition: transform 180ms;
+  transform: rotate(-90deg);
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.pull-left {
+  cursor: pointer;
+  &.active {
+    .arrow {
+      transition: transform 180ms;
+      transform: rotate(0deg);
+    }
+  }
+}
+
+.name {
+  width: 150px;
+  color: #000;
+  display: inline-block;
+  vertical-align: middle;
+  & > * {
+    display: inline-block;
+    vertical-align: bottom;
+  }
+  abbr, span {
+    &:after {
+      content: ",";
+    }
+  }
+  span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 134px;
+  }
+  abbr {
+    display: none;
+  }
+}
+
+.search {
+  height: 22px;
+  padding-left: 19px;
+  img {
+    margin-top: 2px;
+    width: 17px;
+    height: 17px;
+  }
+}
+
+.schools {
+  height: 22px;
+  padding-right: 29px;
+  padding-left: 34px;
+  border-left: 1px solid rgba(178, 183, 191, 0.4);
+  border-right: 1px solid rgba(178, 183, 191, 0.4);
+  p {
+    text-align: right;
+    width: 65px;
+    line-height: 22px;
+    color: #f41b1a;
+    &:after {
+      content: " Schools";
+      color: #9b9b9b;
+    }
+  }
+  +internal-search{
+    margin-right: 19px;
+    margin-left: -3px;
+  }
+}
+
+.teams .schools p {
+  width: 50px;
+  &:after {
+    content: " teams";
+  }
+}
+
+.county-wrap {
+  background-color: rgba(248, 248, 249, 0.67);
+  padding-top: 9px;
+  padding-bottom: 6px;
+  @include fOswald;
+  @include fz12;
+  line-height: 14px;
+  text-transform: uppercase;
+  border-top: 1px solid rgba(151, 151, 151, 0.11);
+  border-bottom: 1px solid rgba(151, 151, 151, 0.11);
+  .pull-left {
+    margin-left: 40px;
+    border-left: 1px dashed $middle-grey;
+    line-height: 20px;
+    height: 24px;
+    padding-left: 12px;
+    &.char-line{
+      border-right:none;
+    }
+    .name {
+      width: 136px;
+      img {
+        height: 16px;
+        vertical-align: -3px;
+        margin-right: 7px;
+      }
+      span {
+        white-space: nowrap;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+  .pull-right {
+    .schools {
+      margin-right: 61px;
+      p {
+        color: $grey-blue;
+      }
+    }
+  }
+  .letters {
+    border-left: 1px solid rgba(178, 183, 191, 0.4);
+    margin-left: 8px;
+    padding-left: 26px;
+    @media all and (max-width: 860px) {
+      padding-left: 8px;
+    }
+    button {
+      display: inline-block;
+      vertical-align: middle;
+      color: rgba(63, 76, 94, 0.3);
+      transition: color 180ms;
+      padding-left: 14px;
+      padding-right: 14px;
+      position: relative;
+      text-transform: uppercase;
+      @media all and (max-width: 1000px) {
+        padding-left: 7px;
+        padding-right: 7px;
+      }
+      img {
+        height: 9px;
+        margin-right: 8px;
+        opacity: 0.4;
+        vertical-align: 0;
+        transition: opacity 180ms;
+      }
+      &:hover, &.active {
+        color: rgba(63, 76, 94, 1);
+        transition: color 180ms;
+        img {
+          opacity: 1;
+          transition: opacity 180ms;
+        }
+      }
+      & + button {
+        &:before {
+          content: "";
+          width: 3px;
+          height: 3px;
+          border-radius: 50%;
+          background-color: rgba(63, 76, 94, 0.3);
+          display: inline-block;
+          position: absolute;
+          left: -1px;
+          top: calc(50% - 1px);
+        }
+      }
+      abbr {
+        display: none;
+      }
+      @media all and (max-width: 1000px) {
+        span {
+          display: none;
+        }
+        abbr {
+          display: inline-block;
+        }
+      }
+    }
+  }
+  &.sport {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: #f5f6f7;
+    .pull-left {
+      margin-left: 55px;
+      .name span:after {
+        display: none;
+      }
+    }
+  }
+  &.school {
+    padding-top: 4px;
+    padding-bottom: 4px;
+    background-color: #f0f1f2;
+    .pull-left {
+      margin-left: 70px;
+      .name {
+        width: 230px;
+        @media all and (max-width: 920px) {
+          width: 175px;
+        }
+        span:after {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+.schools-wrap {
+  white-space: nowrap;
+  overflow: hidden;
+  background-color: #f5f6f7;
+  display: none;
+  text-align: center;
+  .schools-letter-group {
+    display: inline-block;
+    vertical-align: top;
+    text-align: left;
+    .top {
+      padding: 6px 12px;
+      margin-bottom: 12px;
+      position: relative;
+      width: 100%;
+      border-bottom: #eeeeee 1px solid;
+      &:before {
+        position: absolute;
+        content: "";
+        display: inline-block;
+        top: 6px;
+        bottom: 6px;
+        right: 0;
+        border-left: 1px solid #e6e7ea;
+      }
+      p {
+        color: #556278;
+        @include fz12;
+        line-height: 24px;
+        text-transform: uppercase;
+        @include fOswald;
+        margin-left: 16px;
+      }
+      img {
+        height: 12px;
+        vertical-align: -1px;
+        margin-right: 4px;
+      }
+    }
+    .bottom {
+      padding: 0 12px;
+      margin-bottom: 24px;
+      border-right: 1px solid #e6e7ea;
+    }
+
+    &:last-child {
+      border-right: 0;
+    }
+  }
+  &.lined {
+    white-space: normal;
+    .schools-letter-group {
+      width: 100%;
+      .bottom, .top p {
+        width: 1220px;
+        margin: 0 auto;
+        display: block;
+        background-color: inherit;
+        max-width: 100%;
+        @media all and (max-width: 1250px) {
+          padding-left: 35px;
+          padding-right: 35px;
+        }
+      }
+      .top {
+        border-top: #eeeeee 1px solid;
+        p {
+          padding-left: 80px;
+        }
+        &:before {
+          display: none;
+        }
+      }
+      .bottom {
+        border-right: none;
+        .one {
+          margin-top: 8px;
+          margin-bottom: 8px;
+          & + .one {
+            position: relative;
+            &:before {
+              position: absolute;
+              top: -8px;
+              left: 0;
+              right: 0;
+              border-top: #eeeeee 1px solid;
+              display: inline-block;
+              content: '';
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.region-wrap {
+  background-color: #fff;
+  border-top: 8px solid rgba(248, 248, 249, 0.67);
+  padding-top: 6px;
+  padding-bottom: 6px;
+  box-shadow: 0 0 7px 2px rgba(178, 183, 191, 0.2);
+  @include fOswald;
+  @include fz12;
+  line-height: 14px;
+  text-transform: uppercase;
+  z-index: 1;
+  .pull-left {
+    .img-wrap {
+      width: 27px;
+      height: 27px;
+      border-radius: 50%;
+      border: 1px solid #b3b3b3;
+      margin-right: 10px;
+      img {
+        object-fit: cover;
+      }
+    }
+  }
+  &.absolute {
+    position: absolute !important;
+  }
+  &.fixed {
+    position: fixed;
+    top: 115px;
+    width: 100%;
+    z-index: 1;
+  }
+}
+
+.top-lvl-wrap{
+  background-color: #fff;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  &+* .top-lvl-wrap{
+    background-color: rgba(248, 248, 249, 0.67);
+    padding-top: 9px;
+    padding-bottom: 6px;
+  }
+}
+
+.to-region-stuff .top-lvl-wrap{
+  background-color: #fff;
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+.to-region-stuff {
+  display: none;
+}
+.to-region-stuff.active{
+  display: block !important;
+}
+.schools-wrap.active {
+  display: block !important;
+}
+.carousel{
+  display: flex !important;
+}
+.swiper-slide{
+  width: auto;
+}
+.select-font-size{
+  @include  fz15;
+}
+.lined > .carousel {
+  flex-wrap: wrap;
+}

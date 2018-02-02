@@ -1,0 +1,123 @@
+<div class="container">
+    <div class="live-heading clearfix">
+        <div class="switcher text">
+            <button [class.active]="type=='state'" (click)="changeType('state')"><p>State</p></button>
+            <button [class.active]="type=='school'" (click)="changeType('school')"><p>School</p></button>
+            <button [class.active]="type=='team'" (click)="changeType('team')"><p>Team</p></button>
+        </div>
+        <div class="favorites-search">
+            <button class="fav"><img src="/img/favorite.svg"></button>
+            <p>Favorites</p>
+            <internal-search></internal-search>
+        </div>
+    </div>
+</div>
+
+
+<div *ngIf="groups" class="container">
+    <div  class="team-standing-table player-stand">
+        <div class="t-row t-head">
+            <div class="divider fg1"></div>
+            <div class="num">#</div>
+            <div class="divider fg1"></div>
+            <div class="team">player</div>
+            <div class="divider fg1"></div>
+            <div class="fav"><span></span></div>
+            <div class="divider fg1"></div>
+            <div class="location">team</div>
+            <ng-container *ngFor="let column of columns.innerColumnsName">
+                <div class="divider fg1"></div>
+                <div class="{{(column=='PTS')?'total':'pf'}}">{{column}}</div>
+            </ng-container>
+            <div class="open"></div>
+        </div>
+        <ng-container *ngFor="let group of groups;let i=index;">
+            <ng-container *ngIf="i<limit && !showMore || showMore">
+                <div class="t-row t-under-head">
+                    <div class="divider fg1"></div>
+                    <div class="num"> {{10*(i+1)-9}} - {{10*(i+1)}}</div>
+                    <div class="divider fg1"></div>
+                    <div class="team"></div>
+                    <div class="divider fg1"></div>
+                    <div class="fav"><span></span></div>
+                    <div class="divider fg1"></div>
+                    <div class="location"></div>
+                    <div class="divider fg1"></div>
+                    <div class="pf"></div>
+                    <div class="divider fg1"></div>
+                    <div class="wl"></div>
+                    <div class="divider fg1"></div>
+                    <div class="wl"></div>
+                    <div class="divider fg1"></div>
+                    <div class="wl"></div>
+                    <div class="divider fg1"></div>
+                    <div class="wl"></div>
+                    <div class="divider fg1"></div>
+                    <div class="wl"></div>
+                    <div class="divider fg1"></div>
+                    <div class="wl"></div>
+                    <div class="divider fg1"></div>
+                    <div class="pf"></div>
+                    <div class="divider fg1"></div>
+                    <div class="pf"></div>
+                    <div class="divider fg1"></div>
+                    <div class="pf"></div>
+                    <div class="divider fg1"></div>
+                    <div class="pf"></div>
+                    <div class="divider fg1"></div>
+                    <div class="pf"></div>
+                    <div class="divider fg1"></div>
+                    <div class="pf"></div>
+                    <div class="divider fg1"></div>
+                    <div class="total">{{group.max}} - {{group.min}}</div>
+                    <div (click)="openGroup(i,group.page)" [class.opened]="group.stats.length"
+                         class="open opener"></div>
+                </div>
+                <div [class.open]="group.stats.length" *ngIf="group.stats.length" [@slideDownAnimation] class="t-inner-wrap">
+                    <ng-container *ngFor="let stat of group.stats;let i2=index">
+                        <div [class.active]="player.id==stat.player.playerId" class="t-row">
+                            <div class="divider fg1"></div>
+                            <div class="num">{{(i+1)*10-9+i2}}</div>
+                            <div class="divider fg1"></div>
+                            <div class="team">
+                                <a [routerLink]="['/player',stat.player.playerId]">
+                                    <div class="img-wrap">
+                                        <img src="{{stat.player.teamLogo}}" alt="">
+                                    </div>
+                                    <span class="number">{{stat.player.number}}</span>
+                                    <em>{{stat.player.name}}</em>
+                                </a>
+                            </div>
+                            <div class="divider fg1"></div>
+                            <div class="fav" [subsBtn]="{modelType: 'players', modelId:  stat.player.playerId, type: 'favorite', role: 'subs'}"><span></span></div>
+                            <div class="divider fg1"></div>
+                            <div class="location"><p>{{stat.player.teamName}}</p></div>
+                            <ng-container *ngFor="let column of columns.innerColumns">
+                                <div class="divider fg1"></div>
+                                <div class="{{(column=='pts')?'total':'pf'}}">{{stat.data[column]}}</div>
+                            </ng-container>
+                            <div class="open"></div>
+                        </div>
+                    </ng-container>
+                </div>
+            </ng-container>
+        </ng-container>
+    </div>
+    <div *ngIf="groups.length>limit && !showMore" class="load-more">
+        <a (click)="showMore=true">
+            <em>Load More Scores</em>
+            <span></span>
+        </a>
+    </div>
+    <div class="live-banner">
+        <div class="head">Advertisement</div>
+        <div class="img-wrap">
+            <img src="/img/temp/live-baneer.jpg">
+        </div>
+        <div class="description">
+            <p class="head">FIY New collection release. Don’t miss your 40% Discount!</p>
+            <p class="desc">JUST DO IT. Nike</p>
+            <a href="" class="readmore"><em>Go to store</em></a>
+        </div>
+    </div>
+</div>

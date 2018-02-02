@@ -1,0 +1,31 @@
+@import '../../../styles/mixins';
+@import '../../../styles/variables';
+
+.content {
+  padding-top: 100px;
+  padding-bottom: 200px;
+}
+
+p+p{
+  margin-top: 5px;
+}
+
+.head{
+  @include fRoboto;
+  @include fz32;
+  font-weight: 700;
+  line-height: 48px;
+  text-transform: uppercase;
+}
+
+.p1 {
+  color: $light-black;
+  @include fRoboto;
+  @include fz14;
+  font-weight: 300;
+  line-height: 22px;
+  margin-bottom: 19px;
+  @media all and (max-width: 1250px) {
+    @include fz12;
+  }
+}

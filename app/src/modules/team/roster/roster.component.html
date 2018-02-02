@@ -1,0 +1,74 @@
+<div>
+    <div class="dark">
+        <media-gallery [config]="{type: 'team', id: null}"></media-gallery>
+    </div>
+    <div *ngIf="teamRoster" class="roster-wrap">
+        <div class="container">
+            <div class="live-heading clearfix">
+                <p class="head">Roster</p>
+                <div class="favorites-search">
+                    <button class="fav" (pushAllFavorites)="isSelectMode = $event.length" [subsBtn]="{modelType: 'players', role: 'action', type: 'favorite'}">
+                        <span></span>
+                    </button>
+                    <p>Favorites</p>
+                    <internal-search  (search)="searchText = $event;" (closeSearch)="searchText = ''"></internal-search>
+                </div>
+            </div>
+            <div class="persons-wrap clearfix">
+                <div class="left" *ngIf="teamRoster.coaches.length > 0">
+                    <div class="one" *ngFor="let coach of teamRoster.coaches" [ngClass]="{'head': coach.type === 'head', 'assistant': coach.type === 'assistant'}">
+                        <div class="img-wrap">
+                            <img [src]="coach.userPhotoUrl">
+                        </div>
+                        <div class="info">
+                            <p *ngIf="coach.type === 'head'">Coach</p>
+                            <p *ngIf="coach.type === 'assistant'">Assistent Coach</p>
+                            <p class="name">{{coach.name}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="right" *ngIf="teamRoster.players.length > 0">
+                    <div class="one" *ngFor="let player of teamRoster.players | searchPlayers: searchText: isSelectMode">
+                        <div class="img-wrap">
+                            <img [src]="player.userPhotoUrl">
+                        </div>
+                        <div class="info">
+                            <div class="num" *ngIf="player.number">{{player.number}}</div>
+                            <div class="name-wrap clearfix">
+                                <a [routerLink]="['/player', player.id]" class="name">{{player.name}}</a>
+                                <div class="fav" [subsBtn]="{modelType: 'players', modelId:  player.id, type: 'favorite', role: 'subs'}">
+                                    <span></span>
+                                </div>
+                            </div>
+                            <div class="stats-wrap">
+                                <p *ngIf="player.positions[0]">{{player.positions[0]}}</p>
+                                <p *ngIf="player.positions[1]">{{player.positions[1]}}</p>
+                                <p *ngIf="player.height || player.height_in">{{player.height}}{{player.height_in}}</p>
+                                <p *ngIf="player.weight">{{player.weight}}</p>
+                            </div>
+                        </div>
+                        <div class="bottom">
+                            <p *ngFor="let key of player.stats.innerColumnsName">{{key}}<span>{{player.stats.data[0][key.toLowerCase()]}}</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="headline-wrap">
+    <div class="container">
+        <div class="live-heading clearfix">
+            <p class="head">Coaches Corner</p>
+        </div>
+    </div>
+    <div class="container clearfix" id="news-wrap">
+        <!-- Доданий клас .rooster, бо поведінка на цій сторінці інша -->
+        <div class="pull-left rooster">
+            <coach-corner></coach-corner>
+        </div>
+        <social-stream [socials]="null"></social-stream>
+    </div>
+</div>
+
+

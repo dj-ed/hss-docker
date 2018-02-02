@@ -1,0 +1,32 @@
+<ng-container *ngIf="rootService.isBrowser()">
+    <div #searchWrap class="location-drop">
+        <span (click)="showDrop = true; searchText.focus()" title='{{chosenState}}'>{{chosenState}}</span>
+        <div class="drop" [ngClass]="{open: showDrop}">
+            <div class="search">
+                <input type="text" class="input_loc" #searchText [(ngModel)]="search_text">
+                <input type="search" class="searcher">
+            </div>
+
+            <ng-scrollbar #scrollRef class="in-drop" *ngIf="states">
+                <div class="one"
+                     (click)="locationChosed(state)"
+                     [attr.data-id]="state.name.substr(0 , 1).toLowerCase()"
+                     *ngFor="let state of states | SortPipe:search_text"
+                     [@apperaAnimation]>
+                    <div class="img-wrap" *ngIf="state.icon">
+                        <img src="{{ state.icon }}" alt="">
+                    </div>
+                    <p title="{{state.name}}{{state.abbr ? ', '+state.abbr : ''}}">{{state.name}}{{state.abbr ? ', '+state.abbr : ''}}</p>
+                </div>
+            </ng-scrollbar>
+
+            <ng-scrollbar class="in-drop-letters" *ngIf="states">
+                <div class="letter"
+                     (click) = "scroller($event)"
+                     *ngFor="let state of states | SortNumPipe:search_text"
+                     [@apperaAnimation]>{{state}}</div>
+            </ng-scrollbar>
+        </div>
+    </div>
+</ng-container>
+

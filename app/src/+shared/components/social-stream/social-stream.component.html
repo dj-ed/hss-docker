@@ -1,0 +1,83 @@
+<div class="social-streem-wrap">
+    <div class="small-heading">
+        <p class="live">Social stream</p>
+    </div>
+
+    <div class="small-heading">
+        <p>HS sport on <strong>facebook</strong></p>
+        <a href="" class="fb">
+            <img src="/img/fb.svg" alt="">
+        </a>
+    </div>
+
+    <div *ngIf="fbPosts">
+        <div class="fb-lv-post" *ngFor="let post of fbPosts">
+            <div class="img-wrap">
+                <img [src]="post.image" alt="">
+            </div>
+            <div class="head-time">
+                <a href="today-news.html" class="head"><em title="{{ post.title | uppercase}}">{{ post.title }}</em></a>
+                <p class="time">2 min</p>
+            </div>
+            <div class="author">
+                <em>Will McGramm</em>
+            </div>
+            <p class="post">
+                {{ post.description }}
+            </p>
+            <div class="fb-lv-post-footer">
+                <div class="fb-share-like">
+                    <div class="like">109 <em></em></div>
+                    <div class="comments">27 <em></em></div>
+                </div>
+                <div class="readmore">
+                    <em>Facebook Page</em>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="small-heading">
+        <p>HS sport on <strong>twitter</strong></p>
+        <a href="" class="fb">
+            <img src="/img/tw.svg" alt="">
+        </a>
+    </div>
+
+    <div *ngIf="twPosts">
+        <div class="twitter-message" *ngFor="let post of twPosts">
+            <div class="img-wrap" *ngIf="post.image">
+                <img [src]="post.image" alt="">
+            </div>
+            <p class="msg">
+                {{post.text}}
+                <span class="hash">#hssports</span><span class="hash">basketball</span></p>
+            <div class="twit-msg-botttom">
+                <p class="name">
+                    USI_Basketball
+                </p>
+                <div class="twitter-menu clearfix">
+                    <button class="answer">
+                        <img src="/img/tw-comment.svg" alt="">
+                    </button>
+                    <div class="like">109</div>
+                    <div class="repost">45</div>
+                </div>
+                <div class="time">11 sec</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="small-heading">
+        <p>advertisment</p>
+    </div>
+
+    <div class="social-stream-ad">
+        <a href="">
+            <img src="/img/temp/ss-ad.jpg" alt="">
+        </a>
+        <div class="show-all">
+            <a href="" class="readmore"><em>VIEW advertise opportunities</em></a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,245 @@
+@import '/../../../../styles/mixins';
+@import '/../../../../styles/variables';
+
+.upcoming-live-table-wrap {
+  padding-bottom: 52px;
+  border-top: 1px solid $grey;
+  counter-reset: upcoming;
+  @include fOswald;
+  @media all and (max-width: 1025px) {
+    margin-top: 13px;
+  }
+  .t-row {
+    align-items: stretch;
+    & > * {
+      color: $grey-blue;
+      @include fz10;
+      line-height: 14px;
+      text-transform: uppercase;
+    }
+    .divider {
+      flex: 8 1 auto;
+      &.fg1 {
+        flex-grow: 1;
+      }
+      &.fg2 {
+        flex-grow: 2;
+      }
+      &.fg3 {
+        flex-grow: 3;
+      }
+      &.fg6 {
+        flex-grow: 6;
+      }
+      &.fg4 {
+        flex-grow: 4.5;
+      }
+    }
+    & > *:not(.divider) {
+      flex: none;
+    }
+    .num {
+      width: 15px;
+    }
+    .selected-sport{
+      width: 16px;
+      height: 16px;
+    }
+    .added {
+      width: 25px;
+      text-align: center;
+      cursor: pointer;
+      span {
+        display: inline-block;
+        background: url(/img/add-to-calendar-dark.svg) no-repeat center;
+        width: 15px;
+        height: 15px;
+        vertical-align: middle;
+        opacity: 0;
+        transition: opacity 180ms;
+        @media all and (max-width: 1025px) {
+          opacity: 0.2;
+        }
+      }
+      &.is-added {
+        span {
+          background: url(/img/add-to-calendar-dark.svg) no-repeat center;
+          opacity: 1;
+        }
+      }
+    }
+    .data-time {
+      width: 110px;
+      .data {
+        width: 57px;
+        text-align: center;
+        display: inline-block;
+      }
+      .time {
+        width: 35px;
+        text-align: center;
+        float: right;
+      }
+    }
+    .opponents {
+      width: 165px;
+      text-align: center;
+    }
+    .fav {
+      width: 20px;
+      text-align: center;
+    }
+    .type {
+      width: 65px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      @media all and (max-width: 900px) {
+        text-align: center;
+      }
+      abbr {
+        display: none;
+        text-transform: uppercase;
+        @media all and (max-width: 900px) {
+          display: inline-block;
+        }
+      }
+      @media all and (max-width: 900px) {
+        span {
+          display: none;
+        }
+      }
+    }
+    .location {
+      width: 165px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      @media all and (max-width: 900px) {
+        width: 100px;
+      }
+    }
+    .media {
+      width: 25px;
+    }
+    &.headin {
+      padding-top: 8px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(63, 75, 94, 0.44);
+    }
+  }
+  .upcoming-live-table {
+    .t-row {
+      counter-increment: upcoming;
+      opacity: 1;
+      transition: opacity 180ms;
+      align-items: baseline;
+      .num:before {
+        content: counter(upcoming) ".";
+      }
+      .data-time {
+        .data {
+          color: $grey;
+        }
+        .time {
+          color: #000;
+        }
+      }
+      .location {
+        color: $light-grey;
+      }
+      .selected-sport{
+        width: 16px;
+        height: 16px;
+      }
+      .type {
+        color: $grey;
+      }
+      .fav {
+        span {
+          width: 16px;
+          height: 14px;
+          opacity: 0;
+          transition: opacity 180ms;
+          display: inline-block;
+          vertical-align: middle;
+          @media all and (max-width: 1025px) {
+            opacity: 1;
+          }
+        }
+        &.in-fav span {
+          opacity: 1;
+        }
+      }
+      .opponents {
+        & > * {
+          display: inline-block;
+          vertical-align: middle;
+        }
+        .team {
+          a {
+            display: inline-block;
+            vertical-align: middle;
+            color: #000;
+            line-height: 14px;
+            p {
+              display: inline-block;
+              vertical-align: middle;
+            }
+            &:hover abbr {
+              @extend .hover-black-small;
+            }
+          }
+          .img-wrap {
+            height: 30px;
+            width: 30px;
+            margin-left: 5px;
+            margin-right: 5px;
+            display: inline-block;
+            vertical-align: middle;
+            img {
+              object-fit: contain;
+            }
+          }
+        }
+        .vs {
+          color: $grey;
+          @include fz7;
+          margin-left: 10px;
+          margin-right: 10px;
+          &:before {
+            content: "vs";
+          }
+          &.away:before{
+            content: "@";
+          }
+        }
+      }
+      &:nth-child(even) {
+        background: url(/img/Noise-on-white.png);
+      }
+      &:not(.headin):hover {
+        opacity: 1 !important;
+        transition: opacity 180ms;
+        background-color: rgba(178, 182, 190, 0.15);
+        .added span {
+          opacity: 0.7;
+          transition: opacity 180ms;
+        }
+        .fav span {
+          opacity: 1;
+          transition: opacity 180ms;
+        }
+      }
+    }
+    &:hover .t-row:not(.headin) {
+      opacity: 0.4;
+      @media all and (max-width: 1025px) {
+        opacity: 1;
+      }
+    }
+    & + .date-schedul {
+      margin-top: 73px;
+    }
+  }
+}

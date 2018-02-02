@@ -1,0 +1,120 @@
+<div class="stats-score-wrap">
+
+    <div class="container">
+        <div class="top_switcher clearfix">
+            <div class="favorites-search">
+                <button class="fav" (pushAllFavorites)="isSelectMode = $event.length" [subsBtn]="{modelType: 'teams', role: 'action', type: 'favorite'}">
+                    <span></span>
+                </button>
+                <p>Favorites</p>
+                <internal-search (search)="searchText = $event;" (closeSearch)="searchText = null;"></internal-search>
+            </div>
+        </div>
+
+
+        <div class="team-st-wrap clearfix" *ngIf="!isSelectMode && !searchText">
+            <div *ngFor="let team of teams; let i=index;" (click)="activeTab=i" [class.third]="i==2"
+                 [class.active]="activeTab==i && team.topPlayersStats.length" class="rank">
+                <div class="left">
+                    <div class="red-rank">{{i+1}}</div>
+                    <img src="{{team.team_logo}}" alt="">
+                </div>
+                <div class="right">
+                    <div class="top clearfix">
+                        <div class="t-left">
+                            <div class="rank-word"></div>
+                            <a [routerLink]="['/team', team.team_id]" class="team-name">{{team.team_name}}</a>
+                            <div class="fav" [subsBtn]="{modelType: 'teams', modelId:  team.team_id, type: 'favorite', role: 'subs'}">
+                                <span></span>
+                            </div>
+                            <p class="district">{{team.county_name}}{{(team.district)?', District '+team.district:''}}</p>
+
+                        </div>
+                        <div class="t-right">
+                            <div class="sign">Points</div>
+                            <div class="points">{{team.score_team}}</div>
+                        </div>
+                    </div>
+                    <div class="bottom">
+                        <div class="stats_info">
+                            <p>Stats Info:</p>
+                            <p>Scores:</p>
+                        </div>
+                        <div *ngFor="let column of columns;let i=index" class="stats">
+                            <p>{{columnsName[i]}}</p>
+                            <p class="numes">{{(team.teamTotalStats)?team.teamTotalStats[column]:0}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="team.topPlayersStats.length" class="table-wrap">
+                    <div class="t-row t-head">
+                        <div class="divider"></div>
+                        <div class="num">#</div>
+                        <div class="divider"></div>
+                        <div class="name">top players</div>
+                        <div class="divider"></div>
+                        <div class="fav"></div>
+                        <div class="divider fg3"></div>
+                        <div class="divider"></div>
+                        <ng-container *ngFor="let column of columns; let i=index">
+                            <div class="ptm">{{columnsName[i]}}</div>
+                            <div class="divider"></div>
+                        </ng-container>
+                        <ng-container>
+                            <div class="divider fg3"></div>
+                            <div class="total">PTS</div>
+                            <div class="divider fg3"></div>
+                        </ng-container>
+                    </div>
+
+                    <div *ngFor="let pStat of team.topPlayersStats" class="t-row">
+                        <div class="divider"></div>
+                        <div class="num"></div>
+                        <div class="divider"></div>
+                        <div class="name">
+                            <img [src]="team.team_logo" alt="">
+                            <a [routerLink]="['/player',pStat.player_id]"><span>{{pStat.number}}</span><em>{{pStat.first_name+' '+pStat.last_name}}</em></a>
+                        </div>
+                        <div class="divider"></div>
+                        <div class="fav" [subsBtn]="{modelType: 'players', modelId:  pStat.player_id, type: 'favorite', role: 'subs'}"><span></span></div>
+                        <div class="divider fg3"></div>
+                        <div class="divider"></div>
+                        <ng-container *ngFor="let column of columns;let i=index">
+                            <div class="ptm">{{pStat[column]}}</div>
+                            <div class="divider"></div>
+                        </ng-container>
+                        <ng-container>
+                            <div class="divider fg3"></div>
+                            <div class="total">{{pStat.pts}}</div>
+                            <div class="divider fg3"></div>
+                        </ng-container>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="live-banner">
+            <div class="head">Advertisement</div>
+            <div class="img-wrap">
+                <img src="/img/temp/wide-banner.jpg">
+            </div>
+            <div class="description">
+                <p class="head">FIY New collection release. Don’t miss your 40% Discount!</p>
+                <p class="desc">JUST DO IT. Nike</p>
+                <a href="" class="readmore"><em>Go to store</em></a>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="team_st_full_board dark">
+        <div class="container">
+            <div class="live-heading clearfix">
+                <p class="head">full board</p>
+            </div>
+            <full-board [config]="{searchText: searchText, isSelectMode: isSelectMode}"></full-board>
+        </div>
+    </div>
+</div>

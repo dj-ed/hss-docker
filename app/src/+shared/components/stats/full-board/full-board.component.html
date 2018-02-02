@@ -1,0 +1,118 @@
+<div [class.opacity-table]="config.team" *ngIf="dividedTeams.length" class="team-standing-table">
+    <div class="t-row t-head">
+        <div class="divider fg1"></div>
+        <div class="num">#</div>
+        <div class="divider fg3"></div>
+        <div class="team">team</div>
+        <div class="divider fg2"></div>
+        <div class="fav"><span></span></div>
+        <div class="divider fg2"></div>
+        <div class="county">location</div>
+        <div class="divider fg6"></div>
+        <div class="location">county</div>
+        <div class="divider fg6"></div>
+        <div class="wl">w - l</div>
+        <div class="divider"></div>
+        <div class="wl">Win %</div>
+        <div class="divider fg5"></div>
+        <div class="nd">d</div>
+        <div class="divider"></div>
+        <div class="nd">nd</div>
+        <div class="divider"></div>
+        <div class="nd">t</div>
+        <div class="divider fg6"></div>
+        <div class="pf">gp</div>
+        <div class="divider fg5"></div>
+        <div class="total">pts</div>
+        <div class="open"></div>
+    </div>
+
+    <ng-container *ngFor="let teamsGroup of dividedTeams | fullBoardSearch: config.searchText: config.isSelectMode: rand; let i=index">
+        <div class="t-row t-under-head">
+            <div class="divider fg1"></div>
+            <div class="num"> {{10*(teamsGroup.i+1)-9}} - {{10*(teamsGroup.i+1)}}</div>
+            <div class="divider fg3"></div>
+            <div class="team"></div>
+            <div class="divider fg2"></div>
+            <div class="fav"></div>
+            <div class="divider fg2"></div>
+            <div class="county"></div>
+            <div class="divider fg6"></div>
+            <div class="location"></div>
+            <div class="divider fg6"></div>
+            <div class="wl"></div>
+            <div class="divider"></div>
+            <div class="wl"></div>
+            <div class="divider fg5"></div>
+            <div class="nd"></div>
+            <div class="divider"></div>
+            <div class="nd"></div>
+            <div class="divider"></div>
+            <div class="nd"></div>
+            <div class="divider fg6"></div>
+            <div class="pf"></div>
+            <div class="divider fg5"></div>
+            <div class="total">{{teamsGroup.pts}}</div>
+            <div [class.opened]="teamsGroup.open" (click)="openGroup(teamsGroup.i)" class="open opener"></div>
+        </div>
+        <div [class.open]="teamsGroup.open" class="t-inner-wrap">
+            <ng-container *ngFor="let item of teamsGroup.teams">
+            <div [class.active]="item.team_id == config.team"  class="t-row">
+                <div class="divider fg1"></div>
+                <div class="num">{{item.index}}</div>
+                <div class="divider fg3"></div>
+                <div class="team pointer" [routerLink]="['/team', item.team_id]">
+                    <a>
+                        <div class="img-wrap">
+                            <img src="{{item.team_logo}}" alt="">
+                        </div>
+                        <abbr title="{{item.team_name}}">flgw</abbr><span>{{item.team_name}}</span>
+                    </a>
+                </div>
+                <div class="divider fg2"></div>
+                <div class="fav" [subsBtn]="{modelType: 'teams', modelId:  item.team_id, type: 'favorite', role: 'subs'}"><span></span></div>
+                <div class="divider fg2"></div>
+                <div class="county"><span>{{item.city}}, {{item.short_state_name}}</span>
+                    <p>{{item.city}}, {{item.short_state_name}}</p></div>
+                <div class="divider fg6"></div>
+                <div class="location"><span>{{item.county_name}}</span>
+                    <p>{{item.county_name}}</p></div>
+                <div class="divider fg6"></div>
+                <div class="wl">{{item.win}} - {{item.gp}}</div>
+                <div class="divider"></div>
+                <div class="wl">{{item.win_pct}}%</div>
+                <div class="divider fg5"></div>
+                <div class="nd">{{item.d_count}}</div>
+                <div class="divider"></div>
+                <div class="nd">{{item.nd_count}}</div>
+                <div class="divider"></div>
+                <div class="nd">{{item.t_count}}</div>
+                <div class="divider fg6"></div>
+                <div class="pf">{{item.gp}}</div>
+                <div class="divider fg5"></div>
+                <div class="total">{{(item.score_team)?item.score_team:0}}</div>
+                <div class="open"></div>
+            </div>
+            </ng-container>
+        </div>
+    </ng-container>
+</div>
+
+<div class="load-more no-bt">
+    <a *ngIf="remainderCount > 0" (click)="loadFullBoard()">
+        <em>Load More Scores</em>
+        <span></span>
+    </a>
+</div>
+
+<div class="live-banner">
+    <div class="head">Advertisement</div>
+    <div class="img-wrap">
+        <img src="/img/temp/live-baneer.jpg">
+    </div>
+    <div class="description">
+        <p class="head">FIY New collection release. Don’t miss your 40% Discount!</p>
+        <p class="desc">JUST DO IT. Nike</p>
+        <a href="" class="readmore"><em>Go to store</em></a>
+    </div>
+</div>

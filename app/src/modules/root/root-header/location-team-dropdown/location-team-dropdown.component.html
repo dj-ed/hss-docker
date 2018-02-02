@@ -1,0 +1,53 @@
+<ng-container *ngIf="rootService.isBrowser()">
+<div #searchWrap class="location-drop">
+    <span (click)="showDrop = true; searchText.focus()" title='{{chosenState}}'>{{chosenState}}</span>
+    <div class="drop" [ngClass]="{open: showDrop}">
+        <div class="search">
+            <input type="text" class="input_loc" #searchText [(ngModel)]="search_text">
+            <input type="search" class="searcher">
+        </div>
+
+        <div class="filter-wrap">
+
+            <button (click)="button_filter= 'all'" [ngClass]="{'active': button_filter == 'all'}">all</button>
+            <button [ngClass]="{'active': button_filter.gender == state.gender && button_filter.varsity == state.varsity}"
+                    *ngFor="let state of schools | SortPipeTeams:search_text:button_filter"
+                    (click)="button_filter={gender: state.gender, varsity: state.varsity}"
+            >{{state.name}}</button>
+
+        </div>
+
+        <ng-scrollbar #scrollRef class="in-drop" *ngIf="schools">
+
+            <div class="one-group"
+                 *ngFor="let school of schools | TopButtons:button_filter | SortPipeTeamsNames:search_text"
+                 [attr.data-id]="school[0].schoolName.substr(0 , 1).toLowerCase()" >
+
+                <div class="head" [@apperaAnimation]>
+                    <div class="img-wrap">
+                        <img alt="" src="{{school[0].schoolLogo}}">
+                    </div>
+                    <p title="{{school[0].schoolName}} ({{school[0].schoolShortName}})">{{school[0].schoolName}} ({{school[0].schoolShortName}})</p>
+                </div>
+
+                <div *ngFor="let one of school">
+                    <div class="one" [@apperaAnimation] (click)="locationChosed(one)">
+                        <div class="img-wrap">
+                            <img alt="" src="/img/sports/{{sportImg(one.sportId)}}">
+                        </div>
+                        <p title="{{sportName(one.sportId)}}{{one.genderName}} {{one.varsityFullName}}">{{sportName(one.sportId)}}{{one.genderName}} {{one.varsityFullName}}</p>
+                    </div>
+                </div>
+            </div>
+
+        </ng-scrollbar>
+
+        <ng-scrollbar class="in-drop-letters" *ngIf="schools">
+            <div class="letter"
+                 (click) = "scroller($event)"
+                 *ngFor="let school of schools | TopButtons:button_filter | SortNumPipe:search_text:true"
+                 [@apperaAnimation]>{{school}}</div>
+        </ng-scrollbar>
+    </div>
+</div>
+</ng-container>

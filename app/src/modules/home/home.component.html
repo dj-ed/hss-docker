@@ -1,0 +1,28 @@
+<all-schools></all-schools>
+
+<top-news></top-news>
+
+<upcoming-games></upcoming-games>
+
+<div class="headline-wrap">
+    <div class="container clearfix" id="news-wrap">
+
+        <div class="wide-heading">
+            <p>Headlines</p>
+            <a href="headlines.html" class="readmore"><em>All Headlines</em></a>
+        </div>
+
+        <div class="pull-left">
+            <last-video-news [type]="'main'"></last-video-news>
+        </div>
+
+        <div class="pull-left">
+            <most-popular [type]="'main'"></most-popular>
+            <latest-news [type]="'main'"></latest-news>
+        </div>
+
+        <social-stream [socials]="null"></social-stream>
+
+    </div>
+</div>
+

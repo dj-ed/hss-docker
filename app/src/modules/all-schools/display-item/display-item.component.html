@@ -1,0 +1,343 @@
+<div>
+    <!-- STATE BEGIN -->
+    <div *ngIf="config.data && isReadyRoot && config.order == 'states'" class="all-schools-teams-wrap teams team-layer all-schools"
+         [attr.data-isOpen]="config.params.states.indexOf(config.data.stateId) !== -1 && !!config.data.county.length"
+         [attr.data-type]="'state'"
+         [attr.data-id]="config.data.stateId"
+         [attr.data-level]="0">
+        <div class="region-wrap team-layer">
+            <div class="container clearfix">
+                <div class="pull-left" (click)="toggleState(config.data.stateId)"
+                     [ngClass]="{'active': config.params.states.indexOf(config.data.stateId) !== -1}">
+                    <div class="img-wrap">
+                        <img [src]="config.data.stateLogo">
+                    </div>
+                    <div class="name">
+                        <abbr [title]="config.data.stateShortName | uppercase">{{config.data.stateShortName}}</abbr>
+                        <span [title]="config.data.stateName | uppercase">{{config.data.stateName}}</span>
+                        <p class="dist" [title]="config.data.stateShortName | uppercase">{{config.data.stateShortName}}</p>
+                    </div>
+                    <button class="arrow"></button>
+                </div>
+                <div class="pull-right">
+                    <div class="schools">
+                        <p>{{config.data.count_all_schools}}</p>
+                    </div>
+                    <internal-search (search)="search($event)" (closeSearch)="closeSearch()"></internal-search>
+                </div>
+            </div>
+        </div>
+        <!-- СOUNTY BEGIN -->
+        <div *ngIf="config.params.states.indexOf(config.data.stateId) !== -1">
+            <div class="to-region-stuff team-layer"
+                 [ngClass]="{'active': config.params.states.indexOf(config.data.stateId) !== -1}"
+                 *ngFor="let county of config.data.county | alphabeticSort: 'cities' : 'a-z': 'local';"
+                 [attr.data-isOpen]="config.params.counties.indexOf(county.countyId) !== -1"
+                 [attr.data-type]="'county'"
+                 [attr.data-id]="county.countyId"
+                 [attr.data-stateId]="county.stateId"
+                 [attr.data-level]="0">
+                <ng-container *ngTemplateOutlet="countyContain; context: {county: county, this: this}"></ng-container>
+                <div class="schools-wrap team swiper-wrap active"
+                     *ngIf="config.params.data[county.countyId] && config.params.counties.indexOf(county.countyId) !== -1 && config.viewType != 'lined'"
+                     [attr.data-countyId]="county.countyId"
+                     [swiper]="{freeMode: true , slidesPerView: 'auto', observer:true}"
+                     [ngClass]="{'short': config.viewType == 'short' }">
+                    <div class="swiper-wrapper carousel grab">
+                        <ng-container *ngTemplateOutlet="schoolsContainByChar; context: {county: county, loadedData: config.params.data[county.countyId], this: this}"></ng-container>
+                    </div>
+                </div>
+
+                <div class="schools-wrap team swiper-wrap active lined"
+                     *ngIf="config.params.data[county.countyId] && config.params.counties.indexOf(county.countyId) !== -1 && config.viewType == 'lined'"
+                     [attr.data-countyId]="county.countyId">
+                    <div class="swiper-wrapper carousel">
+                        <ng-container
+                                *ngTemplateOutlet="schoolsContainByChar; context: {county: county, loadedData: config.params.data[county.countyId], this: this}"></ng-container>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- СOUNTY END -->
+    </div>
+    <!-- STATE END -->
+
+    <!-- COUNTY BEGIN -->
+    <div *ngIf="config.data && isReadyRoot && config.order == 'cities'" class="all-schools-teams-wrap teams team-layer all-schools"
+         [attr.data-isOpen]="true"
+         [attr.data-type]="'charCounty'"
+         [attr.data-char]="config.data.char"
+         [attr.data-level]="0">
+        <div class="region-wrap team-layer">
+            <div class="container clearfix">
+                <div class="pull-left" (click)="toggleCitiesChar(config.data.char, config.data.cities)"
+                     [ngClass]="{'active': config.params.citiesChars.indexOf(config.data.char) !== -1}">
+                    <div class="name">
+                        <span>{{config.data.char}}</span>
+                    </div>
+                    <button class="arrow"></button>
+                </div>
+                <div class="pull-right">
+                    <div class="schools">
+                        <p>{{config.data.count}}</p>
+                    </div>
+                    <internal-search (search)="search($event)" (closeSearch)="closeSearch()"></internal-search>
+                </div>
+            </div>
+        </div>
+        <!-- СOUNTY BEGIN -->
+        <div *ngIf="config.params.citiesChars.indexOf(config.data.char) !== -1">
+            <div class="to-region-stuff team-layer active"
+                 *ngFor="let county of config.data.cities | alphabeticSort: 'cities' : 'a-z': 'local';"
+                 [attr.data-isOpen]="config.params.citiesBehindChars.indexOf(county.countyId) !== -1"
+                 [attr.data-type]="'county'"
+                 [attr.data-char]="config.data.char"
+                 [attr.data-id]="county.countyId"
+                 [attr.data-level]="1">
+                <ng-container *ngTemplateOutlet="countyContain; context: {county: county, this: this}"></ng-container>
+                <div class="schools-wrap team swiper-wrap active"
+                     [attr.data-countyId]="county.countyId"
+                     [swiper]="{freeMode:true, slidesPerView:'auto', observer: true}"
+                     *ngIf="config.params.data[county.countyId] && config.params.citiesBehindChars.indexOf(county.countyId) !== -1 && config.viewType != 'lined'"
+                     [ngClass]="{'short': config.viewType == 'short'}">
+                    <div class="swiper-wrapper carousel grab">
+                        <ng-container
+                                *ngTemplateOutlet="schoolsContainByChar; context: {county: county, loadedData: config.params.data[county.countyId], this: this}"></ng-container>
+                    </div>
+                </div>
+                <div class="schools-wrap team swiper-wrap active lined"
+                     [attr.data-countyId]="county.countyId"
+                     *ngIf="config.params.data[county.countyId] && config.params.citiesBehindChars.indexOf(county.countyId) !== -1 && config.viewType == 'lined'">
+                    <div class="swiper-wrapper carousel">
+                        <ng-container
+                                *ngTemplateOutlet="schoolsContainByChar; context: {county: county, loadedData: config.params.data[county.countyId], this: this}"></ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- СOUNTY END -->
+    </div>
+    <!-- COUNTY END -->
+
+    <!-- SCHOOLS BEGIN -->
+    <div *ngIf="config.data && isReadyRoot && config.order == 'schools'" class="all-schools-teams-wrap teams team-layer all-schools"
+         [attr.data-isOpen]="'true'"
+         [attr.data-type]="'schoolsChar'"
+         [attr.data-char]="config.data.char | lowercase"
+         [attr.data-level]="0">
+        <div class="region-wrap team-layer">
+            <div class="container clearfix">
+                <div class="pull-left" (click)="toggleShoolsChar(config.data.char)"
+                     [ngClass]="{'active': config.params.schoolsChars.indexOf(config.data.char) !== -1}">
+                    <div class="name">
+                        <span>{{config.data.char}}</span>
+                    </div>
+                    <button class="arrow"></button>
+                </div>
+                <div class="pull-right">
+                    <div class="schools">
+                        <p>{{config.data.count}}</p>
+                    </div>
+                    <internal-search (search)="search($event)" (closeSearch)="closeSearch()"></internal-search>
+                </div>
+            </div>
+        </div>
+        <!-- SCHOOLS BEGIN -->
+        <div *ngIf="config.params.schoolsChars.indexOf(config.data.char) !== -1 && config.params.data[config.data.char]">
+            <div class="schools-wrap team swiper-wrap active" [swiper]="{freeMode:false, slidesPerView:'auto'}"
+                 *ngIf="config.viewType !== 'lined'"
+                 [ngClass]="{'short': config.viewType == 'short'}">
+                <div class="swiper-wrapper carousel grab">
+                    <ng-container
+                            *ngTemplateOutlet="schoolsContainNormal; context: {county: null, loadedData: config.params.data[config.data.char], this: this}"></ng-container>
+                </div>
+            </div>
+            <div class="schools-wrap team swiper-wrap active lined"
+                 *ngIf="config.viewType == 'lined'">
+                <div class="swiper-wrapper carousel">
+                    <ng-container
+                            *ngTemplateOutlet="schoolsContainNormal; context: {county: null, loadedData: config.params.data[config.data.char], this: this}"></ng-container>
+                </div>
+            </div>
+        </div>
+        <!-- SCHOOLS END -->
+    </div>
+    <!-- SCHOOLS END -->
+</div>
+
+<!-- TEMPLATES -->
+
+<ng-template #schoolsContainByChar let-county="county" let-loadedData="loadedData" let-this="this">
+    <div class="swiper-slide schools-letter-group team-layer"
+         [@apperaAnimation]
+         [attr.data-char]="char"
+         [attr.data-isOpen]="true"
+         [attr.data-type]="'schoolsChar'"
+         [attr.data-countyId]="county.countyId"
+         [attr.data-level]="1"
+         *ngFor="let char of loadedData | search: 'schoolsLevel': this.searchText: this.config.params.data | alphabeticUniqueSort: 'schools'">
+        <div class="top">
+            <p>{{char}}</p>
+        </div>
+        <div class="bottom">
+           <div class="one" *ngFor="let school of loadedData | itemsByChar: 'name' : char">
+                <a class="img-wrap">
+                    <img [src]="school.logoUrl">
+                </a>
+                <div class="name-state">
+                    <a class="head">
+                        <abbr [title]="school.name | uppercase">ats</abbr>
+                        <span [title]="school.name | uppercase">{{school.name}}</span>
+                    </a>
+                    <p class="under-head">
+                        <abbr [title]="school.state | uppercase">{{school?.stateShortName}}</abbr>
+                        <span [title]="school.state | uppercase">{{school.state}}</span>,
+                        <abbr [title]="school.county | uppercase">{{county?.countyShortName}}</abbr>
+                        <span [title]="school.county | uppercase">{{school.county}}</span>
+                    </p>
+                </div>
+                <div class="fav" [subsBtn]="{modelType: 'schools', modelId:  school.id, type: 'favorite', role: 'subs'}">
+                    <span></span>
+                </div>
+                <div *ngIf="school.principal" class="principal">
+                    <p>{{school.principal}}</p>
+                </div>
+                <div class="sports-social">
+                    <div class="sports" *ngIf="rootService.sportList">
+                        <!--по класу active стає активним, наразі додав через :first-child для наглядності, потім заберу-->
+                        <div class="sport" [class.active]="this.l.indexOf(school.sports, sport.id) !== -1"npm  *ngFor="let sport of rootService.sportList">
+                            <img [src]="sport.logoUrl" title="{{sport.title | uppercase}}">
+                        </div>
+                    </div>
+                    <div class="teams">
+                        <p>{{school.teamCount}}</p>
+                    </div>
+                    <div class="social">
+                        <share-component [types]="['fb', 'tw', 'gp']" [text]="school.name"></share-component>
+                    </div>
+                </div>
+                <a [routerLink]="['/school/', school.id]" class="readmore"><em>View School Page</em></a>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #schoolsContainNormal let-county="county" let-loadedData="loadedData" let-this="this">
+    <div class="swiper-slide schools-letter-group" *ngFor="let school of loadedData | search: 'schoolsListSimple': this.searchText: this.config.params.data">
+        <div class="top"></div>
+        <div class="bottom">
+            <div class="one">
+                <a class="img-wrap">
+                    <img [src]="school.logoUrl">
+                </a>
+                <div class="name-state">
+                    <a class="head">
+                        <abbr [title]="school.name | uppercase">ats</abbr>
+                        <span [title]="school.name | uppercase">{{school.name}}</span>
+                    </a>
+                    <p class="under-head">
+                        <abbr [title]="school.state | uppercase">{{school?.stateShortName}}</abbr>
+                        <span [title]="school.state | uppercase">{{school.state}}</span>,
+                        <abbr [title]="school.county | uppercase">{{county?.countyShortName}}</abbr>
+                        <span [title]="school.county | uppercase">{{school.county}}</span>
+                    </p>
+                </div>
+                <div class="fav" [subsBtn]="{modelType: 'schools', modelId:  school.id, type: 'favorite', role: 'subs'}">
+                    <span></span>
+                </div>
+                <div *ngIf="school.principal" class="principal">
+                    <p>{{school.principal}}</p>
+                </div>
+                <div class="sports-social">
+                    <div class="sports">
+                        <div class="sport" [class.active]="this.l.indexOf(school.sports, sport.id) !== -1" *ngFor="let sport of rootService.sportList">
+                            <img [src]="sport.logoUrl" title="{{sport.title | uppercase}}">
+                        </div>
+                    </div>
+                    <div class="teams">
+                        <p>{{school.teamCount}}</p>
+                    </div>
+                    <div class="social">
+                        <share-component [types]="['fb', 'tw', 'gp']" [text]="school.name"></share-component>
+                    </div>
+                </div>
+                <a [routerLink]="['/school/', school.id]" class="readmore"><em>View team Page</em></a>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #countyContain let-county="county" let-this="this">
+    <div class="county-wrap">
+        <div class="container clearfix">
+            <!-- STATES VARIANT BEGIN -->
+            <div *ngIf="this.config.order === 'states'" class="pull-left"
+                 [ngClass]="{'active': this.config.params.counties.indexOf(county.countyId) !== -1}"
+                 (click)="this.toggleCounty(county.countyId); this.toggleState(county.stateId, true); $event.stopPropagation();">
+                <div class="name">
+                    <abbr [title]="county.countyShortName | uppercase">{{county.countyShortName}}</abbr>
+                    <span [title]="county.countyShortName | uppercase">{{county.countyName}}</span>
+                    <p class="dist" [title]="county.stateShortName | uppercase">{{county.stateShortName}}</p>
+                </div>
+                <button class="arrow"></button>
+                <div class="letters" *ngIf="!config.params.data[county.countyId]">
+                    <button *ngFor="let char of county.chars"
+                            (click)="this.toggleCounty(county.countyId, true); this.transitionToChar(char, county.countyId, 1); $event.stopPropagation();">
+                        {{char}}
+                    </button>
+                </div>
+                <div class="letters" *ngIf="config.params.data[county.countyId]">
+                    <button *ngFor="let char of config.params.data[county.countyId] | search: 'schoolsLevel': this.searchText: this.config.params.data | alphabeticUniqueSort: 'schools'"
+                            (click)="this.toggleCounty(county.countyId, true); this.transitionToChar(char, county.countyId, 1); $event.stopPropagation();">
+                        {{char}}
+                    </button>
+                </div>
+            </div>
+            <!-- STATES VARIANT END -->
+            <!-- CITIES VARIANT BEGIN -->
+            <div *ngIf="this.config.order === 'cities'" class="pull-left"
+                 [ngClass]="{'active': this.config.params.citiesBehindChars.indexOf(county.countyId) !== -1}"
+                 (click)="this.toggleCounty(county.countyId); $event.stopPropagation();">
+                <div class="name">
+                    <abbr [title]="county.countyShortName | uppercase">{{county.countyShortName}}</abbr>
+                    <span [title]="county.countyShortName | uppercase">{{county.countyName}}</span>
+                    <p class="dist" [title]="county.stateShortName | uppercase">{{county.stateShortName}}</p>
+                </div>
+                <button class="arrow"></button>
+                <div class="letters" *ngIf="!config.params.data[county.countyId]">
+                    <button *ngFor="let char of county.chars"
+                            (click)="this.toggleCounty(county.countyId, true); this.transitionToChar(char, county.countyId, 1); $event.stopPropagation();">
+                        {{char}}
+                    </button>
+                </div>
+                <div class="letters" *ngIf="config.params.data[county.countyId]">
+                    <button *ngFor="let char of config.params.data[county.countyId] | search: 'schoolsLevel': this.searchText: this.config.params.data | alphabeticUniqueSort: 'schools'"
+                            (click)="this.toggleCounty(county.countyId, true); this.transitionToChar(char, county.countyId, 1); $event.stopPropagation();">
+                        {{char}}
+                    </button>
+                </div>
+            </div>
+            <!-- CITIES VARIANT END -->
+            <div class="pull-right">
+                <div class="schools">
+                    <p>{{county.count_schools}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #charContain let-char="char">
+    <div class="county-wrap school">
+        <div class="container clearfix">
+            <div class="pull-left active">
+                <div class="name">
+                    <abbr></abbr><span>{{char}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<!-- TEMPLATES -->

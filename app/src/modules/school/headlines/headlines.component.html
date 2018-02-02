@@ -1,0 +1,14 @@
+<school-header></school-header>
+<hot-tags [title]="'Spruce Creek News'" [section]="'schools'"></hot-tags>
+<div class="headline-wrap">
+    <div class="container clearfix" id="news-wrap">
+
+        <div class="pull-left">
+            <div class="small-heading">
+                <p>News</p>
+            </div>
+            <news-list-stream [type]="'schools'"></news-list-stream>
+        </div>
+        <social-stream *ngIf="rootService.isBrowser()" [socials]="school.socials"></social-stream>
+    </div>
+</div>

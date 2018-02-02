@@ -1,0 +1,119 @@
+<div class="stats-score-wrap leaderboard">
+    <div class="container">
+        <div class="top_switcher clearfix">
+            <div class="favorites-search">
+                <button class="fav" (pushAllFavorites)="isSelectMode = $event.length" [subsBtn]="{modelType:  'players', role: 'action', type: 'favorite'}">
+                    <span></span>
+                </button>
+                <p>Favorites</p>
+                <div class="leaderboard-switcher">
+                    <button class="active" data-id="big-grid"
+                            (click)="grider(); leaderBoardSmallGrid = false;"
+                            [ngClass]="{active:!leaderBoardSmallGrid}"
+                    ><img src="/img/icon-grid-big.svg" alt="">
+                    </button>
+                    <button class="" data-id="small-grid"
+                            (click)="grider(); leaderBoardSmallGrid = true;"
+                            [ngClass]="{active:leaderBoardSmallGrid}"
+                    ><img src="/img/icon-grid.svg" alt=""></button>
+                </div>
+                <internal-search (search)="searchText = $event;" (closeSearch)="searchText = null;"></internal-search>
+            </div>
+        </div>
+
+        <div [ngClass]="{'small-grid':leaderBoardSmallGrid}" class="content big-grid">
+
+            <div *ngFor="let statField of statistics | leaderBoardSearch: searchText: isSelectMode; let i=index" [ngClass]="{active:!gridState}" class="one_stat">
+                <div class="top clearfix">
+
+                    <div class="img-wrap">
+                        <img *ngIf="statField.stats.length" src="{{statField.stats[0].user_photo}}" alt="">
+                    </div>
+                    <div class="player_info_wrap">
+                        <div class="player_info clearfix">
+                            <div class="num"></div>
+                            <div *ngIf="statField.stats.length" class="info">
+                                <img [routerLink]="['/team', statField.stats[0].team_id]"
+                                     src="{{statField.stats[0].team_logo}}" alt=""><br>
+                                <p class="t-num">{{statField.stats[0].number}}</p>
+                                <a [routerLink]="['/player', statField.stats[0].player_id]" class="name">{{statField.stats[0].first_name+'
+                                    '+statField.stats[0].last_name}}</a>
+                            </div>
+                            <button class="fav" [subsBtn]="{modelType: 'players', modelId:  statField.stats[0].player_id, type: 'favorite', role: 'subs'}"><span></span></button>
+                            <div class="right">
+                                <div class="type">{{statField.statName}}</div>
+                                <div *ngIf="statField.stats.length" class="points">{{statField.stats[0].points}}</div>
+                            </div>
+                        </div>
+                        <div class="bottom">
+                            <div class="stats_info">
+                                <p>Stats Info:</p>
+                                <p>Scores:</p>
+                            </div>
+                            <div class="stats_wrap">
+                                <div *ngFor="let column of innerColumns;let i=index" class="stats">
+                                    <p>{{innerColumnsName[i]}}</p>
+                                    <p *ngIf="statField.stats.length" class="numes">{{statField.stats[0][column]}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tabel">
+                    <div *ngFor="let player of statField.stats; let i2=index" [class.hidden]="statField.stats[0].player_id === player.player_id" class="t-row">
+                        <div class="divider fg2"></div>
+                        <div class="num"></div>
+                        <div class="divider"></div>
+                        <div class="img-wrap"><img [routerLink]="['/team', player.team_id]" src="{{player.team_logo}}" alt=""></div>
+                        <div class="divider"></div>
+                        <div class="name"><a [routerLink]="['/player', player.player_id]"><span>{{player.number}}</span>
+                            <em>{{player.first_name+' '+player.last_name}}</em></a></div>
+                        <div class="fav" [subsBtn]="{modelType: 'players', modelId:  player.player_id, type: 'favorite', role: 'subs'}"><span></span></div>
+                        <div class="divider"></div>
+
+
+                        <div *ngFor="let column of innerColumns" class="pts">{{player[column]}}</div>
+
+
+                        <div class="divider"></div>
+                        <div  class="total">{{player.points}}</div>
+                        <div class="divider"></div>
+                    </div>
+                </div>
+            </div>
+            <div [ngClass]="{active:!gridState}" class="one_stat banner">
+                <p>Advertisement</p>
+                <a href="" class="img">
+                    <img src="/img/temp/leqderboard_banner.jpg" alt="">
+                </a>
+                <a href="" class="heading">FIY. Don’t miss your 40% Discount! FIY. Don’t miss your 40% Discount!</a>
+                <div class="banner-bottom clearfix">
+                    <p>JUST DO IT. Nike</p>
+                    <a href="" class="readmore"><em>Go to store</em></a>
+                </div>
+            </div>
+            <div [ngClass]="{active:!gridState}" class="one_stat banner">
+                <p>Advertisement</p>
+                <a href="" class="img">
+                    <img src="/img/temp/leqderboard_banner2.jpg" alt="">
+                </a>
+                <a href="" class="heading">FIY. Don’t miss your 40% Discount! FIY. Don’t miss your 40% Discount!</a>
+                <div class="banner-bottom clearfix">
+                    <p>JUST DO IT. Nike</p>
+                    <a href="" class="readmore"><em>Go to store</em></a>
+                </div>
+            </div>
+            <div [ngClass]="{active:!gridState}" class="one_stat banner">
+                <p>Advertisement</p>
+                <a href="" class="img">
+                    <img src="/img/temp/leqderboard_banner3.jpg" alt="">
+                </a>
+                <a href="" class="heading">FIY. Don’t miss your 40% Discount! FIY. Don’t miss your 40% Discount!</a>
+                <div class="banner-bottom clearfix">
+                    <p>JUST DO IT. Nike</p>
+                    <a href="" class="readmore"><em>Go to store</em></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+.team-stending-wrap {
+  background-color: #04080d;
+  .team-standings-table {
+    height: auto;
+  }
+  .l-switch-heading {
+    margin-top: 70px;
+    @media all and (max-width: 1250px) {
+      margin-top: 0;
+    }
+  }
+  .wide-heading {
+    @media all and (max-width: 1250px) {
+      p:not(.powered-by) {
+        vertical-align: 5px;
+      }
+    }
+  }
+  padding: 0 !important;
+  padding-bottom: 100px !important;
+  @media all and (max-width: 1250px) {
+    padding-bottom: 25px !important;
+  }
+}
+
+.dark .team-standing-table .team .img-wrap ~ span, .dark .team-standing-table .team .img-wrap ~ abbr {
+  color: #fff;
+}

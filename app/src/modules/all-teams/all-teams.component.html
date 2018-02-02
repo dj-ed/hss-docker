@@ -1,0 +1,68 @@
+<school-list-nav [title]="'All teams'"></school-list-nav>
+<div *ngIf="rootService.schoolList[0]">
+    <div class="all-schools-fixed-header">
+        <div class="container">
+            <div class="live-heading clearfix">
+                <div class="type-switcher">
+                    <div class="switch"  [ngClass]="{'active' : activeFilter === 'states'}"
+                         (click)="alphabetParam['states'] = (alphabetParam['states'] === 'a-z' && activeFilter === 'states') ? 'z-a' : 'a-z'; activeFilter = 'states';
+                            searchParams = {}; changeOrder$.next();">
+                        <!-- при додаванні класу reverse міняється місця бцкв A Z  -->
+                        <span class="sorting" [ngClass]="{'reverse' : alphabetParam['states'] === 'z-a'}"> - </span>
+                        <p>by State</p>
+                    </div>
+                    <div class="switch"  [ngClass]="{'active' : activeFilter === 'cities'}"
+                         (click)="alphabetParam['cities'] = (alphabetParam['cities'] === 'a-z' && activeFilter === 'cities') ? 'z-a' : 'a-z'; activeFilter = 'cities';
+                            searchParams = {}; changeOrder$.next();">
+                        <span class="sorting" [ngClass]="{'reverse' : alphabetParam['cities'] === 'z-a'}"> - </span>
+                        <p>by City</p>
+                    </div>
+                    <div class="switch active" [ngClass]="{'active' : activeFilter === 'schools'}"
+                         (click)="alphabetParam['schools'] = (alphabetParam['schools'] === 'a-z' && activeFilter === 'schools') ? 'z-a' : 'a-z'; activeFilter = 'schools';
+                            searchParams = {}; changeOrder$.next();">
+                        <span class="sorting" [ngClass]="{'reverse' : alphabetParam['schools'] === 'z-a'}"> - </span>
+                        <p>by Teams</p>
+                    </div>
+                </div>
+
+                <div class="switcher">
+                    <button (click)="viewType = 'regular'; scrollSticker.refreshView();" [ngClass]="{'active': viewType === 'regular'}"><img src="/img/icon-grid-big.svg" alt=""></button>
+                    <button (click)="viewType = 'short'; scrollSticker.refreshView();" [ngClass]="{'active': viewType === 'short'}"><img src="/img/icon-grid.svg" alt=""></button>
+                    <button (click)="viewType = 'lined'; scrollSticker.refreshView();" [ngClass]="{'active': viewType === 'lined'}"><img src="/img/list-icon.svg" alt=""></button>
+                </div>
+
+                <div class="favorites-search">
+                    <button class="readmore"><em>View on Map</em></button>
+                    <internal-search (search)="search($event); scrollSticker.refreshView();" (closeSearch)="searchText = null;"></internal-search>
+                </div>
+            </div>
+        </div>
+    </div>
+    <top-nav-label (scrollToChar)="scrollTo($event)" [config]="labelInfo" [renderData]="{fullData: renderData, order: activeFilter, alphabetParam: alphabetParam, params: params, searchText: searchText, searchParams: searchParams}"></top-nav-label>
+
+    <div scrollLabel
+         (scrollDetect)="labelInfo = $event"
+         [config]="{ levelsClasses: this.activeFilter !== 'schools' ? ['level0', 'level1'] : ['level1'], order: activeFilter }">
+        <div *ngFor="let i = index; let item of renderData[activeFilter]
+                                                                        | search: activeFilter: searchText: params.data
+                                                                        | transformData: activeFilter
+                                                                        | alphabeticSort: activeFilter : alphabetParam[activeFilter]: 'global'">
+            <display-item [config]="{
+             isFirstLoadState: i === 0,
+             params: params,
+             viewType: viewType,
+             data: item,
+             firstLoadData: firstLoadData,
+             fullData: renderData,
+             order: activeFilter,
+             globalSearchText: searchText,
+             changeOrder$: changeOrder$,
+             index: i}"
+            (scrollToChar)="scrollTo($event)"
+            (searchModeEnabled)="scrollSticker.refreshView(); openLocalSearch($event.id, $event.searchText);"
+            (searchModeDisabled)="scrollSticker.refreshView(); closeLocalSearch($event.id);"></display-item>
+        </div>
+
+    </div>
+</div>
+

@@ -1,0 +1,321 @@
+<div *ngIf="metrics" class="dark">
+    <div class="container">
+        <div class="players-metrics">
+            <div class="collapsed" [ngClass]="{'hidden':playerMetricsShower}">
+                <div class="info">
+                    <p>{{rootService.seasonField()}}</p>
+                    <span>{{metrics.genderName+' '+metrics.teamType}}</span>
+                </div>
+                <div *ngIf="metrics.position" class="info">
+                    <p>Position</p>
+                    <span>{{metrics.position}}</span>
+                </div>
+                <div class="divider"></div>
+                <div *ngIf="metrics.height" class="info">
+                    <p>Height</p>
+                    <span>{{metrics.height}}</span>
+                </div>
+                <div *ngIf="metrics.weight" class="info">
+                    <p>Weight</p>
+                    <span>{{metrics.weight}}</span>
+                </div>
+                <div class="divider m-hide"></div>
+                <div *ngIf="metrics.wingspan" class="info m-hide">
+                    <p>Wingspan</p>
+                    <span>{{metrics.wingspan}}</span>
+                </div>
+                <div *ngIf="metrics.totalReach" class="info m-hide">
+                    <p>Total Reach</p>
+                    <span>{{metrics.totalReach}}</span>
+                </div>
+                <div *ngIf="metrics.maxVerticalJump" class="info m-hide">
+                    <p>Vertical Jump</p>
+                    <span>{{metrics.maxVerticalJump}}</span>
+                </div>
+                <div *ngIf="metrics.laneAgilitySpeed" class="info m-hide">
+                    <p>Lane agility Speed</p>
+                    <span>{{metrics.laneAgilitySpeed}}</span>
+                </div>
+                <div class="divider"></div>
+                <div *ngIf="metrics.study" class="info">
+                    <p>Study</p>
+                    <span>{{metrics.study}}</span>
+                </div>
+                <div *ngIf="metrics.graduates" class="info">
+                    <p>Graduates</p>
+                    <span>{{metrics.graduates}}</span>
+                </div>
+                <div class="divider"></div>
+                <button class="view-all" (click)="playerMetricsShower = !playerMetricsShower">View all Metrics
+                </button>
+            </div>
+            <div class="open" [ngClass]="{'visiblel':playerMetricsShower}">
+                <div class="head-wrap">
+                    <button class="show-less" (click)="playerMetricsShower = !playerMetricsShower">Show Less</button>
+                    <div class="head">
+                        <div class="divider"></div>
+                        <p>Physical Measurements</p>
+                        <div class="divider"></div>
+                        <p>Physical Performance</p>
+                        <div class="divider"></div>
+                        <p>Academic Performance</p>
+                        <div class="divider"></div>
+                    </div>
+                </div>
+                <div class="metrics">
+                    <div class="edge"></div>
+                    <div class="block">
+                        <div *ngIf="metrics.height" class="info">
+                            <p>Height</p>
+                            <span>{{metrics.height}}</span>
+                        </div>
+                        <div *ngIf="metrics.weight" class="info">
+                            <p>Weight</p>
+                            <span>{{metrics.weight}}</span>
+                        </div>
+                        <div *ngIf="metrics.position" class="info">
+                            <p>Position</p>
+                            <span>{{metrics.position}}</span>
+                        </div>
+                        <div *ngIf="metrics.wingspan" class="info">
+                            <p>Wingspan</p>
+                            <span>{{metrics.wingspan}}</span>
+                        </div>
+                        <div *ngIf="metrics.totalReach" class="info">
+                            <p>Total Reach</p>
+                            <span>{{metrics.totalReach}}</span>
+                        </div>
+                        <div *ngIf="metrics.shoeSize" class="info">
+                            <p>Shoe Size</p>
+                            <span>{{metrics.shoeSize}}</span>
+                        </div>
+                        <div *ngIf="metrics.hearing" class="info">
+                            <p>Hearing</p>
+                            <span>{{metrics.hearing}}</span>
+                        </div>
+                        <div *ngIf="metrics.eyesight" class="info">
+                            <p>Eyesight</p>
+                            <span>{{metrics.eyesight}}</span>
+                        </div>
+                        <div *ngIf="metrics.dominantHand" class="info">
+                            <p>Dominant Hand</p>
+                            <span>{{metrics.dominantHand}}</span>
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="block">
+                        <div *ngIf="metrics.maxVerticalJump" class="info">
+                            <p>Max Vertical Jump</p>
+                            <span>{{metrics.maxVerticalJump}}</span>
+                        </div>
+                        <div *ngIf="metrics.squatMax" class="info">
+                            <p>Squat Max</p>
+                            <span>{{metrics.squatMax}}</span>
+                        </div>
+                        <div *ngIf="metrics.courtSprint" class="info">
+                            <p>Court Sprint</p>
+                            <span>{{metrics.courtSprint}}</span>
+                        </div>
+                        <div *ngIf="metrics.laneShuttle" class="info">
+                            <p>Lane Shuttle</p>
+                            <span>{{metrics.laneShuttle}}</span>
+                        </div>
+                        <div *ngIf="metrics.laneAgilitySpeed" class="info">
+                            <p>Lane agility Speed</p>
+                            <span>{{metrics.laneAgilitySpeed}}</span>
+                        </div>
+                        <div *ngIf="metrics.noStepVertical" class="info">
+                            <p>No Step vertical</p>
+                            <span>{{metrics.noStepVertical}}</span>
+                        </div>
+                        <div *ngIf="metrics.benchPress" class="info">
+                            <p>Bench Press</p>
+                            <span>{{metrics.benchPress}}</span>
+                        </div>
+                        <div *ngIf="metrics.maxBenchPress" class="info">
+                            <p>Max Bench Press</p>
+                            <span>{{metrics.maxBenchPress}}</span>
+                        </div>
+                        <div *ngIf="metrics.mileRunTime" class="info">
+                            <p>Mile Run time</p>
+                            <span>{{metrics.mileRunTime}}</span>
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="block">
+                        <div *ngIf="metrics.graduates" class="info">
+                            <p>Graduates</p>
+                            <span>{{metrics.graduates}}</span>
+                        </div>
+                        <div *ngIf="metrics.study" class="info">
+                            <p>Study</p>
+                            <span>{{metrics.study}}</span>
+                        </div>
+                        <div class="info">
+                            <p>{{rootService.seasonField()}}</p>
+                            <span>{{metrics.genderName+' '+metrics.teamType}}</span>
+                        </div>
+                        <div *ngIf="metrics.gpa" class="info">
+                            <p>GPA</p>
+                            <span>{{metrics.gpa}}</span>
+                        </div>
+                        <div *ngIf="metrics.sat" class="info">
+                            <p>SAT</p>
+                            <span>{{metrics.sat}}</span>
+                        </div>
+                        <div *ngIf="metrics.act" class="info">
+                            <p>ACT</p>
+                            <span>{{metrics.act}}</span>
+                        </div>
+                        <div *ngIf="metrics.transcript" class="transcripts">
+                            <p>Transcripts</p>
+                            <div class="drop">
+                                <a href="{{metrics.transcript}}"> <span>Available</span></a>
+                            </div>
+                        </div>
+                        <div class="info">
+                        </div>
+                        <div class="info">
+                        </div>
+                    </div>
+                    <div class="edge"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="wide-heading">
+        <p>Player Summary</p>
+    </div>
+
+    <div *ngIf="summary" class="player-info">
+        <div *ngIf="summary.offTheCourt.data" class="left">
+            <ng-container *ngFor="let item of summary.offTheCourt.data;let i=index;">
+                <div *ngIf="i<6 && item" class="info">
+                    <span>{{summary.offTheCourt.columnsName[i]}}</span>
+                    <p *ngFor="let value of item">{{value}}</p>
+                </div>
+            </ng-container>
+        </div>
+        <div *ngIf="summary.bio" class="right">
+            <span>Player overview</span>
+            <p>{{summary.bio}}</p>
+        </div>
+
+        <ng-container *ngFor="let item of summary.offTheCourt.data;let i=index">
+            <div *ngIf="showMoreCourt && i>=6 && item" class="info">
+                <span>{{summary.offTheCourt.columnsName[i]}}</span>
+                <p *ngFor="let value of item">{{value}}</p>
+            </div>
+        </ng-container>
+    </div>
+
+    <div class="load-more">
+        <a *ngIf="isMore" (click)="showMoreCourt=!showMoreCourt"><em>{{showMoreCourt?'View Less':'View More'}}</em>
+            <span [class.open]="showMoreCourt"></span>
+        </a>
+    </div>
+</div>
+
+<div class="dark">
+    <div class="container">
+        <div *ngIf="player" class="wide-heading">
+            <p>Personal Results</p>
+            <a [routerLink]="['/player', player.id, 'stats', 'player-standings']" class="readmore"><em>Players Standings
+                Board</em></a>
+        </div>
+
+        <div *ngIf="personalResult" class="table">
+            <div class="t-row t-head">
+                <p class="first">Season</p>
+                <p *ngFor="let column of personalResult.columns.innerColumnsName" [class.total]="column=='PTS'">
+                    {{column}}</p>
+            </div>
+            <div *ngFor="let item of personalResult.stats" class="t-row">
+                <p class="first">{{item.season}}</p>
+                <p *ngFor="let column of personalResult.columns.innerColumns" [class.total]="column=='pts'">
+                    {{item[column]}}</p>
+            </div>
+            <div *ngIf="personalResult.total.length" class="t-row">
+                <p class="first">Total</p>
+                <p *ngFor="let column of personalResult.total" [class.total]="column=='pts'">{{item[column]}}</p>
+            </div>
+        </div>
+
+        <div *ngIf="seasonStats" class="wide-heading">
+            <p>{{rootService.seasonField()}} Season Player Stats</p>
+            <a [routerLink]="['/player', player.id, 'stats', 'team-scoreboard']" class="readmore"><em>View All Games
+                ({{seasonStats.allCount}})</em></a>
+        </div>
+
+        <div *ngIf="seasonStats" class="table season">
+            <div class="t-row t-head">
+                <p class="date">GM# Date</p>
+                <p class="opponent">Opponent</p>
+                <p class="score">Score</p>
+                <p>Result</p>
+                <p *ngFor="let column of seasonStats.columns.innerColumnsName">{{column}}</p>
+            </div>
+
+            <div *ngFor="let stats of seasonStats.stats" class="t-row">
+                <p class="date">{{stats.game.date}}</p>
+                <p [routerLink]="(stats.game.opponentTeamId)?['/team', stats.game.opponentTeamId]:[]"
+                   class="opponent {{stats.game.where}}">
+                    <abbr title="{{stats.game.opponent}}">{{stats.game.opponentShort}}</abbr><span>{{stats.game.opponent}}</span>
+                </p>
+                <p class="score">{{stats.game.score}}</p>
+                <p>{{stats.game.result}}</p>
+                <p *ngFor="let column of seasonStats.columns.innerColumns">{{stats.data[column]}}</p>
+            </div>
+
+
+            <div *ngIf="seasonStats.apg" class="t-row tots">
+                <p class="date"></p>
+                <p class="opponent"></p>
+                <p class="score">Season APG ({{seasonStats.allCount}} GP)</p>
+                <p></p>
+                <p *ngFor="let column of seasonStats.columns.innerColumns">{{seasonStats.apg[column]}}</p>
+            </div>
+            <div *ngIf="seasonStats.total" class="t-row tots">
+                <p class="date"></p>
+                <p class="opponent"></p>
+                <p class="score">Season APG ({{seasonStats.allCount}} GP)</p>
+                <p></p>
+                <p *ngFor="let column of seasonStats.columns.innerColumns">{{seasonStats.total[column]}}</p>
+            </div>
+        </div>
+
+        <div class="live-banner">
+            <div class="head">Advertisement</div>
+            <div class="img-wrap">
+                <img src="/img/temp/live-baneer.jpg">
+            </div>
+            <div class="description">
+                <p class="head">FIY New collection release. Don’t miss your 40% Discount!</p>
+                <p class="desc">JUST DO IT. Nike</p>
+                <a href="" class="readmore"><em>Go to store</em></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="headline-wrap">
+    <div class="container clearfix" id="news-wrap">
+        <div class="wide-heading">
+            <p>Blog</p>
+            <a href="headlines.html" class="readmore"><em>All Stories</em></a>
+        </div>
+
+        <div class="pull-left">
+            <last-video-news [type]="'players'" [title]="'MOST POPULAR'"></last-video-news>
+        </div>
+        <div class="pull-left">
+            <latest-news [type]="'players'" [title]="'LATEST STORIES'"></latest-news>
+        </div>
+
+        <social-stream [socials]="null"></social-stream>
+
+    </div>
+</div>

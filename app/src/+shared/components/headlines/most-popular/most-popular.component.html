@@ -1,0 +1,33 @@
+<div *ngIf="newsList.length > 0">
+    <div class="small-heading">
+        <p>Most popular News</p>
+    </div>
+    <div class="most-popular-news-wrap" *ngIf="newsList.length > 0">
+        <div class="fb-lv-post pop-news-blk" *ngFor="let news of newsList">
+            <div class="img-wrap">
+                <img [src]="news.thumbUrl" [alt]="news.title">
+            </div>
+            <div class="head-time">
+                <h1 class="head"><em title="{{news.title | uppercase}}">{{news.title}}</em></h1>
+                <p class="time">{{news.date | date:'mediumDate'}}</p>
+            </div>
+            <div class="author source" *ngIf="news.source">
+                <em>{{news.source}}</em>
+            </div>
+            <div class="author" *ngIf="news.authorName">
+                <em>{{news.authorName}}</em>
+            </div>
+            <p class="post">
+                {{news.description}}
+            </p>
+            <div class="fb-lv-post-footer">
+                <div class="fb-share-like">
+                    <div class="like" likeBtn [id]="news.id" [typeModel]="'news'" (updateCount)="news.likes = $event">{{news.likes}} <em></em></div>
+                    <div class="comments">{{news.comments}} <em></em></div>
+                </div>
+                <button class="pin" [subsBtn]="{modelType: 'news', modelId:  news.id, type: 'scrapbook', role: 'subs'}"></button>
+                <a  *ngIf="rootReady$ | async" [routerLink]="rootService.sportUrl('/sport/headlines', {view: news.slug })" class="readmore"><em>Read Article</em></a>
+            </div>
+        </div>
+    </div>
+</div>

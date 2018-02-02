@@ -1,0 +1,57 @@
+.char-focus-animation{
+  .county-wrap.school{
+    animation-delay: 700ms;
+    animation: charFocus;
+    animation-duration: 1s;
+    animation-iteration-count: 2;
+    -webkit-animation-iteration-count: 2;
+  }
+}
+
+@keyframes charFocus {
+  to {
+    background-color:#D2D74D;
+  }
+}
+
+.team-layer{
+  .schools-wrap{
+    &>*{
+      width: 1080px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+}
+
+.schools-wrap.lined .one{
+  .teams p:after{
+    content: 'players';
+  }
+  .sports-social{
+    width: calc(100% - 550px);
+    .sports{
+      flex: 2 1 5px;
+    }
+  }
+}
+
+.char-label{
+  cursor: default;
+}
+
+
+.swiper-slide {
+  width: 25%;
+}
+
+.schools-wrap .one{
+  width: 100%;
+}
+.to-region-stuff {
+  transition-property: all;
+  transition-duration: 1s;
+}
+.showIn {
+  background: red;
+}

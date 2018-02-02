@@ -1,0 +1,260 @@
+@import '../../../styles/mixins';
+@import '../../../styles/variables';
+
+.big-banner {
+  width: 100%;
+  height: 768px;
+  padding-top: 64px;
+  position: relative;
+  .one{
+    .img-wrap{
+      width: 100%;
+      height: 100%;
+      margin: 0;
+    }
+  }
+  @media all and (max-width: 1025px) {
+    height: 412px;
+  }
+  .headin {
+    z-index: 2;
+    position: relative;
+  }
+  .heading {
+    z-index: 2;
+    width: 100%;
+    > * {
+      @include dib-vm;
+    }
+    p {
+      color: #fff;
+      @include fOswald;
+      @include fz24;
+      line-height: 26px;
+      padding-left: 45px;
+      padding-right: 45px;
+      text-transform: uppercase;
+    }
+    p, a {
+      color: #fff;
+    }
+    .line {
+      position: relative;
+      &:nth-child(1) {
+        width: 136px;
+        @media all and (max-width: 1250px) {
+          width: 40px;
+        }
+      }
+      &:not(:nth-child(1)) {
+        width: calc(100% - 490px);
+      }
+      &:before {
+        z-index: 1;
+        width: 100%;
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 50%;
+        border-bottom: 1px solid #b2b7bf;
+        opacity: .4;
+      }
+    }
+    .readmore {
+      float: right;
+      height: 26px;
+      line-height: 26px;
+      padding-left: 62px;
+      background-position: right top 9px;
+    }
+
+    @media all and (max-width: 1250px) {
+      .readmore {
+        line-height: 20px;
+        padding-left: 16px;
+        background-position: right top 5px;
+
+      }
+      .line:not(:nth-child(1)) {
+        width: calc(100% - 234px);
+      }
+      p {
+        @include fz16;
+        line-height: 20px;
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+    }
+  }
+  .navigation {
+    z-index: 2;
+    width: 100%;
+    top: 50%;
+    position: absolute;
+    transform: translateY(-50%);
+    pointer-events: none;
+    & > * {
+      pointer-events: all;
+      width: 229px;
+      height: 108px;
+      background-color: #fff;
+      text-align: center;
+      cursor: pointer;
+    }
+    .img-wrap {
+      flex: 1 1 auto;
+      height: inherit;
+      background-color: #000;
+      margin-right: auto;
+      & > * {
+        transition: opacity 180ms;
+        object-fit: cover;
+        opacity: .2;
+        &:hover {
+          transition: opacity 180ms;
+          opacity: 1;
+        }
+      }
+    }
+    .data-wrap {
+      padding-top: 21px;
+      width: 80px;
+      flex: none;
+      height: inherit;
+      overflow: hidden;
+      @include fOswald;
+      text-transform: uppercase;
+      margin-right: auto;
+      .day {
+        color: $light-black;
+        font-size: 36px;
+        font-weight: 500;
+        line-height: 36px;
+      }
+      .month {
+        margin-top: 4px;
+        margin-bottom: 4px;
+        color: $red;
+        @include  fz16;
+        line-height: 18px;
+      }
+      .time {
+        color: $grey;
+        @include fz9;
+        line-height: 12px;
+      }
+    }
+    .prev {
+      display: flex;
+      float: left;
+    }
+    .next {
+      display: flex;
+      float: right;
+    }
+    @media all and (max-width: 1250px) {
+      & > * {
+        height: 58px;
+        width: 120px;
+      }
+      .data-wrap {
+        padding-top: 8px;
+        width: 40px;
+        p.day {
+          @include  fz14;
+          line-height: 12px;
+        }
+        p.month {
+          @include fz10;
+          line-height: 12px;
+          margin-bottom: 4px;
+        }
+        p.time {
+          @include fz8;
+          line-height: 12px;
+        }
+      }
+    }
+  }
+  .one {
+    z-index: 1;
+    width: 100%;
+    height: inherit;
+    position: absolute;
+    top: 0;
+    .img-wrap {
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      position: absolute;
+      img {
+        object-fit: cover;
+        object-position: top;
+      }
+      &:after{
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        z-index: 1;
+        pointer-events: none;
+        background: url("../../../assets/img/tile_lines.svg");
+      }
+    }
+  }
+  .news-text {
+    z-index: 1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate3D(-50%, -50%, 0);
+    width: calc(100% - 660px);
+    @media all and (max-width: 1250px) {
+      width: calc(100% - 300px);
+    }
+    p {
+      color: #fff;
+      @include fRoboto;
+      font-size: 59px;
+      font-weight: 700;
+      line-height: 67px;
+      text-transform: uppercase;
+      &.data {
+        display: inline-block;
+        color: #fff;
+        @include fOswald;
+        @include fz12;
+        line-height: 14px;
+        margin-bottom: 16px;
+      }
+      em {
+        cursor: pointer;
+        @extend .hover-white-big;
+      }
+      a {
+        color: #fff;
+      }
+    }
+    .readmore {
+      display: inline-block;
+      margin-top: 13px;
+      color: #fff;
+      text-align: right;
+      background-position: right top 2px;
+    }
+
+    @media all and (max-width: 1250px) {
+      p {
+        @include fz24;
+        line-height: 40px;
+        &.data {
+          margin-bottom: 0;
+          @include fz10;
+        }
+      }
+    }
+  }
+}

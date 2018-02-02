@@ -1,0 +1,38 @@
+<div class="result_wrap">
+    <div *ngIf="searchService.searchResults" class="container">
+        <!-- school result -->
+        <ng-container *ngFor="let school of searchService.searchResults  |
+        paginate: searchService.pagination">
+            <div class="one school">
+                <a [routerLink]="['/school',school.id]" class="img-wrap">
+                    <img src="{{school.logoUrl}}" alt="">
+                </a>
+                <div class="name-state">
+                    <a [routerLink]="['/school',school.id]" class="head"><span>{{school.name}}</span></a>
+                    <p class="under-head"><span>{{school.state}}</span>, <span>{{school.county}}</span></p>
+                </div>
+                <div class="sports">
+                    <div *ngFor="let sport of school.sports" class="sport">
+                        <img src="{{sport.logoUrl}}" alt="{{sport.title}}">
+                    </div>
+                </div>
+            </div>
+            <div class="divider"></div>
+        </ng-container>
+
+        <pagination-template *ngIf="searchService.pagination.totalItems>searchService.pagination.itemsPerPage" class="pagination-wrap"
+                             maxSize="6"
+                             #p="paginationApi"
+                             (pageChange)="searchService.currentPage = $event; searchService.getSearchResults();">
+            <div class="container">
+                <button [class.disabled]="p.isFirstPage()" (click)="p.previous()" class="nav prew"></button>
+                <button *ngFor="let page of p.pages" class="page" (click)="p.setCurrent(page.value)"
+                        [class.active]="p.getCurrent() === page.value">{{ page.label }}
+                </button>
+
+                <button [class.disabled]="p.isLastPage()" (click)="p.next()" class="nav next"></button>
+            </div>
+        </pagination-template>
+
+    </div>
+</div>

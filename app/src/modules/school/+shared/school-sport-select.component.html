@@ -1,0 +1,23 @@
+<div class="container" *ngIf="readyRoot | async">
+    <div class="school-sports">
+        <div>
+            <div class="one" [class.active]="isActive(['/school', routeParams.id, 'schedule', sport.title.toLowerCase()])" *ngFor="let sport of rootService.sportList" [routerLink]="['/school', routeParams.id, 'schedule', sport.title.toLowerCase()]">
+                <div>
+                    <div class="img-wrap">
+                        <img [src]="sport.logoUrl">
+                    </div>
+                    <em>{{sport.title}}</em>
+                </div>
+            </div>
+
+            <div class="one" [class.active]="isActive(['/school', routeParams.id, 'schedule'])" [routerLink]="['/school', routeParams.id, 'schedule']">
+                <div >
+                    <div class="img-wrap">
+                        <img src="/img/sports/basketball.svg" alt="">
+                    </div>
+                    <em>Multiple Sports</em>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

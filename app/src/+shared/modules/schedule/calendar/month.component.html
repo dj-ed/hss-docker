@@ -1,0 +1,87 @@
+<div class="week-head">
+    <div class="w-row">
+        <div class="ruller"></div>
+        <div class="container">
+            <div *ngFor="let day of dayOfWeek" [class.red]="day=='sun' || day=='sat'" class="day">
+                <p>{{day}}</p>
+            </div>
+        </div>
+        <div class="ruller"></div>
+    </div>
+</div>
+<div class="calendar">
+    <ng-scrollbar class="month" data-id="month">
+        <div class="week-wrap">
+            <div *ngFor="let week of groupedMonth" class="w-row">
+                <div class="ruller">
+                </div>
+                <div class="container">
+                    <div *ngFor="let day of week" [class.pink]="isWeekendDay(day.data)" class="day">
+
+                        <p>{{day.data.getDate()}}</p>
+                        <div *ngIf="getGames(day.data|date:'y-MM-dd',day) && day.games.length==1"
+                             class="game"
+                             [class.district]="day.games[0].gameType=='D'"
+                             [class.tournament]="day.games[0].gameType=='T'"
+                             [class.non-district]="day.games[0].gameType=='ND'">
+                            <div class="left">
+                                <div class="top">
+                                    <p *ngIf="day.games[0].dateTime">{{day.games[0].dateObj() | date:'shortTime'}}</p>
+                                </div>
+                                <div class="bottom">
+                                    <div class="wrap">
+                                        <a [routerLink]="['/team', day.games[0].team.id]">
+                                            <div class="img-wrap">
+                                                <img src="{{day.games[0].team.logoUrl}}" alt="">
+                                            </div>
+                                            <br>
+                                            <abbr title="{{day.games[0].team.name}}">{{day.games[0].team.shortName}}</abbr>
+                                        </a>
+                                        <div [class.away]="day.games[0].where=='away'" class="vs"></div>
+                                        <a [routerLink]="(day.games[0].opponentTeam.id)?['/team', day.games[0].opponentTeam.id]:null">
+                                            <div class="img-wrap">
+                                                <img src="{{day.games[0].opponentTeam.logoUrl}}" alt="">
+                                            </div>
+                                            <br>
+                                            <abbr title="{{day.games[0].opponentTeam.name}}">{{day.games[0].opponentTeam.shortName}}</abbr>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="right">
+                                <div class="top">
+                                    <abbr>{{day.games[0].gameType}}</abbr>
+                                </div>
+                                <a *ngIf="day.games[0].isGameRecap()"
+                                   [routerLink]="['/team', day.games[0].team.id, {view: day.games[0].id}]"
+                                   class="game-recap">
+                                    <em>game recap</em>
+                                </a>
+
+                                <button class="add-to-calendar" *ngIf="!day.games[0].isGameRecap()" [subsBtn]="{type: 'event', role: 'subs', modelType: 'game', modelId: day.games[0].id}" ></button>
+                            </div>
+                        </div>
+
+
+                        <div *ngIf="getGames(day.data|date:'y-MM-dd',day) && day.games.length>1"
+                             (click)="calendarService.choseDate(day.data)"
+                             class="game day1 multi">
+                            <div class="inner-wraper">
+                                <p>{{day.games.length}}</p>
+                                <div class="images">
+                                    <ng-container *ngFor="let game of day.games">
+                                        <img src="{{rootService.sportById(game.sportId).logoUrl}}" alt="">
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="ruller">
+                </div>
+            </div>
+        </div>
+    </ng-scrollbar>
+</div>

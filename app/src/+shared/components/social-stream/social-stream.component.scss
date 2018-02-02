@@ -1,0 +1,17 @@
+@import '../../../styles/mixins';
+@import '../../../styles/variables';
+
+
+.social-streem-wrap {
+  width: 370px;
+  display: inline-block;
+  .small-heading:not(:first-child) {
+    @media all and (max-width: 1250px) {
+      padding-bottom: 21px;
+      margin-top: 21px;
+    }
+  }
+  @media all and (max-width: 1000px) {
+    width: 224px;
+  }
+}

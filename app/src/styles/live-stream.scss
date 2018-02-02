@@ -1,0 +1,41 @@
+@import 'mixins';
+@import 'variables';
+
+
+.live-recap-switche {
+  border-bottom: 1px solid rgba(178, 183, 191, 0.4);
+  margin-top: 72px;
+  margin-bottom: -36px;
+  color: $light-black;
+  @include fOswald;
+  @include fz24;
+  line-height: 26px;
+  button {
+    display: inline-block;
+    vertical-align: bottom;
+    opacity: 0.4;
+    color: #556278;
+    line-height: 32px;
+    text-transform: uppercase;
+    cursor: pointer;
+    padding-bottom: 11px;
+    transition-property: color, opacity, border-bottom;
+    will-change: color, opacity, border-bottom;
+    transition-duration: 180ms;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    & + button {
+      margin-left: 65px;
+    }
+    &.active, &:hover {
+      color: $light-black;
+      opacity: 1;
+      transition-property: color, opacity, border-bottom;
+      transition-duration: 180ms;
+      border-bottom: 2px solid #f41b1a;
+    }
+  }
+  & + .live-heading {
+    padding-bottom: 36px;
+  }
+}

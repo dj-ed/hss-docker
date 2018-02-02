@@ -1,0 +1,54 @@
+<div *ngIf="ready$ | async" class="upcomming-games-wrap {{ wrapClass }}">
+    <div class="container">
+        <div class="wide-heading">
+            <p>UPCOMING GAMES</p>
+            <a *ngIf="schoolId" [routerLink]="['/school', schoolId, 'schedule', getSportUrl()]" class="readmore"><em>SCHEDULE</em></a>
+        </div>
+        <div class="upcomming-games-menu" *ngIf="showSportList()">
+            <a *ngFor="let sport of sportList$ | async"
+               (click)="changeSport(sport.id)"
+               [class.active]="sport.id==filterSport">
+                {{sport.title}}
+            </a>
+        </div>
+    </div>
+
+    <div [swiper]="{freeMode:true,slidesPerView:'auto',observer:true}" class="upcoming-games-line">
+        <div class="swiper-wrapper">
+            <div *ngFor="let game of filteredGames$ | async" class="clearfix Upcom-g-item swiper-slide">
+
+                <div class="left">
+                    <a [routerLink]="['/team', game.team.id]">
+                        <div class="img-wrap">
+                            <img src="{{game.team.logoUrl}}" alt="" class="mCS_img_loaded">
+                        </div>
+                        <abbr title="{{game.team.name}}" class="t-name">{{game.team.shortName}}</abbr>
+                    </a>
+                    <span [class.away]="game.where=='away'" class="vs"></span>
+                    <a [routerLink]="(game.opponentTeam.id)?['/team',game.opponentTeam.id]:null">
+                        <div class="img-wrap">
+                            <img src="{{game.opponentTeam.logoUrl}}" alt="" class="mCS_img_loaded">
+                        </div>
+                        <abbr title="{{game.opponentTeam.name}}" class="t-name">{{game.opponentTeam.shortName}}</abbr>
+                    </a>
+                </div>
+
+                <div class="right">
+                    <p class="date">{{game.date | date:'EE, d MMM'}}</p>
+                    <div class="time-type">
+                        <p *ngIf="game.dateTime">{{game.date +' '+ game.dateTime | date:'shortTime'}}</p>
+                        <p>{{game.gameType}}</p>
+                    </div>
+                    <div class="schedule-tickets">
+                        <p class="add-schedule" [subsBtn]="{type: 'event', role: 'subs', modelType: 'game', modelId: game.id}"></p>
+                        <p class="buy-ticket"><em></em></p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+

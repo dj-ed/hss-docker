@@ -1,0 +1,18 @@
+<div class="social" *ngIf="school.socials">
+    <a *ngIf="school.socials.facebook"
+       [attr.href]="school.socials.facebook" target="_blank">
+        <img src="/img/fb.svg" alt="{{ school.name }} School Facebook">
+    </a>
+    <a *ngIf="school.socials.twitter"
+       [attr.href]="school.socials.twitter" target="_blank">
+        <img src="/img/tw.svg" alt="{{ school.name }} School Twitter">
+    </a>
+    <a *ngIf="school.socials.instagram"
+       [attr.href]="school.socials.instagram" target="_blank">
+        <img src="/img/is.svg" alt="{{ school.name }} School Instagram">
+    </a>
+    <a *ngIf="school.socials.pinterest"
+       [attr.href]="school.socials.pinterest" target="_blank">
+        <img src="/img/pin.svg" alt="{{ school.name }} School Pinterest">
+    </a>
+</div>

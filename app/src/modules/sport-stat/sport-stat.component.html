@@ -1,0 +1,16 @@
+<school-list-nav [title]="'Statistics'"></school-list-nav>
+
+<div class="statistics_header" *ngIf="rootService.ready$ | async">
+    <div class="container">
+        <div class="inner">
+            <a [routerLink]="rootService.sportUrl('/sport-stat/scoreboard',(rootService.currentGenderId)?rootService.currentVarsityId:false)"
+               routerLinkActive="active">Scoreboard</a>
+            <a [routerLink]="rootService.sportUrl('/sport-stat/leaderboard',(rootService.currentGenderId)?rootService.currentVarsityId:false)"
+               routerLinkActive="active">Leaderboard</a>
+            <a [routerLink]="rootService.sportUrl('/sport-stat/team-standings',(rootService.currentGenderId)?rootService.currentVarsityId:false)"
+               routerLinkActive="active">Team Standings</a>
+        </div>
+    </div>
+</div>
+
+<router-outlet></router-outlet>

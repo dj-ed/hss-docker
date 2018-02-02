@@ -1,0 +1,68 @@
+<upcoming-games  [type]="'team'"></upcoming-games>
+
+<game-recap></game-recap>
+
+
+<div class="dark">
+    <div class="container">
+        <div class="banner-wrap">
+            <a href="" class="add1">
+                <div class="heading">
+                    Support Your Team
+                </div>
+                <div class="under-head">
+                    Go to Online Store
+                </div>
+                <div class="bottom-link">
+                    <p class="readmore"><em>Go to Store</em></p>
+                </div>
+            </a>
+            <a href="" class="add2">
+                <div class="heading">
+                    Buy Tickets
+                </div>
+                <div class="under-head">
+                    Store
+                </div>
+                <div class="bottom-link">
+                    <p class="readmore"><em>Get Now</em></p>
+                </div>
+            </a>
+        </div>
+
+
+
+
+        <div class="wide-heading bottom">
+            <p>Team Standing</p>
+            <a href="team-stats-statistics.html" class="readmore"><em>Statistics</em></a>
+        </div>
+        <full-board *ngIf="team" [config]="{team: team.id}"></full-board>
+
+
+
+    </div>
+</div>
+
+
+<div class="headline-wrap">
+    <div class="container clearfix" id="news-wrap">
+
+        <div class="wide-heading">
+            <p>Spruce Creek Hawks News</p>
+            <a href="headlines.html" class="readmore"><em>All Headlines</em></a>
+        </div>
+
+        <div class="pull-left">
+            <last-video-news [title]="'Headlines'" [type]="'teams'"></last-video-news>
+        </div>
+
+        <div class="pull-left">
+            <latest-news [type]="'teams'"></latest-news>
+            <coach-corner></coach-corner>
+        </div>
+
+        <social-stream [socials]="null"></social-stream>
+
+    </div>
+</div>

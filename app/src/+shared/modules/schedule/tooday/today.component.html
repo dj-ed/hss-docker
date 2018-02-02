@@ -1,0 +1,135 @@
+<div class="live-cont">
+    <div class="container">
+        <div class="live-heading clearfix">
+            <p class="head">Today</p>
+            <p class="date">{{selectedDate|date:'mediumDate'}}</p>
+            <div class="date-switcher">
+                <div (click)="prevDay()" class="prev"></div>
+                <div (click)="nextDay()" class="next"></div>
+            </div>
+            <div class="legend">
+                <div>
+                    <span style="background-color: #000;"></span>
+                    <abbr title="multiple">m</abbr>
+                </div>
+                <div>
+                    <span style="background-color: #3f4c5e;"></span>
+                    <abbr title="district">d</abbr>
+                </div>
+                <div>
+                    <span style="background-color: #8590a4;"></span>
+                    <abbr title="non-district">nd</abbr>
+                </div>
+                <div>
+                    <span style="background-color: #b2b7bf;"></span>
+                    <abbr title="tournament">t</abbr>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="time-line-wrap">
+    <div class="time-line-inner">
+        <div class="container">
+            <div #timeline class="day-wrap">
+                <div *ngIf="inGameTime() && getTimeRunnerPosition()" class="time-runner"
+                     [style.left]="getTimeRunnerPosition()+'px'">
+                    <p>{{todayDate | date:'shortTime'}}</p>
+                    <p>{{todayDate | date:'shortTime'}}</p>
+                </div>
+                <div *ngFor="let game of games"
+                     [class.district]="game.gameType=='D'"
+                     [class.tournament]="game.gameType=='T'"
+                     [class.non-district]="game.gameType=='ND'"
+                     [class.today]="game.isFutureGame()"
+                     [class.yesterday]="!game.isFutureGame()"
+                     class="g-today-live-wrap"
+                     [style.left]="game.gamePosition+'px'">
+                    <div class="close"></div>
+                    <div class="top">
+                        <img src="{{rootService.sportById(game.sportId).logoUrl}}" alt="" class="sport-type">
+                        <p class="left">{{game.dateObj() | date:'shortTime'}}</p>
+                        <abbr title="district" class="right">{{game.gameType}}</abbr>
+                    </div>
+                    <div class="center">
+                        <div class="left">
+                            <a [routerLink]="['/team', game.team.id]" class="line">
+                                <div class="img-wrap">
+                                    <img src="{{game.team.logoUrl}}"
+                                         alt="">
+                                </div>
+                                <abbr title="trintiy christian eagles">{{game.team.shortName}}</abbr>
+                            </a>
+                            <div [class.away]="game.where=='away'" class="line vs"></div>
+                            <a [routerLink]="(game.opponentTeam.id)?['/team', game.opponentTeam.id]:null" class="line">
+                                <div class="img-wrap">
+                                    <img src="{{game.opponentTeam.logoUrl}}"
+                                         alt="">
+                                </div>
+                                <abbr title="trintiy christian eagles">{{game.opponentTeam.shortName}}</abbr>
+                            </a>
+                        </div>
+                        <div class="right">
+                            <div class="line">
+                                <p [class.win]="(game.scoreTeam||game.scoreOpponent) && game.win"
+                                   [class.lose]="(game.scoreTeam||game.scoreOpponent) && !game.win">
+                                    {{game.scoreTeam}}</p>
+                            </div>
+                            <div class="line">
+                                <p [class.win]="(game.scoreTeam||game.scoreOpponent) && !game.win"
+                                   [class.lose]="(game.scoreTeam||game.scoreOpponent) && game.win">
+                                    {{game.scoreOpponent}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bottom">
+                        <div class="left">
+                            <p *ngIf="game.dateObj()<todayDate" class="was-played">{{game.dateObj() | amTimeAgo}}</p>
+                            <div *ngIf="game.dateObj()>=todayDate" class="will-be-played">
+                                <p>{{game.dateObj() | amCalendar}}</p>
+                                <button [subsBtn]="{type: 'event', role: 'subs', modelType: 'game', modelId: game.id}"></button>
+                            </div>
+                        </div>
+                        <div class="right">
+                            <a *ngIf="game.isGameRecap()" [routerLink]="['/team', game.team.id, {view: game.id}]"
+                               class="readmore">
+                                <em>game recap</em>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="divider" data-time="08:00 am"></div>
+                <div class="divider" data-time="09:00 am"></div>
+                <div class="divider" data-time="10:00 am"></div>
+                <div class="divider" data-time="11:00 am"></div>
+                <div class="divider" data-time="12:00 pm"></div>
+                <div class="divider" data-time="1:00 pm"></div>
+                <div class="divider" data-time="2:00 pm"></div>
+                <div class="divider" data-time="3:00 pm"></div>
+                <div class="divider" data-time="4:00 pm"></div>
+                <div class="divider" data-time="5:00 pm"></div>
+                <div class="divider" data-time="6:00 pm"></div>
+                <div class="divider" data-time="7:00 pm"></div>
+                <div class="divider" data-time="8:00 pm"></div>
+                <div class="divider" data-time="9:00 pm"></div>
+
+            </div>
+
+            <div #nightTimline class="night-wrap">
+                <div *ngIf="!inGameTime() && !!getTimeRunnerPosition()" class="time-runner"
+                     [style.left]="getTimeRunnerPosition()+'px'">
+                    <p>{{todayDate | date:'shortTime'}}</p>
+                    <p>{{todayDate | date:'shortTime'}}</p>
+                </div>
+                <div class="divider night" data-time="10:00 pm">
+                    <div class="inner-line"></div>
+                    <div class="inner-line"></div>
+                </div>
+                <div class="divider night" data-time="12:00 am">
+                    <div class="inner-line"></div>
+                    <div class="inner-line"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

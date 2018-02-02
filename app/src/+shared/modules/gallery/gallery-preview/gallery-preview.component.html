@@ -1,0 +1,69 @@
+<div *ngIf="config.album">
+        <div class="top clearfix">
+            <div *ngIf="config.index" class="name">/ {{config.index < 10 ? '0' + config.index : config.index}}</div>
+            <div class="date">{{config.album.date | date:'longDate'}}</div>
+        </div>
+        <div class="img-wrap">
+            <img  *ngIf="config.album.mediaType === 'photo'" [src]="config.album.mediaUrl.original">
+            <img  *ngIf="config.album.mediaType === 'video' && config.album.isIframe" [src]="'https://img.youtube.com/vi/' + rootService.getYouTubeId(config.album.mediaUrl) + '/0.jpg'">
+            <img  *ngIf="config.album.mediaType === 'video' && !config.album.isIframe" [src]="config.album.mediaUrl.thumb">
+        </div>
+        <div class="bottom">
+            <div class="bottom-top clearfix">
+                <div class="team" *ngIf="config.album.gameId !== '00' && config.album.gameData">
+                    <div [ngClass]="{'win': config.album.gameData.win, 'lose': !config.album.gameData.win}"></div>
+                    <div class="pointer" [routerLink]="['/', 'team', config.album.gameData.team.id]">
+                        <abbr [title]="config.album.gameData.team.name">{{config.album.gameData.team.shortName}}</abbr><span>{{config.album.gameData.team.name}}</span>
+                    </div>
+                    <p class="vs">{{config.album?.gameData?.where === 'home' ? 'vs' : '@'}}</p>
+                    <div *ngIf="config.album.gameData.opponentTeam.id" [routerLink]="['/', 'team', config.album.gameData.opponentTeam.id]">
+                        <abbr [title]="config.album.gameData.opponentTeam.name">{{config.album.gameData.opponentTeam.shortName}}</abbr><span>{{config.album.gameData.opponentTeam.name}}</span>
+                    </div>
+
+                    <div *ngIf="!config.album.gameData.opponentTeam.id">
+                        <abbr [title]="config.album.gameData.opponentTeam.name">{{config.album.gameData.opponentTeam.shortName}}</abbr><span>{{config.album.gameData.opponentTeam.name}}</span>
+                    </div>
+                    <div [ngClass]="{'win': !config.album.gameData.win, 'lose': config.album.gameData.win}"></div>
+                </div>
+                <div class="type" *ngIf="config.album.gameId !== '00' && config.album.gameData"><abbr title="non district">{{config.album.gameData.gameType}}</abbr><span>{{config.album.gameData.gameType}}</span></div>
+                <button class="pin" [subsBtn]="{modelType: 'album', modelId:  config.album.id, type: 'scrapbook', role: 'subs'}"></button>
+            </div>
+            <div class="bottom-down clearfix">
+                <div class="aaa-wrap">
+                    <div class="items-wrap">
+                        <div class="vids">
+                            <span>{{config.album.countVideo}}</span>
+                            <img src="/img/gal-video.svg" alt="">
+                        </div>
+                        <div class="vids">
+                            <span>{{config.album.countPhoto}}</span>
+                            <img src="/img/gal-images.svg" alt="">
+                        </div>
+                        <div class="suggest">
+                            <em>Suggest Media</em>
+                        </div>
+                    </div>
+
+                    <div class="fb-share-like">
+                        <div class="like">{{config.album.likesCommentsCount.likes}}<em></em></div>
+                        <div class="comments">{{config.album.likesCommentsCount.comments}}<em></em></div>
+                    </div>
+
+                    <div class="sharer">
+                        <em>share</em>
+                    </div>
+
+                    <div class="recup" *ngIf="config.album.gameId !== '00' && config.album.gameData">
+                        <a [routerLink]="['/', 'team', config.album.gameData.team.id, {view: config.album.gameId}]" class="readmore"><em>Go to Game Recap</em></a>
+                    </div>
+                </div>
+
+                <div class="readmore open-close" (click)="modal.open();">
+                    <em data-open="View Album" data-close="Close album"></em>
+                </div>
+            </div>
+        </div>
+</div>
+<div *modal class="modalWindow">
+    <media-gallery [config]="{viewType: 'modal', id: config.album.id, type: config.type, modalDirective: modal, albumsList: config.albumsList}"></media-gallery>
+</div>

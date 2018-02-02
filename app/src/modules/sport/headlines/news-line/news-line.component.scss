@@ -1,0 +1,35 @@
+
+.progress {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  display: inline-block;
+  height: 5px;
+  background-color: #f41b1a;
+  transition: width 350ms;
+  will-change: width;
+  max-width: 100%;
+}
+/*
+.swiper-slide {
+  transition-property: all;
+  height: 130px;
+  transition-duration: 0.25s;
+
+  &.active{
+    padding: 15px;
+    background-color: rgb(255, 255, 153);
+
+    & .img-wrap {
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+  }
+}
+*/
+
+.swiper-wrapper{
+  will-change: transform, transform3d;
+}
+
+

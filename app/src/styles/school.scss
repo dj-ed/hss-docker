@@ -1,0 +1,309 @@
+@import 'mixins';
+@import 'variables';
+
+.live-cont {
+  padding-top: 0;
+}
+
+.school-team-wrap + .live-cont {
+  padding-top: 66px;
+}
+
+.sport-switcher {
+  margin-top: 46px;
+  margin-bottom: 136px;
+  display: flex;
+  justify-content: space-between;
+  @media all and (max-width: 850px) {
+    margin-bottom: 28px;
+  }
+  @media all and (max-width: 1025px) {
+    margin-top: 24px;
+    margin-bottom: 24px;
+  }
+  .one {
+    display: inline-block;
+    vertical-align: top;
+    width: 127px;
+    text-align: center;
+    @include  fOswald;
+    text-transform: uppercase;
+    @media all and (max-width: 1000px) {
+      width: 100px;
+    }
+    .img-wrap {
+      height: 55px;
+      margin-bottom: 17px;
+    }
+    img {
+      display: inline-block;
+      max-width: 55px;
+      max-height: 55px;
+    }
+    .name {
+      color: $light-black;
+      @include fz14;
+      line-height: 21px;
+      margin-bottom: 3px;
+      @media all and (max-width: 850px) {
+        @include fz12;
+      }
+    }
+    .vars {
+      color: #3f4c5e;
+      @include fz9;
+      line-height: 14px;
+      margin-bottom: 9px;
+    }
+    .fav {
+      margin-bottom: 10px;
+      span {
+        opacity: 0;
+        transition: opacity 180ms;
+        width: 20px;
+        height: 20px;
+      }
+      &.in-fav {
+        span {
+          opacity: 1;
+          transition: opacity 180ms;
+        }
+      }
+    }
+    .bottom {
+      border-top: 1px solid #556278;
+      padding-top: 16px;
+    }
+    .readmore {
+      em {
+        &:hover {
+          background: url(/img/hover-bg.svg) repeat-x bottom left;
+        }
+      }
+    }
+    &:hover {
+      .fav {
+        span {
+          opacity: 1;
+          transition: opacity 180ms;
+        }
+      }
+    }
+  }
+}
+
+.banner-wrap .add2 {
+  background-color: $light-black;
+}
+
+.banner-wrap .add2 .bottom-link {
+  background-color: $light-grey-lighter;
+}
+
+.banner-wrap .add2 .bottom-link p {
+  color: $grey-blue;
+}
+
+// scholl info
+.school-info-wrap {
+  margin-top: 73px;
+  margin-bottom: 142px;
+  @include fOswald;
+  text-transform: uppercase;
+  width: 810px;
+  margin-left: auto;
+  margin-right: auto;
+  @media all and (max-width: 1025px) {
+    margin-bottom: 40px;
+  }
+  @media all and (max-width: 880px) {
+    width: 100%;
+  }
+  .top-info {
+    padding-bottom: 62px;
+    border-bottom: 1px solid $light-grey-lighter;
+    margin-bottom: 43px;
+    .head {
+      color: $light-black;
+      @include fz24;
+      line-height: 26px;
+      padding-left: 11px;
+      padding-bottom: 28px;
+      border-bottom: 1px solid $light-grey-lighter;
+    }
+    p {
+      margin-top: 35px;
+      color: $light-black;
+      @include fRoboto;
+      @include fz14;
+      font-weight: 300;
+      line-height: 22px;
+      text-transform: none;
+      & + p {
+        margin-top: 24px;
+      }
+    }
+  }
+  .small-accs {
+    margin-top: 43px;
+    margin-bottom: 170px;
+    text-align: left;
+    @media all and (max-width: 1025px) {
+      margin-bottom: 48px;
+    }
+    @media all and (max-width: 880px) {
+      display: flex;
+      justify-content: space-between;
+    }
+    .one {
+      text-align: center;
+      display: inline-block;
+      vertical-align: top;
+      width: 224px;
+      @media all and (max-width: 880px) {
+        width: 200px;
+      }
+      .img-wrap {
+        width: 180px;
+        height: 180px;
+        margin-bottom: 18px;
+        img {
+          object-fit: cover;
+        }
+      }
+      .position {
+        width: 100%;
+        color: #556278;
+        @include fz14;
+        line-height: 18px;
+        padding-bottom: 15px;
+        padding-left: 10px;
+        text-align: left;
+        border-bottom: 1px solid #556278;
+        margin-bottom: 50px;
+      }
+      .bottom {
+        color: $light-black;
+        @include fRoboto;
+        @include fz14;
+        font-weight: 300;
+        line-height: 22px;
+        text-align: left;
+        text-transform: none;
+        strong {
+          font-weight: 400;
+        }
+        span {
+          width: 32px;
+          display: inline-block;
+          vertical-align: middle;
+        }
+        em {
+          width: calc(100% - 36px);
+          display: inline-block;
+          vertical-align: middle;
+        }
+        p + p {
+          margin-top: 5px;
+        }
+        p + strong {
+          display: inline-block;
+          margin-top: 13px;
+          margin-bottom: 5px;
+        }
+        a {
+          color: #556278;
+        }
+      }
+      p, em, strong, a, .head {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      & + .one {
+        margin-left: 57px;
+        @media all and (max-width: 880px) {
+          margin-left: auto;
+        }
+      }
+    }
+  }
+  .big-accs {
+    .one {
+      width: 100%;
+      border-bottom: 1px solid $light-grey-lighter;
+      .w-position {
+        padding-left: 8px;
+        color: $light-black;
+        @include fz24;
+        line-height: 26px;
+        padding-bottom: 28px;
+        border-bottom: 1px solid $light-grey-lighter;
+      }
+      .name {
+        padding-left: 8px;
+        margin-top: 11px;
+        padding-bottom: 9px;
+        margin-bottom: 46px;
+        color: #556278;
+        border-bottom: 1px solid #556278;
+      }
+      .bottom {
+        padding-bottom: 26px;
+        border-bottom: 1px solid $light-grey-lighter;
+        & > * {
+          display: inline-block;
+          vertical-align: top;
+        }
+      }
+      .img-wrap {
+        width: 180px;
+        height: 180px;
+        img {
+          object-fit: cover;
+        }
+      }
+      .right {
+        width: calc(100% - 225px);
+        margin-left: 40px;
+        padding-top: 13px;
+        p {
+          color: $light-black;
+          @include fRoboto;
+          @include fz14;
+          font-weight: 300;
+          line-height: 22px;
+          text-transform: none;
+          margin-bottom: 30px;
+        }
+        .social {
+          &:before {
+            content: "Socials:";
+            display: inline-block;
+            vertical-align: middle;
+            color: $middle-grey;
+            @include fz9;
+            padding-right: 7px;
+          }
+          a {
+            padding-left: 7px;
+            padding-right: 7px;
+          }
+        }
+      }
+      & + .one {
+        margin-top: 81px;
+        @media all and (max-width: 1025px) {
+          margin-top: 28px;
+        }
+      }
+    }
+  }
+}
+
+.dark .location {
+  padding-top: 0;
+  border-top: none;
+  color: #fff;
+  @include fOswald;
+}

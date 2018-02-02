@@ -1,0 +1,69 @@
+<div *ngIf="lastVideoNews">
+<div class="small-heading" >
+    <p>{{ title }}</p>
+</div>
+<div class="latest-video-news" *ngIf="lastVideoNews">
+    <div class="video-wrap" *ngIf="lastVideoNews.videoType == 'iframe'" [innerHtml]="lastVideoNews.embedHtml"></div>
+
+    <div class="video-wrap" *ngIf="lastVideoNews.videoType == 'video' && rootService.isBrowser()" >
+
+            <vg-player >
+                <vg-overlay-play></vg-overlay-play>
+                <vg-buffering></vg-buffering>
+
+                <vg-scrub-bar>
+                    <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                    <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+                </vg-scrub-bar>
+
+                <vg-controls>
+                    <vg-play-pause></vg-play-pause>
+                    <vg-playback-button></vg-playback-button>
+
+                    <vg-time-display vgProperty="current" vgFormat="mm:ss"></vg-time-display>
+                    <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
+                    <vg-scrub-bar style="pointer-events: none;"></vg-scrub-bar>
+
+                    <vg-mute></vg-mute>
+                    <vg-volume></vg-volume>
+
+                    <vg-fullscreen></vg-fullscreen>
+                </vg-controls>
+
+                <video [vgMedia]="media" #media id="singleVideo" preload="auto" crossorigin>
+                    <source [src]="lastVideoNews.videoUrl" type="video/mp4">
+                </video>
+            </vg-player>
+    </div>
+
+    <div>
+        <div class="head-time">
+            <a href="today-news.html" class="head"><em title="{{ lastVideoNews.title | uppercase}}">{{lastVideoNews.title}}</em></a>
+            <p class="time">{{lastVideoNews.date | date:'mediumDate'}}</p>
+        </div>
+        <div class="author source" *ngIf="lastVideoNews.source">
+            <em>{{lastVideoNews.source}}</em>
+        </div>
+        <div class="author" *ngIf="lastVideoNews.authorName">
+            <em>{{lastVideoNews.authorName}}</em>
+        </div>
+        <p class="post">
+            <em>{{lastVideoNews.description}}</em>
+        </p>
+        <div class="fb-lv-post-footer">
+            <div class="fb-share-like">
+                <div class="like" likeBtn [id]="lastVideoNews.id" [typeModel]="'news'" (updateCount)="lastVideoNews.likes = $event">{{lastVideoNews.likes}}<em></em></div>
+                <div class="comments">{{lastVideoNews.comments}}<em></em></div>
+            </div>
+            <div class="share">
+                <p>share</p>
+                <share-component [types]="['fb', 'tw', 'gp']" [text]="lastVideoNews.title"></share-component>
+            </div>
+            <button class="pin" [subsBtn]="{modelType: 'news', modelId:  lastVideoNews.id, type: 'scrapbook', role: 'subs'}"></button>
+            <a class="readmore" [routerLink]="newsService.newsRoute(type, parentId, {view: lastVideoNews.slug})">
+                <em>Read Article</em>
+            </a>
+        </div>
+    </div>
+</div>
+</div>

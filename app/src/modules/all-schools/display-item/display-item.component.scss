@@ -1,0 +1,42 @@
+.schools-wrap{
+  width: 1140px;
+  overflow: visible;
+  margin: 0 auto;
+  position: relative;
+  .one{
+    .sports .sport{
+      opacity:0.4;
+      &.active{
+        opacity: 1;
+      }
+    }
+  }
+  &.lined{
+    .one{
+      .sports-social{
+        width: calc(100% - 415px);
+      }
+      .principal + .sports-social{
+        width: calc(100% - 565px);
+      }
+    }
+  }
+}
+
+.to-region-stuff{
+  overflow: hidden;
+}
+
+.teams .schools p{
+  width: 65px;
+  &:after{
+    content: " Schools";
+  }
+}
+
+.all-schools.all-schools-teams-wrap{
+  padding-top: 7px;
+  & > .region-wrap:first-child{
+    padding-top: 6px;
+  }
+}

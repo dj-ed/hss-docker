@@ -1,0 +1,30 @@
+<div class="menu" *ngIf="rootService.ready$ | async">
+    <root-header></root-header>
+</div>
+
+<router-outlet (deactivate)="onDeactivate()"></router-outlet>
+
+<footer>
+    <div class="container">
+        <div>
+            <a routerLink="about-us" class="footer-item">About Us</a>
+        </div>
+        <div>
+            <a href="" class="footer-item">Partners</a>
+        </div>
+        <div>
+            <a routerLink="terms-of-use" class="footer-item">Terms of Use</a>
+        </div>
+        <div>
+            <a href="" class="footer-item">Advertisers</a>
+        </div>
+        <div>
+            <a routerLink="contact-us"  class="footer-item">Contact Us</a>
+        </div>
+
+        <div class="insider">
+            <a href="" class="footer-item">HS Sports Insider</a>
+        </div>
+        <p class="copyright footer-item"><em>© </em>HS Sports, 2018</p>
+    </div>
+</footer>

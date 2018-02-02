@@ -1,0 +1,30 @@
+<div class="calendar">
+    <ng-scrollbar class="year" data-id="year">
+        <div *ngFor="let monthGroup of groupedMouths;let i=index">
+            <div class="year-head">
+                <div class="container">
+                    <div *ngFor="let month of months[i]" class="monter">
+                        <p>{{month[15].date|date:'MMM'}}</p>
+                        <span>{{month[15].date.getFullYear()}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="container four-month-wrap">
+                <div *ngFor="let weeks of monthGroup" class="one-month">
+                    <div class="head">
+                        <p *ngFor="let day of dayOfWeek">{{day}}</p>
+                    </div>
+
+                    <div *ngFor="let week of weeks ">
+                        <p *ngFor="let date of week"
+                           (click)="calendarService.choseDate(date.date)"
+                           class="{{getDateClass(calendarService.toSqlFormat(date.date))}}"
+                           [class.other-month]="date.inCurrentMonth">
+                            {{date.date.getDate()}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-scrollbar>
+</div>

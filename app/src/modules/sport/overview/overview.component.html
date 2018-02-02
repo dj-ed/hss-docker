@@ -1,0 +1,92 @@
+<div>
+    <div class="prefered-sport-top-banner">
+        <div class="heading">
+            <h1 *ngIf="sportService.sport$|async">{{ sport.title }}</h1>
+        </div>
+    </div>
+
+    <div class="schools-wrap">
+        <div class="container">
+            <div class="wide-heading">
+                <p>Teams</p>
+                <a *ngIf="rootService.ready$|async" [routerLink]="rootService.seasonUrl('/all-teams')" class="readmore">
+                    <em>All Teams</em>
+                </a>
+            </div>
+        </div>
+
+        <div *ngIf="rootService.isBrowser()"  [swiper]="{freeMode:true,slidesPerView:'auto',observer:true}" class="schools-line">
+
+            <div  class="swiper-wrapper">
+                <a [routerLink]="['/team', team.id]" *ngFor="let team of teams$.getValue()" class="mascot swiper-slide">
+                    <div class="img-wrap">
+                        <img [src]="team.logoUrl" [attr.alt]="team.name">
+                    </div>
+                    <p class="name">
+                        <span>{{ team.name }}</span>
+                        <abbr [attr.name]="team.name">
+                            {{ team.shortName }}
+                        </abbr>
+                    </p>
+                    <p class="mascot-varsity">{{ team.type.replace('- ', '') }}</p>
+                </a>
+            </div>
+
+            <a *ngIf="rootService.ready$|async" [routerLink]="rootService.seasonUrl('/all-teams')" class="all-schools-mob">
+            ALL Teams
+            </a>
+        </div>
+        <div *ngIf="!rootService.isBrowser()"   class="schools-line">
+
+            <div  class="swiper-wrapper">
+                <a [routerLink]="['/team', team.id]" *ngFor="let team of teams$.getValue()" class="mascot swiper-slide">
+                    <div class="img-wrap">
+                        <img [src]="team.logoUrl" [attr.alt]="team.name">
+                    </div>
+                    <p class="name">
+                        <span>{{ team.name }}</span>
+                        <abbr [attr.name]="team.name">
+                            {{ team.shortName }}
+                        </abbr>
+                    </p>
+                    <p class="mascot-varsity">{{ team.type.replace('- ', '') }}</p>
+                </a>
+            </div>
+
+            <a *ngIf="rootService.ready$|async" [routerLink]="rootService.seasonUrl('/all-teams')" class="all-schools-mob">
+                ALL Teams
+            </a>
+        </div>
+
+    </div>
+
+    <upcoming-games [wrapClass]="'dark'" [type]="'sport'"></upcoming-games>
+
+    <top-news [sport]="true"></top-news>
+
+    <sport-scoreboard></sport-scoreboard>
+    <sport-leaderboard></sport-leaderboard>
+    <sport-standings></sport-standings>
+
+    <div class="headline-wrap">
+        <div class="container clearfix" id="news-wrap">
+
+            <div class="wide-heading">
+                <p>Headlines</p>
+                <a href="headlines.html" class="readmore"><em>All Headlines</em></a>
+            </div>
+
+            <div class="pull-left">
+                <last-video-news [type]="'sport'"></last-video-news>
+            </div>
+
+            <div class="pull-left">
+                <most-popular [type]="'sport'"></most-popular>
+                <latest-news [type]="'sport'"></latest-news>
+            </div>
+
+            <social-stream [socials]="null"></social-stream>
+
+        </div>
+    </div>
+</div>

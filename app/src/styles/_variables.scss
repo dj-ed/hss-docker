@@ -1,0 +1,34 @@
+$light-grey-lighter: #e4e6e9;
+$middle-grey: #8590a4;
+$blue-on-dark: #262e3f;
+$vs-color: #6d707a;
+$grey-blue: #3f4c5e;
+$light-black: #0b131e;
+$grey: #556278;
+$red: #f41b1a;
+$light-grey: #b2b7bf;
+
+.hover-black-small {
+  &:hover {
+    background: url(/img/hover-bg-white.svg) repeat-x bottom left;
+  }
+}
+
+.hover-white-small {
+  &:hover {
+    background: url(/img/hover-bg.svg) repeat-x bottom left;
+  }
+}
+
+.hover-white-big {
+  &:hover {
+    background: url(/img/hover-bg-big.svg) repeat-x bottom 4px left;
+  }
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+
+

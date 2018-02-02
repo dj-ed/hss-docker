@@ -1,0 +1,191 @@
+<school-list-nav [title]="'TOP News'"></school-list-nav>
+
+<div class="big-banner" *ngIf="currentNews" id="top-slider">
+    <div class="navigation clearfix">
+        <a class="prev" *ngIf="prevNews"
+           [routerLink]="rootService.sportUrl('/sport/top-news', {view: prevNews.slug})">
+            <div class="img-wrap">
+                <img [src]="prevNews.media.data[0].fileUrl" [attr.alt]="prevNews.title">
+            </div>
+            <div class="data-wrap">
+                <p class="day">{{ prevNews.date | date:'dd' }}</p>
+                <p class="month">{{ prevNews.date | date:'MMM' }}</p>
+                <p class="time">{{ prevNews.date | date:'shortTime' }}</p>
+            </div>
+        </a>
+        <a class="next" *ngIf="nextNews"
+           [routerLink]="rootService.sportUrl('/sport/top-news', {view: nextNews.slug})">
+            <div class="img-wrap">
+                <img [src]="nextNews.media.data[0].fileUrl" [attr.alt]="nextNews.title">
+            </div>
+            <div class="data-wrap">
+                <p class="day">{{ nextNews.date | date:'dd' }}</p>
+                <p class="month">{{ nextNews.date | date:'MMM' }}</p>
+                <p class="time">{{ nextNews.date | date:'shortTime' }}</p>
+            </div>
+        </a>
+    </div>
+
+    <div class="one swiper-container">
+        <div class="img-wrap">
+            <img [src]="currentNews.media.data[0].fileUrl" [attr.alt]="currentNews.title">
+        </div>
+    </div>
+</div>
+
+<div class="news-cont" *ngIf="currentNews">
+    <div class="container">
+        <div class="prew-next-wrap">
+            <div class="prew">
+                <a (click)="scrollTop(); comments.hide()"
+                   [routerLink]="rootService.sportUrl('/sport/top-news', {view: prevNews.slug})">
+                    <em><img src="/img/arrows.svg" alt="Previous">Previous Article</em>
+                </a>
+            </div>
+            <div class="inner-wrap">
+                <h1>{{ currentNews.title }}</h1>
+                <div class="heading clearfix">
+                    <div class="avatar">
+                        <img src="/img/temp/avatar.jpg" alt="">
+                    </div>
+                    <div class="author" *ngIf="currentNews.contributors.data.length">
+                        <em *ngFor="let user of currentNews.contributors.data; let last = last">
+                            {{ user.name }} <a href="mailto:{{ user.email }}" *ngIf="user.showEmail">{{ user.email
+                            }}</a>
+                            <span *ngIf="!last">,</span>
+                        </em>
+                    </div>
+                    <div class="author source" *ngIf="currentNews.source">
+                        <em>{{ currentNews.source }}</em>
+                    </div>
+                    <div class="time">{{ currentNews.date | date }}</div>
+                </div>
+                <div class="cont" [innerHTML]="currentNews.text">
+                    <!--<div class="quote">-->
+                    <!--<p>There is a lot of skill here. Even with all our issues, we are 2d in the East!</p>-->
+                    <!--<div class="clearfix">-->
+                    <!--<button><img src="/img/tw.svg" alt=""><em>MAKE A TWEET</em></button>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                </div>
+                <div class="share-tags clearfix">
+                    <div class="share-social">
+                        <p>Share ARTICLE</p>
+                        <share-component [types]="['fb', 'tw', 'gp']" [text]="currentNews.title"></share-component>
+                    </div>
+                    <div class="tags" *ngIf="currentNews.tags.length">
+                        <p>TAGS</p>
+                        <a *ngFor="let tag of currentNews.tags">{{ tag.title }}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="next">
+                <a (click)="scrollTop(); comments.hide()"
+                   [routerLink]="rootService.sportUrl('/sport/top-news', {view: nextNews.slug})">
+                    <em>Next Article<img src="/img/arrows.svg" alt="Next"></em>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="inner-wrap">
+            <div class="like-comments clearfix">
+                <div class="fb-share-like">
+                    <div class="like">{{ currentNews.likes }} <em></em></div>
+                    <div class="comments" (click)="comments.getComments()">{{ currentNews.comments }} <em></em></div>
+                </div>
+                <button class="readmore" *ngIf="!comments.showComments && currentNews.comments"
+                        (click)="comments.getComments()">
+                    <em>Show Comments</em>
+                    <span></span>
+                </button>
+            </div>
+
+            <comments-component #comments [modelId]="currentNews.id" [modelType]="'news'"></comments-component>
+
+            <div class="next-prew-wrap-mobile">
+                <a class="prew" *ngIf="prevNews"
+                   [routerLink]="rootService.sportUrl('/sport/top-news', {view: prevNews.slug})">
+                    <img src="/img/arrows.svg" alt="prev">
+                    <em>Previous Article</em>
+                </a>
+                <a class="next" *ngIf="nextNews"
+                   [routerLink]="rootService.sportUrl('/sport/top-news', {view: nextNews.slug})">
+                    <em>Next Article</em>
+                    <img src="/img/arrows.svg" alt="next">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!--<div >-->
+        <div class="container" *ngIf="latestNews">
+            <div class="wide-heading">
+                <p>Latest News</p>
+                <a [routerLink]="rootService.sportUrl('/sport/headlines')"
+                   class="readmore"><em>All Latest News</em></a>
+            </div>
+        </div>
+        <div  *ngIf="rootService.isBrowser()" [swiper]="{freeMode:true,slidesPerView:'auto',observer:true}" class="one_more_news_wrap">
+            <div class="swiper-wrapper">
+                <div class="one_more_news swiper-slide" *ngFor="let news of latestNews">
+                    <div class="img-wrap">
+                        <img [src]="news.thumbUrl" [attr.alt]="news.title">
+                    </div>
+                    <div>
+                        <p class="time">{{ news.date | date:'shortTime' }}</p>
+                        <div class="heading-wrap">
+                            <a class="heading"
+                               [routerLink]="rootService.sportUrl('/sport/headlines', {view: news.slug})">
+                                {{ news.title }}
+                            </a>
+                        </div>
+                        <div class="fb-lv-post-footer">
+                            <div class="fb-share-like">
+                                <div class="like">{{ news.likes }} <em></em></div>
+                                <div class="comments">{{ news.comments }} <em></em></div>
+                            </div>
+                            <a class="readmore"
+                               [routerLink]="rootService.sportUrl('/sport/headlines', {view: news.slug})">
+                                <em>Read Article</em>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div  *ngIf="!rootService.isBrowser()"  class="one_more_news_wrap">
+        <div class="swiper-wrapper">
+            <div class="one_more_news swiper-slide" *ngFor="let news of latestNews">
+                <div class="img-wrap">
+                    <img [src]="news.thumbUrl" [attr.alt]="news.title">
+                </div>
+                <div>
+                    <p class="time">{{ news.date | date:'shortTime' }}</p>
+                    <div class="heading-wrap">
+                        <a class="heading"
+                           [routerLink]="rootService.sportUrl('/sport/headlines', {view: news.slug})">
+                            {{ news.title }}
+                        </a>
+                    </div>
+                    <div class="fb-lv-post-footer">
+                        <div class="fb-share-like">
+                            <div class="like">{{ news.likes }} <em></em></div>
+                            <div class="comments">{{ news.comments }} <em></em></div>
+                        </div>
+                        <a class="readmore"
+                           [routerLink]="rootService.sportUrl('/sport/headlines', {view: news.slug})">
+                            <em>Read Article</em>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--</div>-->
+
+    <img src="/img/temp/wide-banner.jpg" alt="" class="wide-banner">
+</div>

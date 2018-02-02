@@ -1,0 +1,35 @@
+<ng-container *ngIf="isReadyRoot">
+    <div class="container" *ngIf="section == 'schools'|| section == 'players'|| section == 'teams'">
+        <div class="live-heading clearfix">
+            <p class="head">{{ title }}</p>
+            <div class="tag-search-line clearfix">
+                <div class="tags">
+                    <a [routerLink]="newsService.newsRoute(section, parentId, {tagType: 'video'})"><em>Last Video News</em></a>
+                    <a [routerLink]="newsService.newsRoute(section, parentId, {tagType: 'news'})"><em>Latest News</em></a>
+                    <a [routerLink]="newsService.newsRoute(section, parentId, {tagType: 'popular'})"><em>Most
+                        Popular</em></a>
+                    <button class="show-more"></button>
+                </div>
+                <div class="tags">
+                    <a *ngFor="let tag of dynamicTags;"
+                       [routerLink]="newsService.newsRoute(section, parentId, {tagName: tag, tagType: 'all'})"><em>{{tag}}</em></a>
+                    <button class="show-more"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="heading" *ngIf="section === 'main'">
+        Hot Tags
+    </div>
+    <div>
+        <div *ngIf="section === 'main'" class="wrap">
+            <a [routerLink]="rootService.sportUrl('/sport/headlines', {tagType: 'video' })"><em>Last Video News</em></a>
+            <a [routerLink]="rootService.sportUrl('/sport/headlines', {tagType: 'news' })"><em>Latest News</em></a>
+            <a [routerLink]="rootService.sportUrl('/sport/headlines', {tagType: 'popular' })"><em>Most Popular</em></a>
+        </div>
+    </div>
+    <div *ngIf="section === 'main'">
+        <a *ngFor="let tag of dynamicTags"
+           [routerLink]="newsService.newsRoute(section, parentId, {tagName: tag, tagType: 'all'})"><em>{{tag}}</em></a>
+    </div>
+</ng-container>

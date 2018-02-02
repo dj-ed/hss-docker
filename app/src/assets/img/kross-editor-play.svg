@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch -->
+    <title>Play</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0.400264692" width="23" height="23" rx="11.5"></rect>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Play">
+            <g>
+                <g id="+" transform="translate(0.500000, 0.000000)">
+                    <g id="Rectangle-6-Copy">
+                        <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                        <rect stroke="#B2B7BF" stroke-width="1" x="0.5" y="0.900264692" width="22" height="22" rx="11"></rect>
+                    </g>
+                </g>
+                <polygon id="Triangle" fill="#3F4C5E" transform="translate(13.997500, 11.900265) rotate(90.000000) translate(-13.997500, -11.900265) " points="13.9974999 7.39656104 18.5574999 16.4039683 9.4375 16.4039683"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>

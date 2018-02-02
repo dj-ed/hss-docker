@@ -1,0 +1,19 @@
+<a class="share-link" *ngIf="isVisible('fb')"
+   href="https://www.facebook.com/dialog/share?app_id={{ fbAppId }}&quote={{ text }}&display=popup&href={{ url }}&redirect_uri={{ url }}"
+   style="display: inline-block;">
+    <img src="/img/fb.svg" alt="FB Share">
+</a>
+
+<a class="share-link" href="http://twitter.com/share?text={{ text }}&url={{ url }}"
+   *ngIf="isVisible('tw')"
+   target="_blank"
+   style="display: inline-block;">
+    <img src="/img/tw.svg" alt="TW Share">
+</a>
+
+<a class="share-link" href="https://plus.google.com/share?url={{ url }}"
+   *ngIf="isVisible('gp')"
+   target="_blank"
+   style="display: inline-block;">
+    <img src="/img/gp.svg" alt="G+ Share">
+</a>

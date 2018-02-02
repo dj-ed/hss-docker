@@ -1,0 +1,19 @@
+<div>
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+        <div class="form-group">
+            <label class="center-block">
+                Login:
+                <input class="form-control" formControlName="login">
+            </label>
+            <label class="center-block">
+                Password:
+                <input class="form-control" formControlName="password">
+            </label>
+            <button type="submit">Login >></button>
+        </div>
+    </form>
+
+    <pre *ngIf="loginFormErrors.length">
+        {{ loginFormErrors | json }}
+    </pre>
+</div>

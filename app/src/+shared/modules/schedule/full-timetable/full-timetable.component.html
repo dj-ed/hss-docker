@@ -1,0 +1,108 @@
+<div *ngIf="games && games.length" class="container">
+    <div class="live-heading clearfix">
+        <p class="head">Full Timetale</p>
+        <div class="favorites-search">
+            <button class="fav"
+                    (pushAllFavorites)="isSelectMode = $event.length; filterVariants();"
+                    [subsBtn]="{modelType: 'teams', role: 'action', type: 'favorite'}">
+                <span></span>
+            </button>
+            <p>Favorites</p>
+            <internal-search (search)="filterVariants($event);"></internal-search>
+        </div>
+    </div>
+    <div class="upcoming-live-table-wrap">
+        <div class="t-row headin">
+            <div class="divider fg2"></div>
+            <div class="num">#</div>
+            <div class="divider fg1"></div>
+            <div class="selected-sport">
+            </div>
+            <div class="divider fg1"></div>
+            <div class="added">added</div>
+            <div class="divider fg3"></div>
+            <div class="data-time">
+                <p class="data">date</p>
+                <p class="time">time</p>
+            </div>
+            <div class="divider"></div>
+            <div class="fav"></div>
+            <div class="divider"></div>
+            <div class="opponents">opponents</div>
+            <div class="divider"></div>
+            <div class="fav"></div>
+            <div class="divider"></div>
+            <div class="type">type</div>
+            <div class="divider fg6"></div>
+            <div class="location">Location</div>
+            <div class="divider fg4"></div>
+        </div>
+        <div *ngFor="let table of dividedGames">
+            <div class="date-row">
+                <p>
+                    <span>{{table.headerDates.begin|date:'MMM'}}<em>{{table.headerDates.begin|date:'dd'}}</em></span>
+                    <span *ngIf="table.headerDates.end">{{table.headerDates.end|date:'MMM'}}<em>{{table.headerDates.end|date:'dd'}}</em></span>
+                    <em>/ {{table.headerDates.begin.getFullYear()}}</em>
+                </p>
+            </div>
+            <div class="upcoming-live-table">
+                <div *ngFor="let game of table.games" class="t-row">
+                    <div class="divider fg2"></div>
+                    <div class="num"></div>
+                    <div class="selected-sport">
+                        <img src="{{rootService.sportById(game.sportId).logoUrl}}">
+                    </div>
+                    <div class="added" [subsBtn]="{modelType: 'game', modelId:  game.id, type: 'event', role: 'subs'}"><span></span></div>
+                    <div class="divider fg3"></div>
+                    <div class="data-time">
+                        <p class="data">{{game.dateObj()|date:'MMM d'+' / '+game.dateObj().getFullYear()}}</p>
+                        <p *ngIf="game.dateTime" class="time">{{game.dateObj() | date:'shortTime'}}</p>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="fav"
+                         [subsBtn]="{modelType: 'teams', modelId:  game.team.id, type: 'favorite', role: 'subs'}">
+                        <span></span></div>
+                    <div class="divider"></div>
+                    <div class="opponents">
+                        <div class="team">
+                            <a [routerLink]="['/team', game.team.id]">
+                                <abbr title="{{game.team.name}}">{{game.team.shortName}}</abbr>
+                                <div class="img-wrap">
+                                    <img src="{{game.team.logoUrl}}" alt="">
+                                </div>
+                            </a>
+                        </div>
+                        <div [class.away]="game.where=='away'" class="vs"></div>
+                        <div class="team">
+                            <a [routerLink]="(game.opponentTeam.id)?['/team', game.opponentTeam.id]:''">
+                                <div class="img-wrap">
+                                    <img src="{{game.opponentTeam.logoUrl}}" alt="">
+                                </div>
+                                <abbr title="{{game.opponentTeam.name}}">{{game.opponentTeam.shortName}}</abbr>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="fav"
+                         [subsBtn]="{modelType: 'teams', modelId:  game.opponentTeam.id, type: 'favorite', role: 'subs'}">
+                        <span></span></div>
+                    <div class="divider"></div>
+                    <div class="type">
+                        <abbr title="{{game.getFullType()}}">{{game.gameType}}</abbr>
+                        <span>{{game.getFullType()}}</span>
+                    </div>
+                    <div class="divider fg6"></div>
+                    <div class="location">{{game.location}}</div>
+                    <div class="divider fg4"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div *ngIf="remainder>0 && !allGames" (click)="loadGames(true)" class="load-more">
+        <a>
+            <em>Load More Games</em>
+            <span></span>
+        </a>
+    </div>
+</div>

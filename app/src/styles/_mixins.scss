@@ -1,0 +1,98 @@
+@mixin fOswald {
+  //font-family: 'Oswald', sans-serif;
+  font-weight: 400;
+  font-family: 'Barlow Semi Condensed', sans-serif;
+  letter-spacing: 0.1px;
+}
+
+@mixin fRoboto {
+  font-family: 'Roboto Slab', serif;
+}
+
+@mixin dib-vt {
+  display: inline-block;
+  vertical-align: top;
+  margin-right: -4px;
+}
+
+@mixin dib-vm {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+
+@mixin fz7{
+  //font-size: 7px;
+  //@media  (min-device-pixel-ratio: 2),
+  //(min-resolution: 192dpi) {
+    font-size: 9px;
+  //}
+}
+
+@mixin fz8{
+  //font-size: 8px;
+  //@media  (min-device-pixel-ratio: 2),
+  //(min-resolution: 192dpi) {
+    font-size: 10px;
+  //}
+}
+
+@mixin fz9{
+  //font-size: 9px;
+  //@media  (min-device-pixel-ratio: 2),
+  //(min-resolution: 192dpi) {
+    font-size: 12px;
+  //}
+}
+
+@mixin fz10{
+  //font-size: 10px;
+  //@media  (min-device-pixel-ratio: 2),
+  //(min-resolution: 192dpi) {
+    font-size: 14px;
+  //}
+}
+
+@mixin fz11{
+  font-size: 11px;
+}
+
+@mixin fz12{
+  font-size: 12px;
+}
+
+@mixin fz13{
+  font-size: 13px;
+}
+
+@mixin fz14{
+  font-size: 14px;
+}
+
+@mixin fz15{
+  font-size: 15px;
+}
+
+@mixin fz16{
+  font-size: 16px;
+}
+
+@mixin fz18{
+  font-size: 18px;
+}
+
+@mixin fz20{
+  font-size: 20px;
+}
+
+@mixin fz24{
+  font-size: 24px;
+}
+
+@mixin fz32{
+  font-size: 32px;
+}
+
+@mixin fz42{
+  font-size: 42px;
+}

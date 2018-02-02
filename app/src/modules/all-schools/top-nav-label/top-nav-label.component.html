@@ -1,0 +1,91 @@
+<div class="fix-panel" [ngClass]="{'active-nav-live': isActive, 'reverse': renderData.order == 'cities'}" >
+
+    <div class="all-schools-teams-wrap label-wrap" [ngClass]="{'active-line': _config?.state ||
+    (renderData.order === 'states' && _config?.county || renderData.order === 'cities' && _config.county?.char == _config.charCounty?.char)}">
+        <div class="region-wrap team-layer" *ngIf="_config?.state || _config?.county">
+            <div class="container clearfix">
+                <div class="to-region-stuff active">
+                    <div class="container nav-container clearfix">
+                        <!-- STATE BEGIN -->
+                        <div class="pull-left nav" [@apperaAnimation] *ngIf="_config.state">
+                            <div class="img-wrap">
+                                <img [src]="_config.state.stateLogo">
+                            </div>
+                            <div class="name">
+                                <abbr title="Georgia">{{_config.state.stateShortName}}</abbr><span>{{_config.state.stateName}}</span>
+                                <p class="dist">{{_config.state.stateShortName}}</p>
+                            </div>
+                        </div>
+                        <!-- STATE END -->
+
+                        <!-- COUNTY BEGIN -->
+                        <div class="county-wrap" [@apperaAnimation] *ngIf="(renderData.order === 'states' && _config.county) || renderData.order === 'cities' && _config?.county.char == _config.charCounty?.char">
+                            <div class="clearfix">
+                                <div class="pull-left nav">
+                                    <div class="name">
+                                        <abbr title="Georgia">{{_config.county.countyShortName}}</abbr><span>{{_config.county.countyName}}</span>
+                                        <p class="dist">{{_config.county.countyShortName}}</p>
+                                    </div>
+                                    <div class="letters" *ngIf="renderData.order === 'cities' && renderData.viewType === 'lined' && !renderData.searchText && !renderData.searchParams[_config.charCounty.char] && _config.schoolsChar">
+                                        <button *ngFor="let char of _config.county.chars" [ngClass]="{'active': (char | lowercase) == _config.schoolsChar?.char}"
+                                        (click)="scrollToChar.emit({char: char, countyid: _config.schoolsChar.countyid, level:  _config.schoolsChar.level, type: _config.schoolsChar.type});">{{char}}
+                                        </button>
+                                    </div>
+                                    <div class="letters" *ngIf="renderData.order === 'cities' && renderData.viewType === 'lined' && (renderData.searchText || renderData.searchParams[_config.charCounty.char]) && _config.schoolsChar">
+                                        <button *ngFor="let char of renderData.params.data[_config.county.countyId]
+                                                                                                        | search: 'schoolsLevel': (renderData.searchParams[_config.charCounty.char] ? renderData.searchParams[_config.charCounty.char]
+                                                                                                        : renderData.searchText) : renderData.params.data
+                                                                                                        | alphabeticUniqueSort: 'schools'"
+                                                [ngClass]="{'active': (char | lowercase) == _config.schoolsChar?.char}"
+                                                (click)="scrollToChar.emit({char: char, countyid: _config.schoolsChar.countyid, level:  _config.schoolsChar.level, type: _config.schoolsChar.type});">{{char}}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- COUNTY END -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CHAR LINE BEGIN -->
+    <div class="to-region-stuff active char-line" [ngClass]="{'active-line': (renderData.viewType === 'lined' && _config?.schoolsChar) || renderData.order !== 'states' && _config?.charCounty || renderData.order == 'schools'}">
+        <div *ngIf="(renderData.viewType === 'lined' && _config.schoolsChar) || renderData.order !== 'states' && _config.charCounty || renderData.order == 'schools'">
+            <div class="county-wrap school" style="margin-top: 0;">
+                <div class="container clearfix">
+                    <div class="pull-left nav active">
+                        <!-- STATES BEGIN -->
+                        <div class="letters" [@apperaAnimation] *ngIf="renderData.order === 'states' && !renderData.searchParams[_config.county.stateId] && !renderData.searchText">
+                            <button (click)="scrollToChar.emit({char: char, countyid: _config.schoolsChar.countyid, level:  _config.schoolsChar.level, type: _config.schoolsChar.type});"
+                                    [ngClass]="{'active': (char | lowercase) == _config.schoolsChar.char && renderData.viewType == 'lined'}" [@apperaAnimation]
+                                    *ngFor="let char of _config.county.chars">{{char}}</button>
+                        </div>
+                        <div class="letters" *ngIf="renderData.order === 'states' && (renderData.searchParams[_config.county.stateId] || renderData.searchText)">
+                            <button (click)="scrollToChar.emit({char: char, countyid: _config.schoolsChar.countyid, level:  _config.schoolsChar.level, type: _config.schoolsChar.type});"
+                                    [ngClass]="{'active': (char | lowercase) == _config.schoolsChar.char && renderData.viewType == 'lined'}" [@apperaAnimation]
+                                    *ngFor="let char of renderData.params.data[_config.county.countyId]
+                                    | search: 'schoolsLevel': (renderData.searchParams[_config.county.stateId] ? renderData.searchParams[_config.county.stateId]
+                                    : renderData.searchText) : renderData.params.data | alphabeticUniqueSort: 'schools'">{{char}}</button>
+                        </div>
+                        <!-- STATES END -->
+                        <!-- CITIES BEGIN -->
+                        <div class="letters" [@apperaAnimation] *ngIf="renderData.order === 'cities'">
+                            <button (click)="scrollToChar.emit({char: city.char, level: _config.charCounty.level, type: _config.charCounty.type})"
+                                    [ngClass]="{'active': city.char === _config.charCounty.char}" [@apperaAnimation]
+                                    *ngFor="let city of renderData.fullData.cities | search: renderData.order: renderData.searchText: renderData.params.data |  transformData: renderData.order | alphabeticSort: renderData.order : renderData.alphabetParam[renderData.order]">{{city.char}}</button>
+                        </div>
+                        <!-- CITIES END -->
+                        <div class="letters" [@apperaAnimation] *ngIf="renderData.order === 'schools'">
+                            <button (click)="scrollToChar.emit({char: school.char, level: _config.schoolsChar.level, type: _config.schoolsChar.type})"
+                                    [ngClass]="{'active': (school.char | lowercase) === _config.schoolsChar?.char}" [@apperaAnimation]
+                                    *ngFor="let school of renderData.fullData.schools | search: renderData.order: renderData.searchText: renderData.params.data |  transformData: renderData.order | alphabeticSort: renderData.order : renderData.alphabetParam[renderData.order]">{{school.char}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- CHAR LINE END -->
+</div>

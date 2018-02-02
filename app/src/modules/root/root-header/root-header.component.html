@@ -1,0 +1,287 @@
+<div class="top-menu">
+
+    <div class="top_logo">
+        <a [routerLink]="['/']" class="logo top-m-w-text-cup"></a>
+        <button class="state top-m-w-text-cup location-drop" (click)="headerService.toggleLocationMenu()">fl</button>
+        <button class="county top-m-w-text-cup location-drop" (click)="headerService.toggleLocationMenu()">vol</button>
+    </div>
+
+    <div class="border"></div>
+
+    <div class="sport">
+        <button class="top-m-w-text-cup submenu-drop" (click)="headerService.toggleTopSubMenu()">
+            <span>
+                <img src="/img/sports/{{getSportTitleId()}}.svg" alt="">
+            </span>
+            <em>{{getSportTitle()}}</em>
+        </button>
+    </div>
+
+    <div class="border"></div>
+
+    <div class="season">
+        <button class="top-m-w-text-cup season-drop" (click)="headerService.toggleSeasonMenu()">{{ rootService.seasonField('title').replace('-', ' / ') }} <span>SEASON</span></button>
+    </div>
+
+    <div class="border"></div>
+
+    <div class="menu" [class.hidden]="headerService.searchOpen">
+        <a [routerLink]="rootService.sportUrl('/sport/schedule')" routerLinkActive="active" class="top-m-w-text-cup">SCHEDULE</a>
+        <a [routerLink]="['/sport-stat']" routerLinkActive="active" class="top-m-w-text-cup">STATISTICS</a>
+        <a [routerLink]="rootService.sportUrl('/sport/headlines')" routerLinkActive="active" class="top-m-w-text-cup">HEADLINES</a>
+        <ng-container *ngIf="isLastSeason()">
+            <a [routerLink]="rootService.sportUrl('/sport/live')" routerLinkActive="active" class="live top-m-w-text-cup">LIVE</a>
+        </ng-container>
+        <a [routerLink]="rootService.sportUrl('/sport/gallery')" routerLinkActive="active" class="top-m-w-text-cup">gallery</a>
+        <a [routerLink]="rootService.sportUrl('/sport/top-news')" routerLinkActive="active" class="top-m-w-text-cup">top news</a>
+        <a [routerLink]="rootService.seasonUrl('/all-schools')" routerLinkActive="active" class="top-m-w-text-cup">all schools</a>
+        <a [routerLink]="rootService.seasonUrl('/all-teams')" routerLinkActive="active" class="top-m-w-text-cup">all teams</a>
+    </div>
+
+    <div class="border" [class.hidden]="headerService.searchOpen"></div>
+
+    <div class="sign_in" [class.hidden]="headerService.searchOpen">
+        <button class="top-m-w-text-cup">SIGN UP</button>
+    </div>
+
+    <header-search class="top_search" *ngIf="headerService.searchOpen"></header-search>
+
+    <div class="border"></div>
+
+    <div class="search_burger">
+        <button  class="search search-button" [class.active]="headerService.searchOpen" (click)="headerService.toogleSearch()"></button>
+        <div class="burger" [class.active]="headerService.mainMenuOpened" (click)="toggleMainMenu()"></div>
+    </div>
+
+    <a href="http://hssinsider.com/" class="right-button"></a>
+</div>
+
+<div class="prev-season" [class.open]="headerService.seasonsMenuOpened">
+    <div class="season-wrap">
+        <a class="season"
+           *ngFor="let season of rootService.seasonList | reverse"
+           (click)="changeSeason(season)"
+           [class.active]="season.id == rootService.currentSeasonId"
+           [routerLink]="['/sport','overview','basketball', season.titleShort]">
+            <span></span>{{ season.title.replace('-', ' / ') }}
+        </a>
+    </div>
+</div>
+
+<div class="top-menu submenu" [class.open]="headerService.topSubMenuOpened">
+    <div class="in-menu">
+        <div class="left">
+            <div>
+                <a class="all"
+                   [class.active]="!rootService.currentGenderId"
+                   (click)="changeGender()">All</a>
+            </div>
+            <div *ngFor="let gender of rootService.genderList">
+                <a [class.active]="rootService.currentGenderId === gender.id"
+                   (click)="changeGender(gender.id)">
+                    <img [src]="gender.imgLogo">{{ gender.name }}
+                </a>
+            </div>
+        </div>
+
+        <div class="center">
+            <div class="divider"></div>
+            <div class="center-inner">
+                <div>
+                    <a [class.active]="!rootService.currentSportId"
+                       (click)="changeSport()" class="all">
+                        Overview
+                    </a>
+                </div>
+                <div *ngFor="let sport of rootService.sportList">
+                    <a (click)="changeSport(sport.id)"
+                       [class.active]="sport.id == rootService.currentSportId">
+                        <img [src]="sport.logoUrl" [attr.alt]="sport.title">
+                        {{ sport.title }}
+                    </a>
+                </div>
+            </div>
+            <div class="divider"></div>
+            <div class="extras-inner">
+                <!--<div>-->
+                <!--<a href="prefered-sport.html"><img src="/img/sports/basketball.svg" alt="">Cheerleading</a>-->
+                <!--</div>-->
+                <!--<div>-->
+                <!--<a href="prefered-sport.html"><img src="/img/sports/basketball.svg" alt="">Band</a>-->
+                <!--</div>-->
+                <!--<div>-->
+                <!--<a href="prefered-sport.html"><img src="/img/sports/basketball.svg" alt="">Homecomming</a>-->
+                <!--</div>-->
+            </div>
+            <div class="divider"></div>
+        </div>
+        <!--<div class="right">-->
+        <!--<button class="more"></button>-->
+        <!--</div>-->
+
+    </div>
+    <a href="http://hssinsider.com/" class="insider-button"></a>
+</div>
+
+<div class="location-menu" [class.open]="headerService.locationMenuOpened">
+    <div class="container">
+        <button class="show-map"></button>
+        <div class="divider"></div>
+        <div class="center">
+
+
+            <div class="dropper">
+                <p>State</p>
+                <location-dropdown [type]="'state'" class="state-drop"></location-dropdown>
+            </div>
+
+            <div class="dropper">
+                <p>Hometown Team</p>
+                <location-team-dropdown></location-team-dropdown>
+            </div>
+
+            <div class="dropper">
+                <p>City</p>
+                <location-dropdown [type]="'city'"></location-dropdown>
+            </div>
+
+            <div class="dropper">
+                <p>Zip</p>
+                <location-zip></location-zip>
+            </div>
+
+
+        </div>
+        <div class="divider"></div>
+        <button class="use-location">
+            <p>use-location</p>
+            <span>34.4562” 56.2220”</span>
+        </button>
+        <div class="divider"></div>
+        <div class="cancel-go">
+            <button class="cancel">cancel</button>
+            <button class="readmore">go</button>
+        </div>
+    </div>
+</div>
+
+<div class="main-menu" [class.open]="headerService.mainMenuOpened">
+    <div class="title">
+        <div class="container">
+            <div>
+                <p>Gender & Varsity</p>
+            </div>
+            <div class="small">
+                <p>Season</p>
+            </div>
+            <div>
+                <p>Sport</p>
+            </div>
+            <div>
+                <p>Extras</p>
+            </div>
+        </div>
+    </div>
+    <div class="menu">
+        <div class="container">
+            <div>
+                <div class="biger-menu">
+                    <a (click)="changeGender()"
+                       class="all"
+                       [class.active]="!rootService.currentGenderId">All</a>
+
+                    <a *ngFor="let gender of rootService.genderList"
+                       [class.active]="gender.id === rootService.currentGenderId"
+                       (click)="changeGender(gender.id)">
+                        <img [src]="gender.imgLogo">{{ gender.name }}
+                    </a>
+                </div>
+
+                <div class="smaller-menu">
+                    <div *ngIf="headerService.varsityVisible">
+                        <a *ngFor="let varsity of rootService.varsityList"
+                           (click)="changeVarsity(varsity.id)"
+                           [class.active]="varsity.id === rootService.currentVarsityId">
+                            {{ varsity.name }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="divider"></div>
+            <div class="small">
+                <div *ngFor="let season of rootService.seasonList">
+                    <a (click)="navSeason = season"
+                       [class.active]="navSeason && season.id === navSeason.id">{{ season.title }}</a>
+                </div>
+            </div>
+            <div class="divider"></div>
+            <div>
+                <div class="biger-menu" *ngIf="navSeason">
+                    <a (click)="navSport = undefined; setRootVariables(); toggleMainMenu()"
+                       [routerLink]="['/season', navSeason.titleShort]"
+                       [class.active]="!navSport">Overview</a>
+
+                    <a *ngFor="let sport of rootService.sportList"
+                       (click)="navSport = sport"
+                       [class.active]="navSport && sport.id === navSport.id">
+                        <img [src]="sport.logoUrl" [attr.alt]="sport.title">{{ sport.title }}
+                    </a>
+                </div>
+                <div class="smaller-menu">
+                    <div *ngIf="navSport && navSeason">
+                        <a (click)="setRootVariables(); toggleMainMenu()" routerLinkActive="active"
+                           [routerLink]="buildSportUrl('/sport/overview')">
+                            Homepage</a>
+
+                        <a (click)="setRootVariables(); toggleMainMenu()" routerLinkActive="active"
+                           [routerLink]="buildSportUrl('/sport/schedule')">
+                            SCHEDULE</a>
+
+                        <a (click)="setRootVariables(); toggleMainMenu()" routerLinkActive="active"
+                           [routerLink]="['/sport-stat']">STATISTICS</a>
+
+                        <a (click)="setRootVariables(); toggleMainMenu()" routerLinkActive="active"
+                           [routerLink]="buildSportUrl('/sport/headlines')">
+                            HEADLINES</a>
+
+                        <a (click)="setRootVariables(); toggleMainMenu()" routerLinkActive="active"
+                           [routerLink]="buildSportUrl('/sport/top-news')">
+                            Top News</a>
+
+                        <a (click)="setRootVariables(); toggleMainMenu()" routerLinkActive="active"
+                           [routerLink]="['/all-schools', navSeason.titleShort]">All Schools</a>
+
+                        <a (click)="setRootVariables(); toggleMainMenu()" routerLinkActive="active"
+                           [routerLink]="['/all-teams', navSeason.titleShort]">All Teams</a>
+
+                        <a (click)="setRootVariables(); toggleMainMenu()" routerLinkActive="active" class="live"
+                           [routerLink]="buildSportUrl('/sport/live')">LIVE</a>
+
+                        <a (click)="setRootVariables(); toggleMainMenu()" routerLinkActive="active"
+                           [routerLink]="buildSportUrl('/sport/gallery')">Gallery</a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="divider"></div>
+            <div>
+                <div class="biger-menu">
+                    <a href="prefered-sport.html"><img src="/img/sports/basketball.svg" alt="">Cheerleading</a>
+                    <a href="prefered-sport.html"><img src="/img/sports/basketball.svg" alt="">Band</a>
+                    <a href="prefered-sport.html"><img src="/img/sports/basketball.svg" alt="">Homecomming</a>
+                </div>
+                <div class="smaller-menu">
+                    <a href="index.html">Homepage</a>
+                    <a href="schedule.html">SCHEDULE</a>
+                    <a href="statistics.html">STATISTICS</a>
+                    <a href="headlines.html">HEADLINES</a>
+                    <a href="today-news.html">Top News</a>
+                    <a href="all-schools.html">All Schools</a>
+                    <a href="all-teams.html">All Teams</a>
+                    <a href="live.html" class="live">LIVE</a>
+                    <a href="player-gallery.html">Gallery</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+<ng-container *ngIf="rootService.isBrowser()">
+<div>
+    <div class="search">
+        <input type="text" class="input_loc" [(ngModel)]="zip_input" maxlength="5" (keyup)="testreg($event)">
+        <input type="search" class="searcher">
+    </div>
+
+    <div class="drop-warning" [ngClass]="{active: zip_input.length < 3 && zip_input.length > 0}">
+        <p>type at least three symbols</p>
+    </div>
+
+    <div class="drop" [ngClass]="{open: dropOpen}">
+        <ng-scrollbar class="in-drop" *ngIf="zips">
+            <div class="one" *ngFor="let zip of zips">
+                <p>{{zip}}</p>
+            </div>
+        </ng-scrollbar>
+    </div>
+</div>
+</ng-container>

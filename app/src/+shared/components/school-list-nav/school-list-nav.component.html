@@ -1,0 +1,48 @@
+<div class="today-news-heading clearfix" [ngClass]="{ 'scrolled': isTitle }">
+    <div class="school-switcher" *ngIf="currentSchool">
+        <div class="img-wrap" (click)="toggle()">
+            <img [src]="currentSchool.logoUrl" [attr.alt]="currentSchool.name">
+        </div>
+        <div class="switcher" (click)="toggle()">
+            <a><img src="/img/arrows.svg" alt="Prev"></a>
+            <p>{{ currentSchool.shortName }}</p>
+            <a><img src="/img/arrows.svg" alt="Next"></a>
+        </div>
+
+        <div [swiper]="{freeMode:true,slidesPerView:'auto',observer:true}" class="schools_dropdown" *ngIf="visible">
+            <div class="swiper-wrapper">
+                <a *ngFor="let oneSchool of rootService.schoolList"
+                   [routerLink]="['/school', oneSchool.id, 'headlines']"
+                   class="school swiper-slide">
+                    <span class="img-wrap">
+                        <img [src]="oneSchool.logoUrl" [attr.alt]="oneSchool.name">
+                    </span>
+                    <abbr [attr.title]="oneSchool.name">{{ oneSchool.shortName }}</abbr>
+                </a>
+            </div>
+        </div>
+
+    </div>
+    <div class="container" *ngIf="!isTitle">
+        <div class="heading">
+            <p class="head {{ className }}">{{ title }}</p>
+        </div>
+    </div>
+    <div class="container" *ngIf="isTitle && news">
+        <div class="heading">
+            <p class="head {{ className }}">{{ title }}</p>
+
+               <div class="scrolled-heading clearfix">
+                <p class="header">{{news.title}}</p>
+                <div class="author" *ngIf="news.author">
+                    <em>{{news.author}}</em>
+                </div>
+                <div class="author source">
+                    <em>{{news.source}}</em>
+                </div>
+                <div class="time">{{news.date | date:'mediumDate'}}</div>
+            </div>
+        </div>
+    </div>
+</div>
+

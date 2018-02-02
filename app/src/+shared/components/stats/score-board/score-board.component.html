@@ -1,0 +1,378 @@
+<div class="stats-score-wrap">
+    <div *ngIf="dividedGames && dividedGames.length" class="container">
+        <div class="top_switcher clearfix">
+            <div class="favorites-search">
+                <button class="fav"
+                        (pushAllFavorites)="isSelectMode = $event.length"
+                        [subsBtn]="{modelType: 'teams', role: 'action', type: 'favorite'}">
+                    <span></span>
+                </button>
+                <p>Favorites</p>
+                <internal-search (search)="searchText = $event;" (closeSearch)="searchText = null;"></internal-search>
+            </div>
+        </div>
+
+        <div *ngFor="let table of dividedGames
+        | scoreBoardSearch: searchText: section : isSelectMode; let i=index" class="tabels-wrap">
+            <div *ngIf="i==0" class="t-row t-head">
+                <div class="num">#</div>
+                <div class="divider fg3"></div>
+                <div class="date">Date</div>
+                <div class="divider fg4"></div>
+                <div class="time">TIme</div>
+                <div class="divider"></div>
+                <div class="fav"></div>
+                <div class="divider"></div>
+                <div class="team">Team</div>
+                <div class="score">Score</div>
+                <div class="team">Team</div>
+                <div class="divider"></div>
+                <div class="fav"></div>
+                <div class="divider"></div>
+                <div class="type">Type</div>
+                <div class="divider fg10"></div>
+                <button class="show"></button>
+            </div>
+
+            <div class="date-row">
+                <p>
+                    <span>{{table.headerDates.begin|date:'MMM'}}<em>{{table.headerDates.begin|date:'dd'}}</em></span>
+                    <span *ngIf="table.headerDates.end">{{table.headerDates.end|date:'MMM'}}<em>{{table.headerDates.end|date:'dd'}}</em></span>
+                    <em>/ {{table.headerDates.begin.getFullYear()}}</em>
+                </p>
+            </div>
+
+            <div *ngFor="let game of table.games" class="t-row-wrap">
+                <div [class.active]="game.id==showId" class="t-row">
+                    <div class="num">{{game.index}}</div>
+                    <div class="divider fg3"></div>
+                    <div class="date">
+                        <span>{{game.dateObj().toString().substring(3, 10)}}</span>
+                        <span>{{game.dateObj().getFullYear()}}</span>
+                    </div>
+                    <div class="divider fg4"></div>
+                    <div *ngIf="game.dateTime" class="time">{{game.dateObj() | date:'shortTime'}}</div>
+                    <div *ngIf="!game.dateTime" class="time"></div>
+                    <div class="divider"></div>
+                    <div class="fav"
+                         [subsBtn]="{modelType: 'teams', modelId:  game.team.id, type: 'favorite', role: 'subs'}">
+                        <span></span></div>
+                    <div class="divider"></div>
+                    <div class="team t1">
+                        <a [routerLink]="['/team', game.team.id]">
+                            <abbr title="{{game.team.name}}">{{game.team.shortName}}</abbr><span>{{game.team.name}}</span>
+                            <div class="img-wrap">
+                                <img src="{{game.team.logoUrl}}" alt="">
+                            </div>
+                        </a>
+                    </div>
+                    <div class="score">
+                        <div [class.win]="game.win" [class.lose]="!game.win" class="stat">
+                            <p>{{game.scoreTeam}}</p>
+                        </div>
+                        <div class="vs">
+                            <p> {{(game.where=='away')?'@':'vs'}} </p>
+                        </div>
+                        <div [class.win]="!game.win" [class.lose]="game.win" class="stat">
+                            <p>{{game.scoreOpponent}}</p>
+                        </div>
+                    </div>
+                    <div class="team t2">
+                        <a [routerLink]="(game.opponentTeam.id)?['/team', game.opponentTeam.id]:[]">
+                            <div class="img-wrap">
+                                <img src="{{game.opponentTeam.logoUrl}}" alt="">
+                            </div>
+                            <abbr title="{{game.opponentTeam.name}}">{{game.opponentTeam.shortName}}</abbr><span>{{game.opponentTeam.name}}</span>
+                        </a>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="fav"
+                         [subsBtn]="{modelType: 'teams', modelId:  game.opponentTeam.id, type: 'favorite', role: 'subs'}">
+                        <span></span></div>
+                    <div class="divider"></div>
+                    <div class="type"><abbr
+                            title="{{game.getFullType()}}">{{game.gameType}}</abbr><span>{{game.getFullType()}}</span>
+                    </div>
+                    <div class="divider fg10"></div>
+                    <button (click)="showDeatail(game.id)" class="show"></button>
+                </div>
+                <!--basketball!-->
+                <div *ngIf="game.id==showId && rootService.currentSportId==1" [@slideDownAnimation] class="inner-tabel">
+                    <div *ngIf="gameDetails.stats && gameDetails.stats.length" class="table">
+                        <div class="t-inner-row heading">
+                            <div class="divider"></div>
+                            <div class="num">#</div>
+                            <div class="divider"></div>
+                            <div class="player">PLAYER</div>
+                            <div class="divider fb5"></div>
+                            <div class="fg">fg</div>
+                            <div class="divider fb3"></div>
+                            <div class="fg">fgm-a</div>
+                            <div class="divider fb3"></div>
+                            <div class="fg">3ptm-a</div>
+                            <div class="divider fb3"></div>
+                            <div class="pf">pf</div>
+                            <div class="divider fb3"></div>
+                            <div class="pts">pts</div>
+                            <div class="divider fb5"></div>
+                        </div>
+                        <div *ngFor="let player of gameDetails.stats" class="t-inner-row">
+                            <div class="divider"></div>
+                            <div class="num"></div>
+                            <div class="divider"></div>
+                            <div class="player"><a
+                                    [routerLink]="['/player', player.id]"><span>{{player.number}}</span><em>{{player.first_name+'
+                                '+player.last_name}}</em></a>
+                            </div>
+                            <div class="divider fb5"></div>
+                            <div class="fg ps">{{player.fg}}</div>
+                            <div class="divider fb3"></div>
+                            <div class="fg">{{player.fgma_1+' - '+player.fgma_2}}</div>
+                            <div class="divider fb3"></div>
+                            <div class="fg">{{player.pma_1+' - '+player.pma_2}}</div>
+                            <div class="divider fb3"></div>
+                            <div class="pf">{{player.pf}}</div>
+                            <div class="divider fb3"></div>
+                            <div class="pts">{{player.pts}}</div>
+                            <div class="divider fb5"></div>
+                        </div>
+                        <div *ngIf="gameDetails.total" class="t-inner-row total">
+                            <div class="divider"></div>
+                            <div class="num"></div>
+                            <div class="divider"></div>
+                            <div class="player">total</div>
+                            <div class="divider fb5"></div>
+                            <div class="fg ps">{{gameDetails.total.fg}}</div>
+                            <div class="divider fb3"></div>
+                            <div class="fg">{{gameDetails.total.fgma_1+' - '+gameDetails.total.fgma_2}}</div>
+                            <div class="divider fb3"></div>
+                            <div class="fg">{{gameDetails.total.pma_1+' - '+gameDetails.total.pma_2}}</div>
+                            <div class="divider fb3"></div>
+                            <div class="pf">{{gameDetails.total.pf}}</div>
+                            <div class="divider fb3"></div>
+                            <div class="pts">{{gameDetails.total.pts}}</div>
+                            <div class="divider fb5"></div>
+                        </div>
+                    </div>
+                    <div *ngIf="gameDetails.opponentStats && gameDetails.opponentStats.length" class="table">
+                        <div class="t-inner-row heading">
+                            <div class="divider"></div>
+                            <div class="num">#</div>
+                            <div class="divider"></div>
+                            <div class="player">PLAYER</div>
+                            <div class="divider fb5"></div>
+                            <div class="fg">fg</div>
+                            <div class="divider fb3"></div>
+                            <div class="fg">fgm-a</div>
+                            <div class="divider fb3"></div>
+                            <div class="fg">3ptm-a</div>
+                            <div class="divider fb3"></div>
+                            <div class="pf">pf</div>
+                            <div class="divider fb3"></div>
+                            <div class="pts">pts</div>
+                            <div class="divider fb5"></div>
+                        </div>
+                        <div *ngFor="let player of gameDetails.opponentStats" class="t-inner-row">
+                            <div class="divider"></div>
+                            <div class="num"></div>
+                            <div class="divider"></div>
+                            <div class="player"><a
+                                    [routerLink]="['/player', player.id]"><span>{{player.number}}</span><em>{{player.first_name+'
+                                '+player.last_name}}</em></a>
+                            </div>
+                            <div class="divider fb5"></div>
+                            <div class="fg ps">{{player.fg}}</div>
+                            <div class="divider fb3"></div>
+                            <div class="fg">{{player.fgma_1+' - '+player.fgma_2}}</div>
+                            <div class="divider fb3"></div>
+                            <div class="fg">{{player.pma_1+' - '+player.pma_2}}</div>
+                            <div class="divider fb3"></div>
+                            <div class="pf">{{player.pf}}</div>
+                            <div class="divider fb3"></div>
+                            <div class="pts">{{player.pts}}</div>
+                            <div class="divider fb5"></div>
+                        </div>
+                        <div *ngIf="gameDetails.opponentTotal" class="t-inner-row total">
+                            <div class="divider"></div>
+                            <div class="num"></div>
+                            <div class="divider"></div>
+                            <div class="player">total</div>
+                            <div class="divider fb5"></div>
+                            <div class="fg ps">{{gameDetails.opponentTotal.fg}}</div>
+                            <div class="divider fb3"></div>
+                            <div class="fg">{{gameDetails.opponentTotal.fgma_1+' -
+                                '+gameDetails.opponentTotal.fgma_2}}
+                            </div>
+                            <div class="divider fb3"></div>
+                            <div class="fg">{{gameDetails.opponentTotal.pma_1+' - '+gameDetails.opponentTotal.pma_2}}
+                            </div>
+                            <div class="divider fb3"></div>
+                            <div class="pf">{{gameDetails.opponentTotal.pf}}</div>
+                            <div class="divider fb3"></div>
+                            <div class="pts">{{gameDetails.opponentTotal.pts}}</div>
+                            <div class="divider fb5"></div>
+                        </div>
+                    </div>
+                </div>
+                <!--volleyball!-->
+                <div *ngIf="game.id==showId && rootService.currentSportId==2" [@slideDownAnimation] class="inner-tabel">
+                    <div *ngIf="gameDetails.stats && gameDetails.stats.length" class="table">
+                        <div class="t-inner-row heading">
+                            <div class="divider"></div>
+                            <div class="num">#</div>
+                            <div class="divider"></div>
+                            <div class="player">PLAYER</div>
+                            <div class="divider fb5"></div>
+                            <div class="fg">k</div>
+                            <div class="divider fb3"></div>
+                            <div class="fg">e</div>
+                            <div class="divider fb3"></div>
+                            <div class="fg">ta</div>
+                            <div class="divider fb3"></div>
+                            <div class="pf">bs</div>
+                            <div class="divider fb3"></div>
+                            <div class="pts">ba</div>
+                            <div class="divider fb5"></div>
+                            <div class="pts">be</div>
+                            <div class="divider fb5"></div>
+                            <div class="pts">sp</div>
+                            <div class="divider fb5"></div>
+                            <div class="pts">pts</div>
+                            <div class="divider fb5"></div>
+                        </div>
+                        <div *ngFor="let player of gameDetails.stats" class="t-inner-row">
+                            <div class="divider"></div>
+                            <div class="num"></div>
+                            <div class="divider"></div>
+                            <div class="player"><a
+                                    [routerLink]="['/player', player.id]"><span>{{player.number}}</span><em>{{player.first_name+'
+                                '+player.last_name}}</em></a>
+                            </div>
+                            <div class="divider fb5"></div>
+                            <div class="fg">{{player.attack_k}}</div>
+                            <div class="divider fb3"></div>
+                            <div class="fg">{{player.attack_e}}</div>
+                            <div class="divider fb3"></div>
+                            <div class="fg">{{player.attack_ta}}</div>
+                            <div class="divider fb3"></div>
+                            <div class="pf">{{player.block_ba}}</div>
+                            <div class="divider fb3"></div>
+                            <div class="pts">{{player.block_be}}</div>
+                            <div class="divider fb5"></div>
+                            <div class="pts">{{player.block_bs}}</div>
+                            <div class="divider fb5"></div>
+                            <div class="pts">{{player.sets}}</div>
+                            <div class="divider fb5"></div>
+                            <div class="pts">{{player.pts}}</div>
+                            <div class="divider fb5"></div>
+                        </div>
+                        <div *ngIf="gameDetails.total" class="t-inner-row total">
+                            <div class="divider"></div>
+                            <div class="num"></div>
+                            <div class="divider"></div>
+                            <div class="player">total</div>
+                            <div class="divider fb5"></div>
+                            <div class="fg">{{gameDetails.total.attack_k}}</div>
+                            <div class="divider fb3"></div>
+                            <div class="fg">{{gameDetails.total.attack_e}}</div>
+                            <div class="divider fb3"></div>
+                            <div class="fg">{{gameDetails.total.attack_ta}}</div>
+                            <div class="divider fb3"></div>
+                            <div class="pf">{{gameDetails.total.block_ba}}</div>
+                            <div class="divider fb3"></div>
+                            <div class="pts">{{gameDetails.total.block_be}}</div>
+                            <div class="divider fb5"></div>
+                            <div class="pts">{{gameDetails.total.block_bs}}</div>
+                            <div class="divider fb5"></div>
+                            <div class="pts">{{gameDetails.total.sets}}</div>
+                            <div class="divider fb5"></div>
+                            <div class="pts">{{gameDetails.total.pts}}</div>
+                            <div class="divider fb5"></div>
+                        </div>
+                    </div>
+                    <div *ngIf="gameDetails.opponentStats && gameDetails.opponentStats.length" class="table">
+                        <div class="t-inner-row heading">
+                            <div class="divider"></div>
+                            <div class="num">#</div>
+                            <div class="divider"></div>
+                            <div class="player">PLAYER</div>
+                            <div class="divider fb5"></div>
+                            <div class="fg">k</div>
+                            <div class="divider fb3"></div>
+                            <div class="fg">e</div>
+                            <div class="divider fb3"></div>
+                            <div class="fg">ta</div>
+                            <div class="divider fb3"></div>
+                            <div class="pf">bs</div>
+                            <div class="divider fb3"></div>
+                            <div class="pts">ba</div>
+                            <div class="divider fb5"></div>
+                            <div class="pts">be</div>
+                            <div class="divider fb5"></div>
+                            <div class="pts">sp</div>
+                            <div class="divider fb5"></div>
+                            <div class="pts">pts</div>
+                            <div class="divider fb5"></div>
+                        </div>
+                        <div *ngFor="let player of gameDetails.opponentStats" class="t-inner-row">
+                            <div class="divider"></div>
+                            <div class="num"></div>
+                            <div class="divider"></div>
+                            <div class="player"><a
+                                    [routerLink]="['/player', player.id]"><span>{{player.number}}</span><em>{{player.first_name+'
+                                '+player.last_name}}</em></a>
+                            </div>
+                            <div class="divider fb5"></div>
+                            <div class="fg">{{player.attack_k}}</div>
+                            <div class="divider fb3"></div>
+                            <div class="fg">{{player.attack_e}}</div>
+                            <div class="divider fb3"></div>
+                            <div class="fg">{{player.attack_ta}}</div>
+                            <div class="divider fb3"></div>
+                            <div class="pf">{{player.block_ba}}</div>
+                            <div class="divider fb3"></div>
+                            <div class="pts">{{player.block_be}}</div>
+                            <div class="divider fb5"></div>
+                            <div class="pts">{{player.block_bs}}</div>
+                            <div class="divider fb5"></div>
+                            <div class="pts">{{player.sets}}</div>
+                            <div class="divider fb5"></div>
+                            <div class="pts">{{player.pts}}</div>
+                            <div class="divider fb5"></div>
+                        </div>
+                        <div *ngIf="gameDetails.opponentTotal" class="t-inner-row total">
+                            <div class="divider"></div>
+                            <div class="num"></div>
+                            <div class="divider"></div>
+                            <div class="player">total</div>
+                            <div class="divider fb5"></div>
+                            <div class="fg">{{gameDetails.opponentTotal.attack_k}}</div>
+                            <div class="divider fb3"></div>
+                            <div class="fg">{{gameDetails.opponentTotal.attack_e}}</div>
+                            <div class="divider fb3"></div>
+                            <div class="fg">{{gameDetails.opponentTotal.attack_ta}}</div>
+                            <div class="divider fb3"></div>
+                            <div class="pf">{{gameDetails.opponentTotal.block_ba}}</div>
+                            <div class="divider fb3"></div>
+                            <div class="pts">{{gameDetails.opponentTotal.block_be}}</div>
+                            <div class="divider fb5"></div>
+                            <div class="pts">{{gameDetails.opponentTotal.block_bs}}</div>
+                            <div class="divider fb5"></div>
+                            <div class="pts">{{gameDetails.opponentTotal.sets}}</div>
+                            <div class="divider fb5"></div>
+                            <div class="pts">{{gameDetails.opponentTotal.pts}}</div>
+                            <div class="divider fb5"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="remainderCount>0" class="load-more">
+            <a *ngIf="!loadingActive" (click)="loadGames()">
+                <em>Load More Scores</em>
+                <span></span>
+            </a>
+        </div>
+    </div>
+</div>

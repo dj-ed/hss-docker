@@ -1,0 +1,82 @@
+<school-header [className]="'big'"></school-header>
+
+<upcoming-games [type]="'school'"></upcoming-games>
+
+<div class="container" *ngIf="ready">
+    <div class="wide-heading">
+        <p>Sports</p>
+        <p class="powered-by" *ngIf="poweredBy$ | async">
+            <span>Powered by</span>
+            <a href="https://www.krossover.com/">
+                <img src="/img/korssower.png" alt="korssower">
+            </a>
+        </p>
+    </div>
+    <div class="sport-switcher">
+        <div class="one" *ngFor="let sport of sports$ | async">
+            <div class="img-wrap">
+                <img [src]="sport.logoUrl" [attr.alt]="sport.title">
+            </div>
+            <p class="name">{{ sport.title }}</p>
+            <p class="vars">
+                {{ sport.team_type }}
+            </p>
+            <div class="fav">
+                <span></span>
+            </div>
+            <div class="bottom">
+                <a [routerLink]="['/school', school.id, 'schedule', sport.title.toLowerCase()]" class="readmore">
+                    <em>View Schedule</em>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="banner-wrap">
+        <a href="" class="add1">
+            <div class="heading">
+                Support Your Team
+            </div>
+            <div class="under-head">
+                Go to Online Store
+            </div>
+            <div class="bottom-link">
+                <p class="readmore"><em>Go to Store</em></p>
+            </div>
+        </a>
+        <a href="" class="add2">
+            <div class="heading">
+                Buy Tickets
+            </div>
+            <div class="under-head">
+                Store
+            </div>
+            <div class="bottom-link">
+                <p class="readmore"><em>Get Now</em></p>
+            </div>
+        </a>
+    </div>
+</div>
+
+
+<div class="headline-wrap">
+    <div class="container clearfix" id="news-wrap">
+
+        <div class="wide-heading">
+            <p>Headlines</p>
+            <a href="headlines.html" class="readmore"><em>All Headlines</em></a>
+        </div>
+
+        <div class="pull-left">
+            <last-video-news [type]="'schools'"></last-video-news>
+        </div>
+
+        <div class="pull-left">
+            <latest-news [type]="'schools'"></latest-news>
+        </div>
+
+        <social-stream [socials]="null"></social-stream>
+
+    </div>
+</div>
+

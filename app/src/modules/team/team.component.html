@@ -1,0 +1,86 @@
+<div class="school-team-wrap" *ngIf="ready">
+    <div class="container">
+        <div class="top">
+            <div class="mascot-wrap">
+                <img [src]="team.logoUrl" [attr.alt]="team.name">
+            </div>
+            <div class="name-wrap">
+                <p class="name">{{ team.name }}</p>
+                <p class="varsity">{{ team.teamTypeName }}</p>
+                <button class="fav"></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom">
+        <div class="container">
+            <div class="school-switch">
+                <a [routerLink]="['/team', prevTeamId]">
+                    <img src="/img/dropdown.svg" alt="prev">
+                </a>
+                <p (click)="toggleSchoolList()">{{ team.nameShort }}</p>
+                <a [routerLink]="['/team', nextTeamId]">
+                    <img src="/img/dropdown.svg" alt="next">
+                </a>
+            </div>
+            <div class="back-to-school">
+                <a [routerLink]="['/school', team.school.id]"><em>School</em></a>
+            </div>
+            <ul class="team-head-menu">
+                <li><a routerLinkActive="active"
+                       [routerLinkActiveOptions]="{exact:true}"
+                       [routerLink]="['/team', team.id]">Home Court</a></li>
+                <li><a routerLinkActive="active"
+                       [routerLink]="['/team', team.id, 'roster']">Roster</a></li>
+                <li><a routerLinkActive="active"
+                       [routerLink]="['/team', team.id, 'stats']">Stats</a></li>
+                <li><a routerLinkActive="active"
+                       [routerLink]="['/team', team.id, 'schedule']">Team Schedule</a></li>
+                <li><a routerLinkActive="active"
+                       [routerLink]="['/team', team.id, 'headlines']">News</a></li>
+                <li><a routerLinkActive="active"
+                       [routerLink]="['/team', team.id, 'gallery']">Gallery</a></li>
+                <li><a routerLinkActive="active"
+                       [routerLink]="['/team', team.id, 'live']"
+                       class="live">Live Stream</a></li>
+            </ul>
+
+            <a routerLinkActive="active"
+               [routerLink]="['/team', team.id, 'krossover']"
+               class="krosower-link">Krossover</a>
+
+            <div class="fav-social-wrap">
+                <div class="fav" [subsBtn]="{modelType: 'teams', modelId:  team.id, type: 'favorite', role: 'subs'}">
+                    <span></span>
+                </div>
+
+                <!--<div class="social">-->
+                    <!--<div>-->
+                        <!--<a href=""><img src="/img/fb.svg" alt=""></a>-->
+                        <!--<a href=""><img src="/img/tw.svg" alt=""></a>-->
+                        <!--<a href=""><img src="/img/is.svg" alt=""></a>-->
+                        <!--<a href=""><img src="/img/gp.svg" alt=""></a>-->
+                    <!--</div>-->
+                <!--</div>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="schools_dropdown" *ngIf="rootService.ready$ | async" [class.open]="openedSchoolList">
+    <div [swiper]="{freeMode:true,slidesPerView:'auto',observer:true}">
+        <div class="swiper-wrapper">
+            <a *ngFor="let oneTeam of teams"
+               [routerLink]="['/team', oneTeam.id]"
+               class="school swiper-slide">
+                <span class="img-wrap">
+                    <img [src]="oneTeam.logoUrl" [attr.alt]="oneTeam.name">
+                </span>
+                <abbr [attr.title]="oneTeam.name">{{ oneTeam.shortName }}</abbr>
+            </a>
+        </div>
+    </div>
+</div>
+
+<router-outlet (deactivate)="onDeactivate()"></router-outlet>

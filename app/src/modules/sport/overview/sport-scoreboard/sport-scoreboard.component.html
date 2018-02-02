@@ -1,0 +1,82 @@
+<div class="scoreboard-wrap">
+    <div class="container">
+        <div class="wide-heading">
+            <p>Scoreboard</p>
+            <p class="powered-by">
+                <span>Powered by</span>
+                <a href="">
+                    <img src="/img/korssower.png" alt="">
+                </a>
+            </p>
+            <a href="" class="readmore"><em>All stars</em></a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="tabs-wrap">
+            <ng-container *ngFor="let table of tables">
+
+                <div *ngIf="table.games.length" class="scoreboard-table">
+                    <div class="varsity-head">
+                        <img src="{{table.gender.imgLogo}}" alt="">
+                        <p>{{table.gender.name+' '+table.teamType.name}}</p>
+                    </div>
+                    <div class="table-head">
+                        <p class="num">#</p>
+                        <p class="data">Date</p>
+                        <p class="head-fav"></p>
+                        <p class="team">Team</p>
+                        <p>Score</p>
+                        <p class="team">Team</p>
+                        <p class="head-fav"></p>
+                        <p class="type">Type</p>
+                    </div>
+                    <div *ngFor="let game of table.games" class="tab-line">
+                        <div class="num"></div>
+                        <div class="data">
+                            <p>{{game.dateObj().toString().substring(3,
+                                10)}}<span>{{game.dateObj().getFullYear()}}</span></p>
+
+                        </div>
+                        <div class="star" [subsBtn]="{modelType: 'teams', modelId:  game.team.id, type: 'favorite', role: 'subs'}">
+                            <span></span>
+                        </div>
+                        <div class="team">
+                            <a [routerLink]="['/team', game.team.id]">
+                                <abbr title="{{game.team.name}}">{{game.team.shortName}}</abbr>
+                                <div class="img-wrap">
+                                    <img src="{{game.team.logoUrl}}" alt="">
+                                </div>
+                            </a>
+                        </div>
+                        <div>
+                            <div [class.win]="game.win" [class.lose]="!game.win" class="stat">
+                                <p>{{game.scoreTeam}}</p>
+                            </div>
+                            <div class="vs">
+                                <p> {{(game.where=='away')?'@':'vs'}} </p>
+                            </div>
+                            <div [class.win]="!game.win" [class.lose]="game.win" class="stat">
+                                <p>{{game.scoreOpponent}}</p>
+                            </div>
+                        </div>
+                        <div class="team">
+                            <a [routerLink]="(game.opponentTeam.id)?['/team', game.opponentTeam.id]:[]">
+                                <div class="img-wrap">
+                                    <img src="{{game.opponentTeam.logoUrl}}" alt="">
+                                </div>
+                                <abbr title="{{game.opponentTeam.name}}">{{game.opponentTeam.shortName}}</abbr>
+                            </a>
+                        </div>
+                        <div class="star" [subsBtn]="{modelType: 'teams', modelId:  game.opponentTeam.id, type: 'favorite', role: 'subs'}">
+                            <span></span>
+                        </div>
+                        <div class="type">
+                            <abbr title="{{game.getFullType()}}">{{game.gameType}}</abbr>
+                            <span>{{game.getFullType()}}</span>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>

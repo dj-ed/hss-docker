@@ -1,0 +1,44 @@
+<div class="top_bar">
+    <div class="container">
+        <div class="search_wrap">
+            <div class="search_inner">
+                <ng-container *ngIf="searchService.tagsList.length">
+                    <div *ngFor="let tag of searchService.tagsList" class="search_tag">
+                        <span>{{tag.name}}</span>
+                        <button (click)="removeTag(tag.id)" class="delete"></button>
+                    </div>
+                </ng-container>
+
+                <input (input)="searchService.searchText=$event.target.value" [value]="searchService.searchText" (keyup.enter)="goToSearch()"
+                       type="text" class="search_input">
+            </div>
+            <button (click)="goToSearch()" class="search_btn"></button>
+        </div>
+        <div class="search_bottom">
+            <span *ngIf="searchService.searchCounts">{{searchService.searchCounts[searchService.searchType]}}</span> Results
+            <!--in <span>Florida</span> <span>California</span>-->
+        </div>
+    </div>
+</div>
+<div *ngIf="searchService.rootReady$|async" class="statistics_header">
+    <div class="container">
+        <div class="inner">
+            <button [routerLink]="['/search','school',rootService.seasonField(),{q:searchService.getStrFromTags()}]"
+                    routerLinkActive="active"
+                    [attr.data-counter]="searchService.searchCounts?.school">School</button>
+            <button [routerLink]="['/search','team',rootService.seasonField(),{q:searchService.getStrFromTags()}]"
+                    routerLinkActive="active" [attr.data-counter]="searchService.searchCounts?.team">Team</button>
+            <button [routerLink]="['/search','player',rootService.seasonField(),{q:searchService.getStrFromTags()}]"
+                    routerLinkActive="active" [attr.data-counter]="searchService.searchCounts?.player">Player</button>
+            <button [routerLink]="['/search','coach',rootService.seasonField(),{q:searchService.getStrFromTags()}]"
+                    routerLinkActive="active" [attr.data-counter]="searchService.searchCounts?.coach">Coach</button>
+            <button [routerLink]="['/search','media',rootService.seasonField(),{q:searchService.getStrFromTags()}]"
+                    routerLinkActive="active" [attr.data-counter]="searchService.searchCounts?.media">Media</button>
+            <button [routerLink]="['/search','news',rootService.seasonField(),{q:searchService.getStrFromTags()}]"
+                    routerLinkActive="active" [attr.data-counter]="searchService.searchCounts?.news">Articles</button>
+            <button [routerLink]="['/search','game',rootService.seasonField(),{q:searchService.getStrFromTags()}]"
+                    routerLinkActive="active" [attr.data-counter]="searchService.searchCounts?.game">Games</button>
+        </div>
+    </div>
+</div>
+<router-outlet></router-outlet>

@@ -1,0 +1,36 @@
+<div *ngIf="coachCorner">
+    <div class="small-heading">
+        <p>Coach Corner</p>
+    </div>
+    <div class="coach-corner-wrap">
+        <div class="coach-info">
+            <div class="img-wrap">
+                <img [src]="coachCorner.userPhotoUrl" alt="">
+            </div>
+            <div class="text-wrap">
+                <p class="name">{{coachCorner.name}}</p>
+                <p>{{coachCorner.bio}}</p>
+                <div class="bottom clearfix">
+                    <div class="socials">
+                        <p>Socials:</p>
+                       <share-component [types]="['fb', 'tw', 'gp']" [text]="coachCorner.name"></share-component>
+                    </div>
+                  <!--  <a href="team-roster.html" class="readmore"><em>Coches Page</em></a> -->
+                </div>
+            </div>
+        </div>
+        <div class="coash-blog" *ngFor="let article of coachCorner.articles.data">
+            <div class="head-time">
+                <p class="head" title="{{article.title | uppercase}}">{{article.title}}</p>
+                <p class="time">{{article.date | date:'mediumDate'}}</p>
+            </div>
+            <div class="author" *ngIf="article.author">
+                <em>{{article.author}}</em>
+            </div>
+            <p>{{article.description}}</p>
+        </div>
+        <div class="show-all">
+          <!--  <a href="team-roster.html" class="readmore"><em>View Coach Corner</em></a> -->
+        </div>
+    </div>
+</div>

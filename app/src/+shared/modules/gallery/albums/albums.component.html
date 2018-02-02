@@ -1,0 +1,38 @@
+<div class="container" *ngIf="albums">
+    <div class="live-heading clearfix">
+        <p class="head">Full Timetale</p>
+
+        <div class="switcher">
+            <button [ngClass]="{'active': viewType === 'box'}" (click)="viewType = 'box'; grider();"><img
+                    src="/img/icon-grid-big.svg" alt=""></button>
+            <button [ngClass]="{'active': viewType === 'lined'}" (click)="viewType = 'lined'; grider();"><img
+                    src="/img/list-icon.svg" alt=""></button>
+        </div>
+
+        <div class="favorites-search">
+            <button  class="pin" (pushAllFavorites)="isSelectMode = $event.length"
+                     [subsBtn]="{modelType: 'album', role: 'action', type: 'scrapbook'}"></button>
+            <p>Scrapbook</p>
+            <internal-search #seach (search)="searchText = $event" (closeSearch)="searchText = ''"></internal-search>
+        </div>
+    </div>
+
+    <div class="gallery-wrap">
+        <!-- класси .lined - стан списку, .open - відкрита галерея, .comment - відкрита галерея + коменти, .open завжди має бути з .lined -->
+        <div class="one" [ngClass]="{'lined': viewType === 'lined', active:!gridState}" *ngFor="let album of albums.data | searchAlbum: searchText: isSelectMode;
+                                                                                        let i = index;">
+            <gallery-preview (openAlbum)="openAlbum(album.id)" [config]="{index: album.index, album: album}"></gallery-preview>
+        </div>
+    </div>
+
+    <div class="load-more" *ngIf="paginationData.last_page >= page" (click)="loadAlbums()">
+        <a>
+            <em>Load More albums</em>
+            <span></span>
+        </a>
+    </div>
+    <div *modal class="modalWindow">
+        <media-gallery [config]="{viewType: 'modal', id: currentModalId, type: type, modalDirective: modal, albumsList: albums.data | searchAlbum: searchText: isSelectMode}"></media-gallery>
+    </div>
+</div>
+

@@ -1,0 +1,45 @@
+@import '../../../styles/mixins';
+@import '../../../styles/variables';
+
+:host{
+  position: relative;
+  margin-left: 15px;
+}
+internal-search {
+  border-left: 1px solid rgba(178, 183, 191, 0.4);
+}
+input {
+  vertical-align: middle;
+  border-bottom:1px solid #e2e3e7;
+  margin-left: 16px;
+  @include fz12;
+  padding-left: 8px;
+  padding-right: 20px;
+  color: #0b131e;
+  @include fOswald;
+  line-height: 24px;
+  height: 23px;
+}
+
+.clear-input{
+  position: absolute;
+  top: 4px;
+  width: 17px;
+  height: 17px;
+  margin-left: -15px;
+  background: url(/img/close-dark.svg)no-repeat center / cover;
+}
+
+.search {
+  padding-left: 19px;
+  span {
+    width: 23px;
+    height: 23px;
+    display: inline-block;
+    vertical-align: middle;
+    @media all and (max-width: 1025px) {
+      padding-left: 8px;
+      width: 32px;
+    }
+  }
+}

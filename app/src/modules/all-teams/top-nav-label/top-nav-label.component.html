@@ -1,0 +1,104 @@
+<div class="fix-panel" [ngClass]="{'active-nav-live': isActive}" >
+    <!-- TOP NAV LINE BEGIN -->
+    <div class="all-schools-teams-wrap label-wrap teams level0" [ngClass]="{'active-line': _config?.state || _config?.county}">
+        <div *ngIf="_config?.state || _config?.county">
+            <div class="region-wrap team-layer">
+            <div class="container clearfix">
+                <div class="to-region-stuff active">
+                    <div class="container nav-container clearfix">
+                        <!-- STATE BEGIN -->
+                        <div class="pull-left nav" [@apperaAnimation] *ngIf="_config.state">
+                            <div class="img-wrap">
+                                <img [src]="_config.state.stateLogo">
+                            </div>
+                            <div class="name">
+                                <abbr title="Georgia">{{_config.state.stateShortName}}</abbr><span>{{_config.state.stateName}}</span>
+                                <p class="dist">{{_config.state.stateShortName}}</p>
+                            </div>
+                        </div>
+                        <!-- STATE END -->
+
+                        <!-- COUNTY BEGIN -->
+                        <div class="county-wrap" [@apperaAnimation] *ngIf="_config.county">
+                            <div class="clearfix">
+                                <div class="pull-left nav">
+                                    <div class="name">
+                                        <abbr title="Georgia">{{_config.county.countyShortName}}</abbr><span>{{_config.county.countyName}}</span>
+                                        <p class="dist">{{_config.county.countyShortName}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- COUNTY END -->
+
+
+                        <!-- SPORT BEGIN -->
+                        <div class="county-wrap sport" [@apperaAnimation] *ngIf="_config.sport && !this.rootService.currentSportId">
+                            <div class=" clearfix">
+                                <div class="pull-left nav">
+                                    <div class="name">
+                                        <img [src]="rootService.sportById(_config.sport.sportId).logoUrl"><span>{{rootService.sportById(_config.sport.sportId).title}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- SPORT END -->
+
+                        <!-- SCHOOL BEGIN -->
+                        <div class="county-wrap school" [@apperaAnimation] *ngIf="_config.school">
+                            <div class=" clearfix">
+                                <div class="pull-left  nav">
+                                    <div class="name">
+                                        <abbr title="Atlantic University High School">auhs</abbr><span>{{_config.school.schoolName}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- SCHOOL END -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <!-- TOP NAV LINE END -->
+
+    <!-- CHAR LINE BEGIN -->
+    <div class="to-region-stuff active char-line level1" [ngClass]="{'active-line': _config?.char, 'schools-mode': renderData.order == 'schools'}">
+        <div *ngIf="_config?.char">
+            <div class="county-wrap school" [@apperaAnimation]>
+                <div class="container clearfix">
+                    <div class="pull-left nav active" *ngIf="_config.order !== 'schools' && (_config.sport || _config.county)">
+                        <div class="letters" [@apperaAnimation] *ngIf="!rootService.currentSportId">
+                            <button (click)="scrollToChar.emit({char: char, countyid: _config.sport.countyId, sportid: _config.sport.sportId, level: _config.char.level});" [ngClass]="{'active': char === _config.char.char}"
+                                    *ngFor="let char of _config.sport.schools
+                                                | search: 'schools': (renderData.searchParams[_config.county.statesId] ?  renderData.searchParams[_config.county.statesId] : renderData.searchText) : renderData.params.data
+                                                | alphabeticUniqueSchools">{{char}}</button>
+                        </div>
+                        <div class="letters" [@apperaAnimation] *ngIf="rootService.currentSportId">
+                            <button (click)="scrollToChar.emit({char: char, countyid: _config.county.countyId, sportid: rootService.currentSportId, level: _config.char.level});" [ngClass]="{'active': char === _config.char.char}"
+                                    *ngFor="let char of _config.county.sports
+                                    | getSelectedSchoolsBySport: rootService.currentSportId
+                                    | search: 'schools': (renderData.searchParams[_config.county.statesId] ?  renderData.searchParams[_config.county.statesId] : renderData.searchText) : renderData.params.data
+                                    | alphabeticUniqueSchools"
+                                    [@apperaAnimation]>{{char}}</button>
+                        </div>
+                    </div>
+                    <div class="pull-left nav active" *ngIf="renderData.order === 'schools'">
+                        <div class="letters" [@apperaAnimation]>
+                            <button *ngFor="let schoolArr of renderData.fullData[renderData.order]
+                                                            | search: 'schools': renderData.searchText : renderData.params.data
+                                                            | transformData: renderData.order
+                                                            | alphabeticSort: renderData.order : renderData.alphabetParam[renderData.order]: 'global'"
+                                    [ngClass]="{'active': schoolArr[0].char === _config.char.char}"
+                                    (click)="scrollToChar.emit({char: schoolArr[0].char, level: _config.char.level});"
+                                    [@apperaAnimation]>{{schoolArr[0].char}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- CHAR LINE END -->
+</div>

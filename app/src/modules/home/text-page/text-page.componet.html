@@ -1,0 +1,15 @@
+<div class="container" *ngIf="textData">
+    <div class="content" >
+        <div>
+            <div class="head-time">
+                <a class="head"><em title="{{textData.title | uppercase}}">{{textData.title}}</em></a>
+            </div>
+            <p class="post" [innerHTML]="textData.text"></p>
+        </div>
+    </div>
+</div>
+<div style="margin: 200px auto; display: block; width: 700px;">
+    <auth-component></auth-component>
+</div>
+
+

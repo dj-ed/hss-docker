@@ -1,0 +1,72 @@
+@import '../../../styles/mixins';
+@import '../../../styles/variables';
+
+.dropdown {
+  @include fOswald;
+  display: inline-block;
+  vertical-align: bottom;
+  margin-left: 26px;
+  color: $light-grey;
+  @include fz10;
+  line-height: 12px;
+  padding-right: 52px;
+  position: relative;
+  text-transform: uppercase;
+  cursor: pointer;
+  width: 120px;
+  &:after {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    content: "";
+    position: absolute;
+    right: 30px;
+    top: 1px;
+    will-change: transform;
+    transition: transform 180ms;
+    background: url(/img/dropdown.svg) no-repeat center / contain;
+  }
+  ul {
+    position: absolute;
+    opacity: 0;
+    transition: opacity 180ms;
+    pointer-events: none;
+    left: -5px;
+    background-color: #fff;
+    box-shadow: 0 0 23px rgba(178, 182, 190, 0.2);
+    padding: 0 10px;
+    top: -5px;
+    z-index: 6;
+    li {
+      padding: 10px;
+      cursor: pointer;
+      position: relative;
+      text-align: left;
+      & + li {
+        border-top: 1px solid rgba(70%, 72%, 75%, 0.4);
+      }
+      &.active, &:hover {
+        color: $grey-blue;
+        &:before {
+          content: "";
+          position: absolute;
+          top: 5px;
+          bottom: 5px;
+          left: -10px;
+          border-left: 3px solid $red;
+        }
+      }
+    }
+  }
+  &.open {
+    &:after {
+      transform: rotate(180deg);
+      transition: transform 180ms;
+    }
+    ul {
+      pointer-events: all;
+      opacity: 1;
+      transition: opacity 180ms;
+    }
+  }
+}

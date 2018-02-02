@@ -1,0 +1,13 @@
+<audio [src]="audio" #player></audio>
+
+<button (click)="play()" *ngIf="!isPlayed">
+    <img src="/img/play.svg" alt="play">
+</button>
+<button (click)="pause()" *ngIf="isPlayed">
+    <img src="/img/pause.svg" alt="pause">
+</button>
+
+<div class="trackbar">
+    <div class="timeline" #timeline (click)="timelineClick($event)"></div>
+    <button #playPosition></button>
+</div>

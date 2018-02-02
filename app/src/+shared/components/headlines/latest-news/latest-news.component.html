@@ -1,0 +1,38 @@
+<div *ngIf="latestNews.length > 0">
+    <div class="small-heading">
+        {{title}}
+    </div>
+    <div class="latest-news-wrap" *ngIf="latestNews.length > 0">
+        <div class="latest-news" *ngFor="let news of latestNews">
+            <div class="img-wrap">
+                <img [src]="news.thumbUrl" [alt]="news.title">
+            </div>
+            <div>
+                <div class="head-time">
+                    <p class="head" title="{{news.title | uppercase}}"><em>{{news.title}}</em></p>
+                    <p class="time">{{news.date | date:'mediumDate'}}</p>
+                </div>
+                <div class="author source" *ngIf="news.source">
+                    <em>{{news.source}}</em>
+                </div>
+                <div class="author" *ngIf="news.authorName">
+                    <em>{{news.authorName}}</em>
+                </div>
+                <p class="post">
+                   {{news.description}}
+                </p>
+                <div class="fb-lv-post-footer">
+                    <div class="fb-share-like">
+                        <div class="like" likeBtn [typeModel]="'news'" [id]="news.id" (updateCount)="news.likes = $event">{{news.likes}}<em></em></div>
+                        <div class="comments">{{news.comments}}<em></em></div>
+                    </div>
+                    <button class="pin" [subsBtn]="{modelType: 'news', modelId:  news.id, type: 'scrapbook', role: 'subs'}"></button>
+                    <a  class="readmore" [routerLink]="newsService.newsRoute(type, parentId, {view: news.slug})"><em>Read Article</em></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="rootReady$ | async" class="show-all">
+      <a class="readmore" [routerLink]="newsService.newsRoute(type, parentId)"><em>all headlines</em></a>
+    </div>
+</div>

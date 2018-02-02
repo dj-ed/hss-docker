@@ -1,0 +1,439 @@
+@import '../../../../styles/mixins';
+@import '../../../../styles/variables';
+
+.time-line-wrap {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  & > * {
+    white-space: normal;
+  }
+  .time-line-inner {
+    height: 202px;
+    border-top: 1px solid $middle-grey;
+    border-bottom: 1px solid $middle-grey;
+    background: url(/img/Noise-on-white.png);
+    letter-spacing: -4px;
+    white-space: nowrap;
+    position: relative;
+    margin-top: 46px;
+    margin-bottom: 46px;
+    &.container {
+      min-width: 1220px;
+    }
+    @media all and (max-width: 1025px) {
+      height: 170px;
+    }
+    .night-wrap, .day-wrap {
+      position: relative;
+      display: inline-block;
+      vertical-align: top;
+    }
+    .divider {
+      height: 200px;
+      border-left: 1px dashed #e9eaec;
+      display: inline-block;
+      vertical-align: top;
+      width: 83px;
+      letter-spacing: normal;
+      &:before, &:after {
+        white-space: nowrap;
+        color: #556278;
+        @include fOswald;
+        @include fz12;
+        line-height: 12px;
+        text-transform: uppercase;
+        content: attr(data-time);
+        position: absolute;
+        transform: translateX(-50%);
+      }
+      &:before {
+        top: -29px;
+      }
+      &:after {
+        bottom: -29px;
+      }
+      .inner-line {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        border-left: 1px dashed #e9eaec;
+        border-right: 1px dashed #e9eaec;
+        width: calc(20% + 1px);
+        transform: translateX(0);
+        &:first-child {
+          left: 20%;
+        }
+        &:last-child {
+          right: 20%;
+        }
+      }
+      &.night {
+        position: relative;
+        height: 200px;
+        &:first-child{
+          border-left:none;
+        }
+        & + .night {
+          border-left-style: solid;
+        }
+      }
+      @media all and (max-width: 1025px) {
+        width: 90px;
+        height: 168px;
+      }
+    }
+    .g-today-live-wrap {
+      position: absolute;
+      top: 14px;
+      left: 0;
+    }
+    .time-runner {
+      position: absolute;
+      top: -1px;
+      bottom: -1px;
+      z-index: 1;
+      width: 1px;
+      border-top: 1px solid $red;
+      border-bottom: 1px solid $red;
+      text-align: center;
+      p {
+        @include fOswald;
+        color: $red;
+        @include fz12;
+        line-height: 13px;
+        text-transform: uppercase;
+        letter-spacing: normal;
+        position: absolute;
+        transform: translateX(-35%);
+        background: rgba(255, 255, 255, 1);
+        &:before, &:after {
+          position: absolute;
+          content: "";
+          top: 0;
+          bottom: 0;
+          width: 25px;
+          background: -moz-linear-gradient(left, transparent 0%, rgba(255, 255, 255, 1) 100%);
+          background: -webkit-linear-gradient(left, transparent 0%, rgba(255, 255, 255, 1) 100%);
+          background: linear-gradient(to right, transparent 0%, rgba(255, 255, 255, 1) 100%);
+          filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='rgba(255, 255, 255, 1)', endColorstr='transparent', GradientType=1);
+        }
+        &:before {
+          left: -25px;
+        }
+        &:after {
+          right: -25px;
+          transform: rotate(180deg);
+        }
+        &:first-child {
+          top: -29.5px;
+        }
+        &:last-child {
+          bottom: -29.5px;
+        }
+      }
+      &:after {
+        position: absolute;
+        display: inline-block;
+        border-left: 1px solid $red;
+        content: "";
+        left: 50%;
+        top: -1px;
+        bottom: -1px;
+      }
+    }
+  }
+}
+
+.g-today-live-wrap {
+  letter-spacing: normal;
+  z-index: 2;
+  position: relative;
+  &:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background-color: #fff;
+    pointer-events: none;
+    opacity: 0.5;
+    transition: opacity 180ms;
+  }
+  &:hover {
+    z-index: 12;
+    &:after {
+      opacity: 0;
+      transition: opacity 180ms;
+    }
+  }
+  @include dib-vm;
+  padding: 10px;
+  box-shadow: 0 0 23px rgba(178, 182, 190, 0.2);
+  background-color: #ffffff;
+  transition: border-bottom, background-color, color 180ms;
+  @media all and (max-width: 1025px) {
+    padding: 5px 8px;
+  }
+  & * {
+    @include fOswald;
+    text-transform: uppercase;
+  }
+  & > * > * {
+    @include dib-vm;
+    text-align: center;
+  }
+  & > * > .left {
+    width: 115px;
+    border-right: 1px solid $light-grey-lighter;
+  }
+  & > * > .right {
+    width: 90px;
+  }
+  .top {
+    padding-bottom: 10px;
+    border-bottom: 1px solid $light-grey;
+    position: relative;
+    @media all and (max-width: 1025px) {
+      padding-bottom: 2px;
+    }
+    & > * {
+      color: $light-black;
+      @include  fz14;
+      line-height: 18px;
+    }
+    .sport-type{
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      top: 2px;
+      left: 4px;
+    }
+    p {
+      @media all and (max-width: 1025px) {
+        @include fz10;
+      }
+    }
+  }
+  .center {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid $light-grey;
+    height: 90px;
+    @media all and (max-width: 1025px) {
+      padding-top: 3px;
+      padding-bottom: 3px;
+    }
+    .left .line {
+      height: 33px;
+      display: block;
+      .img-wrap {
+        text-align: center;
+        width: 30px;
+        height: 30px;
+        @include dib-vm;
+        img {
+          object-fit: contain;
+          @include dib-vm;
+        }
+      }
+      abbr {
+        @include dib-vm;
+        color: $grey-blue;
+        @include fz12;
+        line-height: 14px;
+        margin-left: 15px;
+      }
+      &.vs {
+        height: 3px;
+        line-height: 3px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        @media all and (max-width: 1025px) {
+          opacity: 0;
+        }
+        &:after {
+          content: "vs";
+          color: $vs-color;
+          @include fz10;
+          line-height: 0;
+          vertical-align: 3px;
+          margin-left: 44px;
+        }
+      }
+      &:not(.vs):hover abbr {
+        @extend .hover-black-small;
+      }
+    }
+    .right .line {
+      height: 33px;
+      text-align: center;
+      & + .line {
+        margin-top: 3px;
+      }
+      & > * {
+        height: 100%;
+        width: 41px;
+        color: #fff;
+        @include fz12;
+        line-height: 33px;
+        display: inline-block;
+      }
+    }
+  }
+  .bottom {
+    padding-top: 10px;
+    @media all and (max-width: 1025px) {
+      padding-top: 2px;
+    }
+    & > * {
+      height: 18px;
+      line-height: 18px;
+      & > * {
+        height: 18px;
+        line-height: 18px;
+        vertical-align: top;
+      }
+    }
+    .left {
+      .online {
+        & > * {
+          @include dib-vt;
+        }
+        .live {
+          @include fz12;
+          color: $grey-blue;
+          @media all and (max-width: 1025px) {
+            @include fz10;
+          }
+        }
+        .time {
+          color: $red;
+          @include fz10;
+          &:before {
+            content: ":";
+            margin-right: 8px;
+            margin-left: 10px;
+          }
+        }
+      }
+      .was-played {
+        @include fz10;
+        color: $grey-blue;
+      }
+      .will-be-played {
+        & > * {
+          @include dib-vt;
+        }
+        p {
+          color: $red;
+          @include fz10;
+          width: 80px;
+        }
+        button {
+          height: 18px;
+          border-left: 1px solid $light-grey-lighter;
+          width: 33px;
+          background: url(/img/add-to-calendar-dark.svg) no-repeat center;
+        }
+      }
+    }
+    .readmore {
+      display: inline-block;
+      background-position: right top 4px;
+    }
+  }
+  .close {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 180ms;
+  }
+  &.not-played {
+    .center {
+      .right .line {
+        height: 35px;
+        p {
+          background-color: $blue-on-dark;
+        }
+        & + .line {
+          height: 34px;
+        }
+      }
+    }
+  }
+  &.game-open {
+    border-bottom: 5px solid $middle-grey;
+    background-color: #04080d;
+    color: #fff;
+    z-index: 11;
+    transition: border-bottom, background-color, color 180ms;
+    &:after {
+      opacity: 0;
+      transition: opacity 180ms;
+    }
+    .close {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      padding-left: 35px;
+      padding-bottom: 35px;
+      background: url(/img/close.svg) no-repeat top right;
+      top: 0;
+      right: -30px;
+      cursor: pointer;
+      pointer-events: all;
+      opacity: 0.4;
+      transition: opacity 180ms;
+      &:hover {
+        opacity: 1;
+        transition: opacity 180ms;
+      }
+    }
+    .top {
+      & > * {
+        color: #fff;
+      }
+    }
+    .center {
+      .left {
+        .will-be-played {
+          button {
+            background: url(/img/add-to-calendar.svg) no-repeat center;
+          }
+        }
+        .line {
+          p {
+            color: #fff;
+          }
+        }
+      }
+    }
+    .bottom {
+      .readmore {
+        color: #fff;
+      }
+    }
+    & ~ .time-runner p:last-child {
+      background-color: rgba(4, 8, 13, .7);
+      &:before, &:after {
+        background: -moz-linear-gradient(left, transparent 0%, rgba(4, 8, 13, .7) 100%);
+        background: -webkit-linear-gradient(left, transparent 0%, rgba(4, 8, 13, .7) 100%);
+        background: -o-linear-gradient(left, transparent 0%, rgba(4, 8, 13, .7) 100%);
+        background: linear-gradient(to right, transparent 0%, rgba(4, 8, 13, .7) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='rgba(4, 8, 13, .7)', endColorstr='transparent', GradientType=1);
+      }
+    }
+  }
+  &.today {
+    &:after {
+      opacity: 0;
+    }
+  }
+  &.yesterday {
+    filter: grayscale(100%);
+    &:hover {
+      filter: grayscale(0%);
+    }
+  }
+}

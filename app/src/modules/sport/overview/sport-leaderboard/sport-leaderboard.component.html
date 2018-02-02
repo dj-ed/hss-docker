@@ -1,0 +1,99 @@
+<div class="leaderboard-wrap">
+    <div class="container">
+        <div class="wide-heading">
+            <p>Leaderboard</p>
+            <p class="powered-by">
+                <span>Powered by</span>
+                <a href="">
+                    <img src="/img/korssower.png" alt="">
+                </a>
+            </p>
+            <a href="" class="readmore"><em>All stars</em></a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="l-switch-heading">
+            <ng-container *ngFor="let type of teamTypes;let i=index">
+                <button (click)="loadPlayers(type);indexActiveTab=i;" [class.active]="i==indexActiveTab"><img
+                        src="{{type.gender.imgLogo}}" alt="">{{type.gender.name+'
+                    '+type.teamType.name}}
+                </button>
+            </ng-container>
+        </div>
+    </div>
+    <div class="leaderboard-cont">
+        <div *ngIf="rootService.isBrowser()" [swiper]="{freeMode:true,slidesPerView:'auto',observer:true}">
+            <div class="swiper-wrapper">
+                <div *ngFor="let statField of statistics;let i=index" class="leaderboard-player clearfix  swiper-slide">
+                    <div class="avatar">
+                        <img *ngIf="statField.stats.length" src="{{statField.stats[0].user_photo}}" alt="">
+                    </div>
+                    <div *ngIf="statField.stats.length" class="player-info">
+                        <div class="logo">
+                            <img [routerLink]="['/team', statField.stats[0].team_id]"
+                                 src="{{statField.stats[0].team_logo}}" alt="">
+                        </div>
+                        <p class="num">{{statField.stats[0].number}}</p>
+                        <a [routerLink]="['/player', statField.stats[0].player_id]" class="name">{{statField.stats[0].first_name+'
+                            '+statField.stats[0].last_name}}</a>
+                    </div>
+                    <div class="player-points">
+                        <p class="name">{{statField.statName}}</p>
+                        <p class="points" *ngIf="statField.stats.length">{{statField.stats[0].points}}</p>
+                    </div>
+                    <div class="leaderboard-player-table">
+                        <div>
+                            <div *ngFor="let player of statField.stats; let i2=index">
+                                <div>{{player.number}}</div>
+                                <div><img [routerLink]="['/team', player.team_id]" src="{{player.team_logo}}"
+                                          class=small-logo></div>
+                                <div>{{player.number}}</div>
+                                <div><a [routerLink]="['/player', player.player_id]">{{player.first_name+'
+                                    '+player.last_name}}</a></div>
+                                <div>{{player.points}}</div>
+                                <div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="!rootService.isBrowser()">
+            <div class="swiper-wrapper">
+                <div *ngFor="let statField of statistics;let i=index" class="leaderboard-player clearfix  swiper-slide">
+                    <div class="avatar">
+                        <img *ngIf="statField.stats.length" src="{{statField.stats[0].user_photo}}" alt="">
+                    </div>
+                    <div *ngIf="statField.stats.length" class="player-info">
+                        <div class="logo">
+                            <img [routerLink]="['/team', statField.stats[0].team_id]"
+                                 src="{{statField.stats[0].team_logo}}" alt="">
+                        </div>
+                        <p class="num">{{statField.stats[0].number}}</p>
+                        <a [routerLink]="['/player', statField.stats[0].player_id]" class="name">{{statField.stats[0].first_name+'
+                            '+statField.stats[0].last_name}}</a>
+                    </div>
+                    <div class="player-points">
+                        <p class="name">{{statField.statName}}</p>
+                        <p class="points" *ngIf="statField.stats.length">{{statField.stats[0].points}}</p>
+                    </div>
+                    <div class="leaderboard-player-table">
+                        <div>
+                            <div *ngFor="let player of statField.stats; let i2=index">
+                                <div>{{player.number}}</div>
+                                <div><img [routerLink]="['/team', player.team_id]" src="{{player.team_logo}}"
+                                          class=small-logo></div>
+                                <div>{{player.number}}</div>
+                                <div><a [routerLink]="['/player', player.player_id]">{{player.first_name+'
+                                    '+player.last_name}}</a></div>
+                                <div>{{player.points}}</div>
+                                <div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

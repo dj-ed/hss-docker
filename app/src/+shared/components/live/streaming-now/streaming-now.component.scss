@@ -1,0 +1,365 @@
+@import '/../../../../styles/mixins';
+@import '/../../../../styles/variables';
+
+#live-wrap {
+  text-align: right;
+  & > * {
+    text-align: left;
+  }
+  .small-heading {
+    .live {
+      color: #f41b1a;
+      margin-right: 5px;
+      + p:before {
+        content: ":";
+        margin-right: 13px;
+        color: #f41b1a;
+      }
+    }
+    .vs {
+      color: #b2b7bf;
+      @include fz12;
+      line-height: 14px;
+      margin-left: 16px;
+      margin-right: 16px;
+      @media all and (max-width: 1200px) {
+        @include fz10;
+        margin-left: 10px;
+        margin-right: 10px;
+      }
+      &:after {
+        content: "vs";
+      }
+    }
+    .started {
+      color: #f41b1a;
+    }
+    p {
+      abbr {
+        display: none;
+      }
+      @media all and (max-width: 1000px) {
+        abbr {
+          display: inline-block;
+        }
+        span {
+          display: none;
+        }
+      }
+    }
+  }
+  .container {
+    .pull-left {
+      width: 806px;
+    }
+  }
+  .social-streem-wrap {
+    width: 370px;
+    display: inline-block;
+    @media all and (max-width: 1000px) {
+      width: 224px;
+    }
+    .twitter-message {
+      @media all and (max-width: 1025px) {
+        &:nth-child(n+6) {
+          display: none;
+        }
+      }
+    }
+  }
+  .latest-video-news {
+    padding-bottom: 0;
+    .video-wrap {
+      margin-bottom: 36px;
+    }
+  }
+  .live-versus {
+    border-bottom: 1px solid $light-grey-lighter;
+    padding-top: 57px;
+    padding-bottom: 64px;
+    text-align: center;
+    @include fOswald;
+    text-transform: uppercase;
+    white-space: nowrap;
+    @media all and (max-width: 1025px) {
+      padding-top: 0;
+      padding-bottom: 18px;
+    }
+    & > * {
+      display: inline-block;
+      vertical-align: bottom;
+      @media all and (max-width: 1200px) {
+        vertical-align: middle;
+      }
+    }
+    .points {
+      display: inline-block;
+      width: 72px;
+      height: 40px;
+      background-color: $blue-on-dark;
+      line-height: 40px;
+      text-align: center;
+      color: #fff;
+      @include fz20;
+      margin-bottom: 9px;
+      margin-right: -3px;
+      &.win {
+      }
+      &.lose {
+      }
+    }
+    .team {
+      text-align: right;
+      &:not(:first-child) {
+        text-align: left;
+      }
+      & > * {
+        display: inline-block;
+        vertical-align: top;
+      }
+      .img-wrap {
+        width: 80px;
+        height: 67px;
+        text-align: center;
+        margin-left: 25px;
+        margin-right: 25px;
+        @media all and (max-width: 1200px) {
+          margin-left: 15px;
+          margin-right: 15px;
+        }
+        img {
+          object-fit: contain;
+          display: inline-block;
+        }
+      }
+      a {
+        display: inline-block;
+        width: 100%;
+        color: $grey-blue;
+        @include fz16;
+        line-height: 18px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        @media all and (max-width: 1075px) {
+          width: 72px;
+          text-align: center;
+        }
+        abbr {
+          display: none;
+          color: #556278;
+          @include fOswald;
+          @include fz16;
+          line-height: 32px;
+          text-transform: uppercase;
+          @media all and (max-width: 1075px) {
+            display: block;
+          }
+        }
+        span {
+          @media all and (max-width: 1075px) {
+            display: none;
+          }
+        }
+        &:hover {
+          @extend .hover-black-small;
+        }
+      }
+    }
+    .vs {
+      margin-left: 25px;
+      margin-right: 25px;
+      width: 70px;
+      @media all and (max-width: 1200px) {
+        margin-left: 0;
+        margin-right: 0;
+        width: 48px;
+      }
+      &:before {
+        content: "vs";
+        display: inline-block;
+        color: #556278;
+        @include fz18;
+        line-height: 24px;
+        width: 100%;
+        padding-bottom: 10px;
+        border-bottom: 1px solid $light-grey-lighter;
+        margin-bottom: 12px;
+        @media all and (max-width: 1200px) {
+          @include fz10;
+          line-height: 14px;
+          padding-bottom: 5px;
+          margin-bottom: 5px;
+        }
+      }
+      p {
+        color: #b2b7bf;
+        @include fz12;
+        line-height: 14px;
+        @media all and (max-width: 1200px) {
+          @include fz10;
+          line-height: 14px;
+        }
+      }
+    }
+  }
+  .current-game-stat {
+    padding-top: 57px;
+    padding-bottom: 68px;
+    text-align: center;
+    border-bottom: 1px solid $light-grey-lighter;
+    @media all and (max-width: 1025px) {
+      padding-top: 20px;
+      padding-bottom: 24px;
+    }
+    .head {
+      color: $grey-blue;
+      @include fOswald;
+      @include fz14;
+      line-height: 18px;
+      text-transform: uppercase;
+      padding-bottom: 57px;
+      @media all and (max-width: 1025px) {
+        padding-bottom: 18px;
+        @include fz12;
+      }
+    }
+  }
+  .current-game-table {
+    & > * {
+      display: flex;
+      align-items: stretch;
+      @include fOswald;
+      @include fz10;
+      text-transform: uppercase;
+      transition: opacity 180ms;
+      opacity: 1;
+      will-change: opacity;
+      & > * {
+        flex-basis: auto;
+        flex-shrink: 0;
+        flex-grow: 4;
+      }
+    }
+    .team {
+      flex: none;
+      width: 75px;
+      @media all and (max-width: 900px) {
+        width: 55px;
+      }
+    }
+    .win-lose {
+      flex: none;
+      width: 37px;
+      @media all and (max-width: 900px) {
+        width: 50px;
+      }
+      p {
+        display: inline-block;
+        vertical-align: middle;
+        width: 45%;
+        text-align: left;
+        position: relative;
+        &:last-child {
+          text-align: right;
+        }
+      }
+      .lose {
+        background-color: transparent;
+        color: #b2b7bf;
+      }
+    }
+    .quoters {
+      flex: none;
+      width: 200px;
+      @media all and (max-width: 900px) {
+        width: 120px;
+      }
+    }
+    .points {
+      flex: none;
+      width: 30px;
+    }
+    .other {
+      flex: none;
+      width: 210px;
+      @media all and (max-width: 900px) {
+        width: 90px;
+      }
+    }
+    .divider {
+      flex-grow: 3;
+    }
+    .quoters, .other {
+      display: flex;
+    }
+    .quoters > * {
+      flex: 1 1 25%;
+    }
+    .other > * {
+      flex: 1 1 calc(100% / 3);
+    }
+    .heading {
+      color: $grey-blue;
+      line-height: 14px;
+      padding-bottom: 13px;
+      border-bottom: 1px solid rgba(63, 75, 94, 0.44);
+      .win-lose {
+        flex: none;
+        p:last-child:before {
+          content: "-";
+          position: absolute;
+          left: -2px;
+          display: inline-block;
+        }
+      }
+    }
+    & > div:not(.heading) {
+      line-height: 26px;
+      color: #556278;
+      .points {
+        color: #000;
+      }
+      .team {
+        a {
+          color: #000;
+          display: inline-block;
+          vertical-align: middle;
+          line-height: 16px;
+          &:hover {
+            @extend .hover-black-small;
+          }
+        }
+        .img-wrap {
+          text-align: center;
+          width: 30px;
+          height: 30px;
+          display: inline-block;
+          vertical-align: middle;
+          margin-right: 5px;
+          img {
+            object-fit: contain;
+          }
+        }
+      }
+      &:nth-child(odd):not(.heading) {
+        background: url(/img/Noise-on-white.png);
+      }
+      &:hover {
+        opacity: 1 !important;
+        transition: opacity 180ms;
+        background-color: rgba(178, 182, 190, 0.15);
+      }
+    }
+    &:hover > div:not(.heading) {
+      opacity: 0.4;
+      transition: opacity 180ms;
+    }
+  }
+  .current-game-social {
+    padding: 13px 32px 13px 14px;
+    .share {
+      float: right;
+    }
+  }
+}

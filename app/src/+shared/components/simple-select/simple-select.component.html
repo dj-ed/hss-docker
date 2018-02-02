@@ -1,0 +1,14 @@
+<div class="dropdown {{ className }}" [class.open]="opened" (click)="showList()" #dropDown>
+    <span class="{{ currentClass }}"
+         [class.disabled]="isDisabled"
+         [attr.data-value]="selectedValue">
+        {{ currentLabel }}
+    </span>
+    <ul *ngIf="opened">
+        <li *ngFor="let item of values"
+            class="{{ (item.class)? item.class : '' }}"
+            [class.active]="item.value == selectedValue"
+            (click)="select(item)">{{ item.label }}
+        </li>
+    </ul>
+</div>

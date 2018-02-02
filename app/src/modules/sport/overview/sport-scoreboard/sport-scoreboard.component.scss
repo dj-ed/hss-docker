@@ -1,0 +1,29 @@
+.scoreboard-wrap {
+  background-color: #fff;
+  .wide-heading {
+    margin-bottom: 93px;
+    @media all and (max-width: 1250px) {
+      margin-bottom: 30px;
+    }
+  }
+  .tabs-wrap {
+    padding-bottom: 55px;
+    @media all and (max-width: 1250px) {
+      padding-bottom: 25px;
+    }
+    .scoreboard-table {
+      display: inline-block;
+      vertical-align: top;
+      &:nth-child(2n + 1){
+        margin-left: 0;
+      }
+      &:nth-child(2n) {
+        margin-left: 16px;
+      }
+      &:nth-child(n + 3){
+        margin-top: 70px;
+      }
+
+    }
+  }
+}

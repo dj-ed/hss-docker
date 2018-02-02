@@ -1,0 +1,7 @@
+<school-header></school-header>
+<school-sport-select></school-sport-select>
+<div *ngIf="rootReady$ | async">
+     <today-component [type]="'school'"></today-component>
+     <calendar-component [type]="'school'"></calendar-component>
+     <full-timetable [type]="'school'"></full-timetable>
+</div>

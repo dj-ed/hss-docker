@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.1 (39012) - http://www.bohemiancoding.com/sketch -->
+    <title>Icon Target</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Location" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="W---Main-Menu---Location---Map---State" transform="translate(-1095.000000, -101.000000)" stroke="#F41B1A">
+            <g id="Location-Menu" transform="translate(0.000000, 49.000000)">
+                <g id="My-Location" transform="translate(1095.666667, 33.000000)">
+                    <g id="Icon-Target" transform="translate(0.000000, 20.000000)">
+                        <circle id="Oval" cx="7.5" cy="7.5" r="5.5"></circle>
+                        <circle id="Oval-Copy" cx="7.5" cy="7.5" r="2.5"></circle>
+                        <path d="M7.5,0.4 L7.5,3.4" id="Line" stroke-linecap="square"></path>
+                        <path d="M7.5,11.4 L7.5,14.4" id="Line-Copy" stroke-linecap="square"></path>
+                        <g id="Group" transform="translate(7.500000, 7.500000) rotate(90.000000) translate(-7.500000, -7.500000) translate(6.000000, 0.000000)" stroke-linecap="square">
+                            <path d="M1.5,0.4 L1.5,3.4" id="Line-Copy-3"></path>
+                            <path d="M1.5,11.4 L1.5,14.4" id="Line-Copy-2"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

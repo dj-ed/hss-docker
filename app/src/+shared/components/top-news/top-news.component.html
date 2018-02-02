@@ -1,0 +1,65 @@
+<div class="big-banner" *ngIf="ready && topNewsService.newsList.length">
+    <div class="container headin">
+        <div class="heading">
+            <div class="line"></div>
+            <p>TOP News</p>
+            <div class="line"></div>
+            <a [routerLink]="rootService.sportUrl('/sport/top-news')"
+               class="readmore"><em>ALL TOP News</em>
+            </a>
+        </div>
+    </div>
+    <div class="navigation clearfix">
+
+        <div class="prev" (click)="showSlide(prevIndex)" *ngIf="topNewsService.newsList[prevIndex]">
+            <div class="img-wrap">
+                <img [src]="topNewsService.newsList[prevIndex].media.data[0].fileUrl"
+                     [attr.alt]="topNewsService.newsList[prevIndex].title">
+            </div>
+            <div class="data-wrap">
+                <p class="day">{{ topNewsService.newsList[prevIndex].date | date:'dd' }}</p>
+                <p class="month">{{ topNewsService.newsList[prevIndex].date | date:'MMM' }}</p>
+                <p class="time">{{ topNewsService.newsList[prevIndex].date | date:'shortTime' }}</p>
+            </div>
+        </div>
+
+        <div class="next" (click)="showSlide(nextIndex)" *ngIf="topNewsService.newsList[nextIndex]">
+            <div class="data-wrap">
+                <p class="day">{{ topNewsService.newsList[nextIndex].date | date:'dd' }}</p>
+                <p class="month">{{ topNewsService.newsList[nextIndex].date | date:'MMM' }}</p>
+                <p class="time">{{ topNewsService.newsList[nextIndex].date | date:'shortTime' }}</p>
+            </div>
+            <div class="img-wrap">
+                <img [src]="topNewsService.newsList[nextIndex].media.data[0].fileUrl"
+                     [attr.alt]="topNewsService.newsList[nextIndex].title">
+            </div>
+        </div>
+    </div>
+
+    <div class="one swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide-block"
+                 [class.slide-current]="i === currentIndex"
+                 [class.slide-prev]="i === prevIndex"
+                 [class.slide-next]="i === nextIndex"
+                 *ngFor="let news of topNewsService.newsList; let i = index">
+                <div class="img-wrap">
+                    <img [src]="news.media.data[0].fileUrl" [attr.alt]="news.title">
+                </div>
+
+                <div class="news-text">
+                    <p class="data">{{ news.date | date:'MMM dd, h:mm a' }}</p>
+                    <p><em>
+                        <a [routerLink]="['/sport', 'top-news', news.sport, rootService.seasonField(), {view: news.slug}]">
+                            {{ news.title }}
+                        </a>
+                    </em></p>
+                    <a [routerLink]="['/sport', 'top-news', news.sport, rootService.seasonField(), {view: news.slug}]"
+                       class="readmore">
+                        <em>Read Article</em>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

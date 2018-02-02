@@ -1,0 +1,14 @@
+<div class="top_search_input">
+    <input #searchInp (keyup.enter)="goToSearch()" type="text">
+</div>
+
+<div class="top-search-drop" [class.open]="searchResults.length">
+
+    <a (click)="goToSearch(['/search',one.name,rootService.seasonField(),{q:searchService.getStrFromTags()}])" *ngFor="let one of searchResults" class="result-line">
+        <img src="/img/top-search-poerson-icon.svg" alt="">
+        <p class="search-text">{{searchService.searchText}}</p>
+        <div class="search-result-number">{{one.count}}</div>
+        <div class="search-result-type">{{one.name}}</div>
+    </a>
+
+</div>

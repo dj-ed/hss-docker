@@ -1,0 +1,65 @@
+<div class="result_wrap">
+    <div *ngIf="searchService.searchResults && searchService.searchType=='media'" class="container">
+        <div class="media-wrap clearfix">
+            <div class="left">
+                <div *ngIf="searchService.searchResults.album.data" class="gallery-wrap">
+                    <div class="wide-heading">
+                        <p>Albums</p>
+                        <a *ngIf="searchService.searchResults.album.data.length" (click)="openModal('album', null, searchService.searchResults.album.data)" class="readmore"><em>View all</em></a>
+                    </div>
+
+                    <div [class.is-exist-more]="searchService.searchResults.album.pagination.total > 4"
+                         [attr.data-more]="searchService.searchResults.album.pagination.total - 4"
+                         *ngFor="let album of searchService.searchResults.album.data | slice:0:4 let i=index"
+                         class="one">
+                        <gallery-preview (openAlbum)="openModal('album', album, searchService.searchResults.album.data)" [config]="{index: i, album: album}"></gallery-preview>
+                    </div>
+
+                    <!-- data-more для кількості додаткових картинок -->
+
+                </div>
+            </div>
+            <div class="right">
+                <div *ngIf="searchService.searchResults.video.data" class="photo-video-wrap">
+                    <div class="wide-heading">
+                        <p>Video</p>
+                        <a  class="readmore" *ngIf="searchService.searchResults.video.data.length" (click)="openModal('video', null, searchService.searchResults.video.data)"><em>View all</em></a>
+                    </div>
+                    <div class="thumbs_wrap">
+                        <a *ngFor="let video of searchService.searchResults.video.data | slice:0:8"
+                           [class.is-exist-more]="searchService.searchResults.video.pagination.total > 8"
+                           [attr.data-more]="searchService.searchResults.video.pagination.total - 7">
+                            <div class="img-wrap" (click)="openModal('video', video, searchService.searchResults.video.data)">
+                                <img *ngIf="video.isIframe"
+                                     [src]="'https://img.youtube.com/vi/' +  rootService.getYouTubeId(video.mediaUrl) + '/0.jpg'">
+                                <img *ngIf="!video.isIframe" [src]="video.mediaUrl.thumb_small">
+                            </div>
+                        </a>
+
+                    </div>
+                </div>
+                <div *ngIf="searchService.searchResults.photo.data" class="photo-video-wrap">
+                    <div class="wide-heading">
+                        <p>Photo</p>
+                        <a class="readmore" *ngIf="searchService.searchResults.photo.data.length" (click)="openModal('photo', null, searchService.searchResults.video.data)"><em>View all</em></a>
+                    </div>
+                    <div class="thumbs_wrap">
+                        <a *ngFor="let photo of searchService.searchResults.photo.data | slice:0:8"
+                           [class.is-exist-more]="searchService.searchResults.photo.pagination.total > 8"
+                           [attr.data-more]="searchService.searchResults.photo.pagination.total - 7">
+                            <div class="img-wrap" (click)="openModal('photo', photo, searchService.searchResults.video.data)">
+                                <img [src]="photo.mediaUrl.thumb">
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *modal class="modalWindow">
+        <media-gallery [config]="modalConfig" (mediaLoad)="loadSearchResult()" (albumLoad)="loadSearchResult()"></media-gallery>
+    </div>
+</div>
+
+

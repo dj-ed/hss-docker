@@ -1,0 +1,41 @@
+<div class="team-st-wrap clearfix">
+    <div *ngIf="teams.length" class="rank">
+        <div class="left">
+            <div class="red-rank">1</div>
+            <img src="{{teams[0].team_logo}}" alt="">
+        </div>
+        <div class="right">
+            <div class="top clearfix">
+                <div class="t-left">
+                    <div class="rank-word"></div>
+                    <a [routerLink]="['/team', teams[0].team_id]" class="team-name">{{teams[0].team_name}}</a>
+                    <div class="fav"
+                         [subsBtn]="{modelType: 'teams', modelId:  teams[0].team_id, type: 'favorite', role: 'subs'}">
+                        <span></span></div>
+                    <p class="district">{{teams[0].county_name}}{{(teams[0].district)?', District '+teams[0].district:''}}</p>
+
+                </div>
+                <div class="t-right">
+                    <div class="sign">Points</div>
+                    <div class="points">{{teams[0].score_team}}</div>
+                </div>
+            </div>
+            <div class="bottom">
+                <div class="stats_info">
+                    <p>Stats Info:</p>
+                    <p>Scores:</p>
+                </div>
+                <div *ngFor="let column of columns;let i=index" class="stats">
+                    <p>{{columnsName[i]}}</p>
+                    <p class="numes">{{(teams[0].teamTotalStats)?teams[0].teamTotalStats[column]:0}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="teams.length && teams[0].team_photo != ''" class="team-img">
+        <div class="img-wrap">
+            <img src="{{teams[0].team_photo}}" alt="">
+        </div>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+<div class="stats-score-wrap">
+    <div class="container">
+        <div class="top_switcher clearfix">
+            <div class="favorites-search">
+                <button class="fav" (pushAllFavorites)="isSelectMode = $event.length" [subsBtn]="{modelType: 'teams', role: 'action', type: 'favorite'}">
+                    <span></span>
+                </button>
+                <p>Favorites</p>
+                <internal-search (search)="searchText = $event" (closeSearch)="searchText = null"></internal-search>
+            </div>
+        </div>
+        <team-standings *ngIf="!searchText && !isSelectMode" class="team" [type]="'team'"></team-standings>
+    </div>
+
+    <div class="team_st_full_board">
+        <div class="container">
+            <full-board *ngIf="team" [config]="{team: team.id, searchText: searchText, isSelectMode: isSelectMode}"></full-board>
+        </div>
+    </div>
+
+</div>

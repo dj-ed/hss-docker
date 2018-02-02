@@ -1,0 +1,227 @@
+<div class="container" *ngIf="team">
+    <div class="live-heading clearfix">
+        <p class="head">Games Available</p>
+
+        <button class="load-wizard">Add Game<img src="/img/krossower-video-icon.svg" alt=""></button>
+
+        <div class="favorites-search">
+            <button class="search"><img src="/img/search-dark.svg"></button>
+        </div>
+    </div>
+
+    <div class="games-wrap">
+        <div class="t-row t-head">
+            <p class="num">Game #</p>
+            <p class="preview">Preview</p>
+            <p class="fav"></p>
+            <p class="home-team">Hometown Team</p>
+            <p class="score">Score</p>
+            <p class="opponent">Opponent Team</p>
+            <p class="date">Date</p>
+            <p class="time">TIme</p>
+            <p class="type">Type</p>
+            <p class="reel">Reels</p>
+        </div>
+
+        <div class="games-inner-wrap">
+            <div class="one t-row not-broken">
+                <div class="num">22.</div>
+                <div class="img-wrap preview">
+                    <img src="/img/temp/kross-prew.jpg" alt="">
+                </div>
+                <div class="fav">
+                    <span></span>
+                </div>
+                <div class="home-team">
+                    <a href="">
+                        <abbr title="ATLANTIC SHARKS">ats</abbr>
+                        <span title="ATLANTIC SHARKS">ATLANTIC SHARKS</span>
+                        <div class="img-wrap">
+                            <img src="/img/temp/upcoming-game-teem-log1.png" alt="">
+                        </div>
+                    </a>
+                </div>
+                <div class="score">
+                    <p class="stat win">67</p>
+                    <span class="vs">vs</span>
+                    <p class="stat lose">25</p>
+                </div>
+                <div class="opponent">
+                    <a href="">
+                        <div class="img-wrap">
+                            <img src="/img/temp/upcoming-game-teem-log3.png" alt="">
+                        </div>
+                        <abbr title="Flagler Palm Coast Bulldogs">ats</abbr>
+                        <span title="Flagler Palm Coast Bulldogs">Flagler Palm Coast Bulldogs</span>
+                    </a>
+                </div>
+                <div class="date">
+                    <span>nov 19<em class="year">2016</em></span>
+                </div>
+                <div class="time">
+                    12:26 pm
+                </div>
+                <div class="type">
+                    <abbr title="district">d</abbr>
+                    <span>district</span>
+                </div>
+                <div class="reel">
+                    Not Broken Down
+                </div>
+            </div>
+
+            <a [routerLink]="['/team', team.id, 'krossover-inner']" class="one t-row">
+                <div class="num">23.</div>
+                <div class="img-wrap preview">
+                    <img src="/img/temp/g1.jpg" alt="">
+                </div>
+                <div class="fav in-fav">
+                    <span></span>
+                </div>
+                <div class="home-team">
+                    <a href="">
+                        <abbr title="Flagler Palm Coast Bulldogs">ats</abbr>
+                        <span title="Flagler Palm Coast Bulldogs">Flagler Palm Coast Bulldogs</span>
+                        <div class="img-wrap">
+                            <img src="/img/temp/upcoming-game-teem-log2.png" alt="">
+                        </div>
+                    </a>
+                </div>
+                <div class="score">
+                    <p class="stat lose">12</p>
+                    <span class="vs">vs</span>
+                    <p class="stat win">86</p>
+                </div>
+                <div class="opponent">
+                    <a href="">
+                        <div class="img-wrap">
+                            <img src="/img/temp/upcoming-game-teem-log4.png" alt="">
+                        </div>
+
+                        <abbr title="ATLANTIC SHARKS">ats</abbr>
+                        <span title="ATLANTIC SHARKS">ATLANTIC SHARKS</span>
+                    </a>
+                </div>
+                <div class="date">
+                    <span>nov 21<em class="year">2016</em></span>
+                </div>
+                <div class="time">
+                    10:45 pm
+                </div>
+                <div class="type">
+                    <abbr title="non district">nd</abbr>
+                    <span>non district</span>
+                </div>
+                <div class="reel">
+                    <span>16</span>
+                    <button class="go_editor">
+                        <img src="/img/dropdown.svg" alt="">
+                    </button>
+                </div>
+            </a>
+
+            <div class="one t-row not-broken">
+                <div class="num">22.</div>
+                <div class="img-wrap preview">
+                    <img src="/img/temp/g3.jpg" alt="">
+                </div>
+                <div class="fav">
+                    <span></span>
+                </div>
+                <div class="home-team">
+                    <a href="">
+                        <abbr title="ATLANTIC SHARKS">ats</abbr>
+                        <span title="ATLANTIC SHARKS">ATLANTIC SHARKS</span>
+                        <div class="img-wrap">
+                            <img src="/img/temp/upcoming-game-teem-log1.png" alt="">
+                        </div>
+                    </a>
+                </div>
+                <div class="score">
+                    <p class="stat win">67</p>
+                    <span class="vs">vs</span>
+                    <p class="stat lose">25</p>
+                </div>
+                <div class="opponent">
+                    <a href="">
+                        <div class="img-wrap">
+                            <img src="/img/temp/upcoming-game-teem-log3.png" alt="">
+                        </div>
+                        <abbr title="Flagler Palm Coast Bulldogs">ats</abbr>
+                        <span title="Flagler Palm Coast Bulldogs">Flagler Palm Coast Bulldogs</span>
+                    </a>
+                </div>
+                <div class="date">
+                    <span>nov 19<em class="year">2016</em></span>
+                </div>
+                <div class="time">
+                    12:26 pm
+                </div>
+                <div class="type">
+                    <abbr title="district">d</abbr>
+                    <span>district</span>
+                </div>
+                <div class="reel">
+                    Not Broken Down
+                </div>
+            </div>
+
+            <a [routerLink]="['/team', team.id, 'krossover-inner']" class="one t-row">
+                <div class="num">23.</div>
+                <div class="img-wrap preview">
+                    <img src="/img/temp/g2.jpg" alt="">
+                </div>
+                <div class="fav in-fav">
+                    <span></span>
+                </div>
+                <div class="home-team">
+                    <a href="">
+                        <abbr title="Flagler Palm Coast Bulldogs">ats</abbr>
+                        <span title="Flagler Palm Coast Bulldogs">Flagler Palm Coast Bulldogs</span>
+                        <div class="img-wrap">
+                            <img src="/img/temp/upcoming-game-teem-log2.png" alt="">
+                        </div>
+                    </a>
+                </div>
+                <div class="score">
+                    <p class="stat lose">12</p>
+                    <span class="vs">vs</span>
+                    <p class="stat win">86</p>
+                </div>
+                <div class="opponent">
+                    <a href="">
+                        <div class="img-wrap">
+                            <img src="/img/temp/upcoming-game-teem-log4.png" alt="">
+                        </div>
+
+                        <abbr title="ATLANTIC SHARKS">ats</abbr>
+                        <span title="ATLANTIC SHARKS">ATLANTIC SHARKS</span>
+                    </a>
+                </div>
+                <div class="date">
+                    <span>nov 21<em class="year">2016</em></span>
+                </div>
+                <div class="time">
+                    10:45 pm
+                </div>
+                <div class="type">
+                    <abbr title="non district">nd</abbr>
+                    <span>non district</span>
+                </div>
+                <div class="reel">
+                    <span>16</span>
+                    <button class="go_editor">
+                        <img src="/img/dropdown.svg" alt="">
+                    </button>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="load-more">
+        <a href="">
+            <em>Load More albums</em>
+            <span></span>
+        </a>
+    </div>
+</div>

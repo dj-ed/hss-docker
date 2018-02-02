@@ -1,0 +1,30 @@
+<div class="schools-wrap" *ngIf="rootService.ready$ | async">
+    <div class="container">
+        <div class="wide-heading">
+            <p>Schools</p>
+            <a [routerLink]="rootService.seasonUrl('/all-schools')" class="readmore"><em>all schools</em></a>
+        </div>
+    </div>
+    <div class="schools-line">
+        <div  class="swiper-container"  [swiper]="{freeMode:true,slidesPerView:'auto',observer:true}">
+            <div class="swiper-wrapper">
+                <a *ngFor="let school of rootService.schoolList" [routerLink]="['/school', school.id]"
+                   class="mascot swiper-slide">
+                    <div class="img-wrap">
+                        <img [src]="school.logoUrl" [attr.alt]="school.name">
+                    </div>
+                    <p class="name">
+                        <span title="{{ school.name |  uppercase}}">{{ school.name }}</span>
+                        <abbr title="{{ school.name |  uppercase}}">{{ school.shortName }}</abbr>
+                    </p>
+                    <p class="under-name">{{ school.seasonGamePts }}</p>
+                </a>
+            </div>
+        </div>
+
+
+        <a [routerLink]="rootService.seasonUrl('/all-schools')" class="all-schools-mob">
+            ALL SCHOOLS
+        </a>
+    </div>
+</div>

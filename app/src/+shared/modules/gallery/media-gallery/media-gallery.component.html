@@ -1,0 +1,220 @@
+<div class="gallery-wrap-contain">
+    <div class="dark" *ngIf="gallery">
+        <div class="modal" *ngIf="config.viewType == 'modal' && !isFullScreen">
+            <button class="close" (click)="config.modalDirective.close()"></button>
+            <!-- top Panel for Select-Navigation and Overview selected album  BEGIN-->
+            <div class="gall-top-switcher" [ngClass]="{'active': isOpenAlbumList}">
+                <!-- top overview for openedAlbum in AlbumsList BEGIN-->
+                <div class="top" *ngIf="config.albumsList">
+                    <button class="drop" [ngClass]="{'active': isOpenAlbumList}"
+                            (click)="toggleAlbumsList($event)">/{{getIndexForOpenedAlbum() >= 10 ?
+                        getIndexForOpenedAlbum() : '0' + getIndexForOpenedAlbum()}}
+                    </button>
+                    <div class="teams" *ngIf="openedAlbum.gameId !== '00' && openedAlbum.gameData">
+                        <span class="stat"
+                              [ngClass]="{'win': openedAlbum.gameData.win, 'lose': !openedAlbum.gameData.win}"></span>
+                        <a [routerLink]="['/', 'team', openedAlbum.gameData.team.id]">
+                            <abbr [title]="openedAlbum.gameData.team.shortName">{{openedAlbum.gameData.team.shortName}}</abbr>
+                            <em>{{openedAlbum.gameData.team.name}}</em>
+                        </a>
+                        <span class="vs">{{openedAlbum.gameData.where === 'home' ? 'vs' : '@'}}</span>
+                        <a *ngIf="openedAlbum.gameData.opponentTeam.id"
+                           [routerLink]="['/', 'team', openedAlbum.gameData.opponentTeam.id]">
+                            <em>{{openedAlbum.gameData.opponentTeam.name}}</em>
+                            <abbr [title]="openedAlbum.gameData.opponentTeam.name">{{openedAlbum.gameData.opponentTeam.name}}</abbr>
+                        </a>
+                        <a *ngIf="!openedAlbum.gameData.opponentTeam.id">
+                            <em>{{openedAlbum.gameData.opponentTeam.name}}</em>
+                            <abbr [title]="openedAlbum.gameData.opponentTeam.name">{{openedAlbum.gameData.opponentTeam.name}}</abbr>
+                        </a>
+
+                        <span class="stat"
+                              [ngClass]="{'win': !openedAlbum.gameData.win, 'lose': openedAlbum.gameData.win}"></span>
+                    </div>
+                    <div class="type" *ngIf="openedAlbum.gameId !== '00' && openedAlbum.gameData">
+                        <abbr title="NON DISTRICT">{{openedAlbum.gameData.gameType}}</abbr>
+                    </div>
+                    <div class="date">{{openedAlbum.date | date:'mediumDate'}}</div>
+                </div>
+                <!-- top overview for openedAlbum in AlbumsList END-->
+                <!-- Slider list for all albums BEGIN-->
+                <div class="bottom-top-switch swiper-wrap" *ngIf="config.albumsList"
+                     [ngClass]="{'active': isOpenAlbumList}"
+                     [swiper]="{freeMode:true, slidesPerView:'auto' ,observer:true}">
+                    <div class="swiper-wrapper other-media-wrap-carousel grab" (mousemove)="initLiveLoad = true;"
+                         (transitionend)="detectSliderLoad('album');">
+                        <div *ngFor="let album of config.albumsList; let i = index;" class="one-modal-gal swiper-slide"
+                             [ngClass]="{'select': i === getIndexForOpenedAlbum()}"
+                             (transitionend)="$event.stopPropagation()">
+                            <div class="one-top">
+                                <div class="name">/{{(i >= 10 ? '': '0') + i}}</div>
+                                <div class="date">{{album.date | date:'mediumDate'}}</div>
+                            </div>
+                            <div class="img-wrap"
+                                 (click)="loadGallery(album.id); isOpenAlbumList = false; openedAlbum = album;">
+                                <img *ngIf="album.mediaType === 'photo'" [src]="album.mediaUrl.original">
+                                <img *ngIf="album.mediaType === 'video' && album.isIframe"
+                                     [src]="'https://img.youtube.com/vi/' + rootService.getYouTubeId(album.mediaUrl) + '/0.jpg'">
+                                <img *ngIf="album.mediaType === 'video' && !album.isIframe"
+                                     [src]="album.mediaUrl.original">
+                            </div>
+                            <div class="one-bottom" *ngIf="album.gameId !== '00' && album.gameData">
+                                <div class="teams">
+                                    <span class="stat"
+                                          [ngClass]="{'win': album.gameData.win, 'lose': !album.gameData.win}"></span>
+                                    <a [routerLink]="['/team', album.gameData.team.id]">
+                                        <em title="Father Lopez Green Wave">{{album.gameData.team.shortName}}</em>
+                                    </a>
+                                    <span class="vs"></span>
+                                    <a *ngIf="album.gameData.opponentTeam.id"
+                                       [routerLink]="['/team', album.gameData.opponentTeam.id]">
+                                        <em title="Seabreeze Sand Crabs">{{album.gameData.opponentTeam.shortName}}</em>
+                                    </a>
+                                    <a *ngIf="!album.gameData.opponentTeam.id">
+                                        <em title="Seabreeze Sand Crabs">{{album.gameData.opponentTeam.shortName}}</em>
+                                    </a>
+                                    <span class="stat"
+                                          [ngClass]="{'win': !album.gameData.win, 'lose': album.gameData.win}"></span>
+                                </div>
+                                <button class="pin"
+                                        [subsBtn]="{modelType: 'album', modelId:  album.id, type: 'scrapbook', role: 'subs'}"></button>
+                                <div class="type">
+                                    <abbr title="NON DISTRICT">{{album.gameData.gameType}}</abbr>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Slider list for all albums END-->
+            </div>
+            <!-- top Panel for Select-Navigation and Overview selected album  END-->
+        </div>
+        <div class="container" #contain *ngIf="currMedia">
+            <div class="media-wrap">
+                <div class="main-media"
+                     [ngClass]="{'full-screen': isFullScreen}">
+                    <img *ngIf="currMedia.mediaType == 'photo'" class="img" [src]="currMedia.mediaUrl.original">
+                    <div *ngIf="currMedia.mediaType == 'video' && currMedia.isIframe" class="iframe"
+                         [innerHtml]="currMedia.embedHtml"
+                         [ngClass]="{'active': currMedia.mediaType === 'video' && playingVideo}"
+                         (click)="playVideo(); toggleAutoplaySlider(true); "></div>
+                    <div *ngIf="currMedia.mediaType == 'video' && !currMedia.isIframe && rootService.isBrowser()">
+                        <vg-player>
+                            <vg-overlay-play></vg-overlay-play>
+                            <vg-buffering></vg-buffering>
+
+                            <vg-scrub-bar>
+                                <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                                <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+                            </vg-scrub-bar>
+
+                            <vg-controls>
+                                <vg-play-pause></vg-play-pause>
+                                <vg-playback-button></vg-playback-button>
+
+                                <vg-time-display vgProperty="current" vgFormat="mm:ss"></vg-time-display>
+                                <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
+                                <vg-scrub-bar style="pointer-events: none;"></vg-scrub-bar>
+
+                                <vg-mute></vg-mute>
+                                <vg-volume></vg-volume>
+                            </vg-controls>
+
+                            <video [vgMedia]="media" #media id="singleVideo" preload="auto" crossorigin>
+                                <source [src]="currMedia.mediaUrl.original" type="video/mp4">
+                            </video>
+                        </vg-player>
+                    </div>
+
+                    <div class="media-bottom" *ngIf="!isShowDescription">
+                        <div class="taged">
+                            <a class="player-link" (click)="toggleFullScreen(true)"
+                               *ngFor="let player of currMedia.players" [routerLink]="['/player', player.id]">
+                                <span>{{player.number}}</span>
+                                <em>{{player.name}}</em>
+                            </a>
+                            <button class="show-more"
+                                    (click)="toggleFullScreen(true); toggleDescriptionPanel();"></button>
+                        </div>
+                        <div class="fb-share-like">
+                            <div class="like" likeBtn [typeModel]="'gallery'" [id]="currMedia.id"
+                                 (updateCount)="currMedia.likes = $event">{{currMedia.likes}}<em></em></div>
+                            <div class="comments" (click)="comments.getComments(); config.isOpenComments = true;"
+                                 *ngIf="!isFullScreen">{{currMedia.comments}}<em></em></div>
+                        </div>
+                        <button class="share"><em>share</em></button>
+                        <div class="options">
+                            <button class="play-gallery" [ngClass]="{'pause': isAutoplaySwipper}"
+                                    *ngIf="gallery.length > 1" (click)="toggleAutoplaySlider()"></button>
+                            <button [ngClass]="{'close' : isFullScreen, 'full-screan': !isFullScreen}"
+                                    (click)="toggleFullScreen();"></button>
+                        </div>
+                    </div>
+
+                </div>
+                <div #swiperContain>
+                    <div class="other-media-wrap swiper-wrap" *ngIf="rootService.isBrowser()"
+                         [swiper]="{freeMode:false, slidesPerView:'auto', observer:true}">
+                        <div class="swiper-wrapper grab" (mousedown)="toggleAutoplaySlider(true)"
+                             (mousemove)="initLiveLoad = true;" (transitionend)="detectSliderLoad('media');">
+                            <!-- Активний .active, якшо з відео то .video -->
+                            <div *ngFor="let media of gallery"
+                                 (transitionend)="$event.stopPropagation()"
+                                 class="one-media swiper-slide"
+                                 (click)="changeCurrMedia(media); playingVideo = false;"
+                                 [ngClass]="{'active': currMedia.id == media.id, 'video': media.mediaType == 'video'}">
+                                <img *ngIf="media.mediaType === 'photo'"
+                                     [src]="media.mediaUrl.original">
+                                <img *ngIf="media.mediaType === 'video' && media.isIframe"
+                                     [src]="'https://img.youtube.com/vi/' + media.youTubeVideoId + '/0.jpg'">
+                                <img *ngIf="media.mediaType === 'video' && !media.isIframe"
+                                     [src]="media.thumb_small">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="light container inner-wrap" *ngIf="isShowDescription">
+        <div class="bottom-players-description">
+            <div class="players-close" (click)="toggleDescriptionPanel()"></div>
+            <div class="players">
+                <a [routerLink]="['/player', player.id]" *ngFor="let player of currMedia.players">
+                    <span>{{player.number}}</span>
+                    <em>{{player.name}}</em>
+                </a>
+            </div>
+            <div class="description" *ngIf="currMedia.descriptions">
+                <p>{{currMedia.descriptions}}</p>
+            </div>
+            <div class="media-bottom media-bottom__light">
+                <button class="pin"
+                        [subsBtn]="{modelType: 'gallery', modelId:  currMedia.id, type: 'scrapbook', role: 'subs'}"></button>
+                <div class="fb-share-like">
+                    <div class="like" likeBtn [typeModel]="'gallery'" [id]="currMedia.id"
+                         (updateCount)="currMedia.likes = $event">{{currMedia.likes}}<em></em></div>
+                    <div class="comments" (click)="comments.getComments(); config.isOpenComments = true;">
+                        {{currMedia.comments}}<em></em></div>
+                </div>
+                <button class="download-foto"><em>Download Photo</em></button>
+                <button class="share"><em>share</em></button>
+                <div class="options">
+                    <button class="play-gallery" [ngClass]="{'pause': isAutoplaySwipper}" *ngIf="gallery.length > 1"
+                            (click)="toggleAutoplaySlider()"></button>
+                    <!-- Класс close, по замовчуванню full-screan -->
+                    <button class="full-screan" (click)="isShowDescription = false; toggleFullScreen(); "></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="comments-contain" *ngIf="config.isOpenComments">
+        <div class="title-comments">Comments</div>
+        <simple-select (change)="comments.changeOrder($event)"
+                       [values]="comments.commentService.orderOptions"></simple-select>
+    </div>
+    <div class="container inner-wrap">
+        <comments-component #comments [modelId]="currMedia?.id" [modelType]="'gallery'"
+                            (closeComment)="config.isOpenComments = false;"></comments-component>
+    </div>
+</div>

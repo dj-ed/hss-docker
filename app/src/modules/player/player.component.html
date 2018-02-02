@@ -1,0 +1,92 @@
+<div class="school-team-wrap player" *ngIf="player">
+
+    <div class="container">
+        <div class="top">
+            <div class="mascot-wrap">
+                <img src="{{player.userPhotoUrl}}" alt="">
+            </div>
+            <div class="name-wrap">
+                <div class="img-wrap">
+                    <img src="{{player.logo}}" alt="">
+                </div>
+                <div *ngIf="player.number" class="num">{{player.number}}</div>
+                <p class="name">{{player.name}}</p>
+                <p class="varsity">
+                    <span>{{player.guardShort}}</span>
+                    <span *ngIf="player.positionShort">{{player.positionShort}}</span>
+                    <span *ngIf="player.metrics.height">{{player.metrics.height}} {{player.metrics.heightIn}}</span>
+                    <span *ngIf="player.metrics.weight">175 lbs</span>
+                </p>
+                <button class="fav"></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom">
+        <div class="container">
+            <div class="school-switch">
+                <a [routerLink]="['/player', prevPlayerId]">
+                    <img src="/img/dropdown.svg" alt="prev">
+                </a>
+                <p (click)="togglePlayerList()" title="{{shortFirstName}}"><span class="num">{{playerNum}}</span>{{shortFirstName}}</p>
+                <a [routerLink]="['/player', nextPlayerId]">
+                    <img src="/img/dropdown.svg" alt="next">
+                </a>
+            </div>
+            <div class="back-to-school">
+                <a [routerLink]="['/team', player.teamId]"><em>team</em></a>
+            </div>
+            <ul class="team-head-menu">
+                <li>
+                    <a [routerLink]="['/player', player.id]"
+                       routerLinkActive="active"
+                       [routerLinkActiveOptions]="{exact:true}">About</a>
+                </li>
+                <li>
+                    <a [routerLink]="['/player', player.id, 'stats']"
+                       routerLinkActive="active">Stats</a>
+                </li>
+                <li>
+                    <a [routerLink]="['/player', player.id, 'blog']"
+                       routerLinkActive="active">Blog</a>
+                </li>
+                <li>
+                    <a [routerLink]="['/player', player.id, 'gallery']"
+                       routerLinkActive="active">Gallery</a>
+                </li>
+            </ul>
+
+            <div class="fav-social-wrap">
+                <div class="fav" [subsBtn]="{modelType: 'players', modelId:  player.id, type: 'favorite', role: 'subs'}">
+                    <span></span>
+                </div>
+
+                <div class="social">
+                    <div>
+                        <a href=""><img src="/img/fb.svg" alt=""></a>
+                        <a href=""><img src="/img/tw.svg" alt=""></a>
+                        <a href=""><img src="/img/is.svg" alt=""></a>
+                        <a href=""><img src="/img/gp.svg" alt=""></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="schools_dropdown" *ngIf="player" [class.open]="openedPlayerList">
+    <div [swiper]="{freeMode:true,slidesPerView:'auto',observer:true}">
+        <div class="swiper-wrapper">
+            <a *ngFor="let onePlayer of player.teamPlayers"
+               [routerLink]="['/player', onePlayer.id]"
+               class="school swiper-slide">
+            <div class="img-wrap">
+                <img [src]="onePlayer.userPhotoUrl" [attr.alt]="onePlayer.name">
+            </div>
+                <abbr [attr.title]="onePlayer.name"><span class="num">{{playerNum}}</span>{{ onePlayer.name }}</abbr>
+            </a>
+        </div>
+    </div>
+</div>
+
+<router-outlet (deactivate)="onDeactivate()"></router-outlet>

@@ -1,0 +1,71 @@
+@import 'mixins';
+@import 'variables';
+
+.upcomming-games-wrap, .schools-wrap, .headline-wrap {
+  background-color: #fff;
+}
+
+.schools-wrap {
+  padding-bottom: 47px;
+  width: 100%;
+
+  @media all and (max-width: 1250px) {
+    padding-bottom: 0;
+    .wide-heading {
+      display: none;
+    }
+  }
+}
+
+.schools-line {
+  height: 131px;
+  overflow: hidden;
+  position: relative;
+  white-space: nowrap;
+  @media all and (max-width: 1025px) {
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+  .all-schools-mob {
+    display: none;
+    @media all and (max-width: 1250px) {
+      display: inline-block;
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 140px;
+      background-image: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.85) 4%, #ffffff 54%);
+      z-index: 2;
+      color: $grey-blue;
+      @include fOswald;
+      @include fz12;
+      line-height: 115px;
+      text-transform: uppercase;
+      text-align: center;
+      vertical-align: middle;
+      &:after {
+        content: "";
+        display: inline-block;
+        width: 8px;
+        height: 17px;
+        vertical-align: middle;
+        background-image: url(/img/arrows.svg);
+        background-repeat: no-repeat;
+        background-position: right top 2px;
+      }
+
+    }
+  }
+}
+
+
+
+.headline-wrap {
+  .wide-heading {
+    margin-bottom: 81px;
+    @media all and (max-width: 1250px) {
+      margin-bottom: 22px;
+    }
+  }
+}

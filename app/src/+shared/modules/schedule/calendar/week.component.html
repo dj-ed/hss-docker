@@ -1,0 +1,78 @@
+<div class="week-head">
+    <div class="w-row">
+        <div class="ruller"></div>
+        <div class="container">
+            <div *ngFor="let day of week" [class.red]="isWeekendDay(day)" class="day">
+                <p>{{ day | date:'EEE' }}</p>
+                <span>{{day | date:'dd'}}</span>
+            </div>
+        </div>
+        <div class="ruller"></div>
+    </div>
+</div>
+<div #timeline class="calendar">
+    <ng-scrollbar class="week open" data-id="week">
+        <div class="week-wrap">
+            <div *ngFor="let time of gameTime" class="w-row">
+                <div class="ruller">
+                    <p>{{time}}</p>
+                </div>
+                <div class="container">
+                    <div *ngFor="let day of week" [class.pink]="isWeekendDay(day)" class="day"></div>
+                </div>
+                <div class="ruller">
+                    <p>{{time}}</p>
+                </div>
+            </div>
+
+            <div class="events-wrap">
+                <div  *ngIf="calendarService.games.length" class="container">
+                    <div *ngFor="let game of calendarService.games"
+                         class="game day{{game.dateObj().getDay()+1}}"
+                         [class.district]="game.gameType=='D'"
+                         [class.tournament]="game.gameType=='T'"
+                         [class.non-district]="game.gameType=='ND'"
+                         [style.top]="game.gamePosition+'px'">
+                        <img src="{{rootService.sportById(game.sportId).logoUrl}}" alt="" class="sport-type">
+                        <div class="left">
+                            <div class="top">
+                                <p>{{game.dateObj() | date:'shortTime'}}</p>
+                            </div>
+                            <div class="bottom">
+                                <div class="wrap">
+                                    <a [routerLink]="['/team', game.team.id]" class="">
+                                        <div class="img-wrap">
+                                            <img src="{{game.team.logoUrl}}" alt="">
+                                        </div>
+                                        <br>
+                                        <abbr title="{{game.team.name | uppercase}}">{{game.team.shortName}}</abbr>
+                                    </a>
+                                    <div [class.away]="game.where=='away'" class="vs"></div>
+                                    <a [routerLink]="(game.opponentTeam.id)?['/team', game.opponentTeam.id]:null" class="">
+                                        <div class="img-wrap">
+                                            <img src="{{game.opponentTeam.logoUrl}}" alt="">
+                                        </div>
+                                        <br>
+                                        <abbr title="{{game.opponentTeam.name | uppercase}}">{{game.opponentTeam.shortName}}</abbr>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="right">
+                            <div class="top">
+                                <abbr title="district">{{game.gameType}}</abbr>
+                            </div>
+                            <div class="bottom">
+                                <a *ngIf="game.isGameRecap()" [routerLink]="['/team', game.team.id, {view: game.id}]" class="game-recap">
+                                    <em>game recap</em>
+                                </a>
+
+                                <button *ngIf="!game.isGameRecap()" class="add-to-calendar" [subsBtn]="{type: 'event', role: 'subs', modelType: 'game', modelId: game.id}"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-scrollbar>
+</div>

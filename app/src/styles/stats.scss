@@ -1,0 +1,45 @@
+@import 'mixins';
+@import 'variables';
+
+.top_switcher {
+  text-align: center;
+  margin-bottom: 40px;
+  position: relative;
+}
+// leaderboard
+.leaderboard-switcher {
+  padding-left: 18px;
+  margin-left: 15px;
+  height: 23px;
+  @media all and (max-width: 800px) {
+    margin-right: 6px;
+    height: 17px;
+    margin-left: -10px;
+    padding-left: 9px;
+  }
+  button {
+    margin-top: 2px;
+    opacity: 0.4;
+    transition: opacity 180ms;
+    will-change: opacity;
+    @media all and (max-width: 800px) {
+      margin-top: 0;
+    }
+    & + button {
+      margin-left: 8px;
+      @media all and (max-width: 800px) {
+        margin-left: 4px;
+      }
+    }
+    &.active, &:hover {
+      opacity: 1;
+      transition: opacity 180ms;
+    }
+  }
+  & + .search {
+    @media all and (max-width: 800px) {
+      padding-left: 9px;
+      width: 27px;
+    }
+  }
+}

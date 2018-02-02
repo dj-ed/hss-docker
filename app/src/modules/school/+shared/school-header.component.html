@@ -1,0 +1,94 @@
+<div *ngIf="school" class="school-team-wrap {{ className }}">
+
+    <div class="container">
+        <div class="top">
+            <div class="mascot-wrap">
+                <img [src]="school.logoUrl" alt="{{ school.name }} School Logo">
+            </div>
+            <div class="name-wrap">
+                <a [routerLink]="['/school', prevSchoolId]" class="school-switch prec"></a>
+                <p class="name">{{ school.name }}</p>
+                <a [routerLink]="['/school', nextSchoolId]" class="school-switch next"></a>
+                <p class="varsity">{{ school.stateName }}, {{ school.city }}</p>
+                <button [subsBtn]="{modelType: 'schools', modelId:  school.id, type: 'favorite', role: 'subs'}" class="fav"></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="middle">
+        <div class="container">
+            <div class="info">
+                <div *ngIf="school.mascot">
+                    <p>Mascot:</p>
+                    <span>{{ school.mascot }}</span>
+                </div>
+
+                <div *ngFor="let person of school.persons">
+                    <p>{{ person.role }}:</p>
+                    <span>{{ person.name }}</span>
+                </div>
+            </div>
+
+            <school-header-socials [school]="school"></school-header-socials>
+        </div>
+    </div>
+
+    <div class="bottom">
+        <div class="container">
+            <div class="school-switch">
+                <a [routerLink]="getSchoolLink('prev')">
+                    <img src="/img/dropdown.svg" alt="Prev">
+                </a>
+                <p (click)="toggleSchoolList()">{{ school.shortName }}</p>
+                <a [routerLink]="getSchoolLink('next')">
+                    <img src="/img/dropdown.svg" alt="Next">
+                </a>
+            </div>
+            <ul class="team-head-menu">
+                <li>
+                    <a [class.active]="activePage == ''"
+                       [routerLink]="['/school', school.id]">School Home</a>
+                </li>
+                <li>
+                    <a [class.active]="activePage == 'info'"
+                       [routerLink]="['/school', school.id, 'info']">School Info</a>
+                </li>
+                <li>
+                    <a [class.active]="activePage == 'schedule'"
+                       [routerLink]="['/school', school.id, 'schedule']">Competition Schedule</a>
+                </li>
+                <li>
+                    <a [class.active]="activePage == 'headlines'"
+                       [routerLink]="['/school', school.id, 'headlines']">News</a>
+                </li>
+                <li>
+                    <a [class.active]="activePage == 'live'"
+                       [routerLink]="['/school', school.id, 'live']"
+                       class="live">Live Stream</a>
+                </li>
+            </ul>
+            <div class="fav-social-wrap">
+                <div class="fav" [subsBtn]="{modelType: 'schools', modelId:  school.id, type: 'favorite', role: 'subs'}">
+                    <span></span>
+                </div>
+
+                <school-header-socials [school]="school"></school-header-socials>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div [swiper]="{observer:true}" class="schools_dropdown" [class.open]="openedSchoolList">
+    <div  [swiper]="{freeMode:true,slidesPerView:'auto',observer:true}">
+        <div class="swiper-wrapper">
+            <a *ngFor="let oneSchool of rootService.schoolList"
+               [routerLink]="['/school', oneSchool.id, activePage]"
+               class="school swiper-slide">
+                <span class="img-wrap">
+                    <img [src]="oneSchool.logoUrl" [attr.alt]="oneSchool.name">
+                </span>
+                <abbr [attr.title]="oneSchool.name">{{ oneSchool.shortName }}</abbr>
+            </a>
+        </div>
+    </div>
+</div>

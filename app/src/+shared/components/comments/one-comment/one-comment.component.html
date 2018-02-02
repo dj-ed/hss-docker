@@ -1,0 +1,52 @@
+<div class="one-comment" [class.subcomment]="comment.replyId" [attr.data-id]="comment.id">
+    <div class="ava">
+        <img [src]="comment.userPhotoUrl" alt="{{ comment.userName }}">
+    </div>
+    <div class="content">
+        <div class="heading-in">
+            <p class="name">
+                {{ comment.userName }}
+            </p>
+            <p class="time">
+                {{ comment.createdAt | date }}
+                <span>{{ comment.createdAt | date:'shortTime' }}</span>
+            </p>
+        </div>
+
+        <p class="text" *ngIf="!comment.audioUrl">
+            {{ comment.text }}
+        </p>
+
+        <div class="record" *ngIf="comment.audioUrl">
+            <audio-player [audio]="comment.audioUrl"></audio-player>
+        </div>
+
+        <div class="bottom">
+            <div class="like-reply">
+                <p class="likes">
+                    {{ comment.likes }}
+                </p>
+                <button (click)="addLike()" *ngIf="!comment.isVoted && userService.currentUser!=undefined">LIKE</button>
+                <button (click)="removeLike()" *ngIf="comment.isVoted && userService.currentUser!=undefined">DISLIKE</button>
+                <button (click)="callReply()" *ngIf="userService.currentUser">REPLY</button>
+            </div>
+            <button class="report" (click)="commentService.openReportAbuse(reportPopup)">Report Abuse</button>
+
+            <div class="share">
+                <p>share</p>
+
+                <share-component [types]="['fb', 'tw']" [text]="comment.text"></share-component>
+            </div>
+        </div>
+    </div>
+
+    <report-abuse-popup [commentId]="comment.id" #reportPopup></report-abuse-popup>
+</div>
+
+<div *ngIf="comment.replies.length">
+    <one-comment *ngFor="let reply of comment.replies"
+            [comment]="reply"
+            (reply)="callReply()">
+    </one-comment>
+</div>
+

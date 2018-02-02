@@ -1,0 +1,24 @@
+.leaderboard-wrap {
+  padding-top: 58px;
+  padding-bottom: 100px;
+  background-color: #f9f9fa;
+  @media all and (max-width: 1250px) {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+  .wide-heading {
+    margin-top: 0;
+  }
+  .l-switch-heading {
+    margin-top: 70px;
+  }
+  .leaderboard-cont {
+    padding-top: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    padding-bottom: 40px;
+    @media all and (max-width: 1250px) {
+      padding-bottom: 0;
+    }
+  }
+}

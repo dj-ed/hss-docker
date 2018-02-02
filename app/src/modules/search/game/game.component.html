@@ -1,0 +1,91 @@
+<div class="result_wrap">
+    <div *ngIf="searchService.searchResults && searchService.searchType=='games'" class="container">
+        <div class="tabels-wrap">
+            <div  class="t-row t-head">
+                <div class="num">#</div>
+                <div class="divider fg3"></div>
+                <div class="date">Date</div>
+                <div class="divider fg4"></div>
+                <div class="time">TIme</div>
+                <div class="divider"></div>
+                <div class="fav"></div>
+                <div class="divider"></div>
+                <div class="team">Team</div>
+                <div class="score">Score</div>
+                <div class="team">Team</div>
+                <div class="divider"></div>
+                <div class="fav"></div>
+                <div class="divider"></div>
+                <div class="type">Type</div>
+                <div class="divider fg10"></div>
+            </div>
+
+            <div *ngFor="let game of searchService.searchResults  | paginate:  searchService.pagination " class="t-row-wrap">
+                <div  class="t-row">
+                    <div class="num"></div>
+                    <div class="divider fg3"></div>
+                    <div class="date">
+                        <span>{{game.dateObj().toString().substring(3, 10)}}</span>
+                        <span>{{game.dateObj().getFullYear()}}</span>
+                    </div>
+                    <div class="divider fg4"></div>
+                    <div *ngIf="game.dateTime" class="time">{{game.dateObj() | date:'shortTime'}}</div>
+                    <div *ngIf="!game.dateTime" class="time"></div>
+                    <div class="divider"></div>
+                    <div class="fav"><span></span></div>
+                    <div class="divider"></div>
+                    <div  class="team t1">
+                        <a  [routerLink]="['/team', game.team.id]">
+                            <abbr title="{{game.team.name}}">{{game.team.shortName}}</abbr><span>{{game.team.name}}</span>
+                            <div class="img-wrap">
+                                <img src="{{game.team.logoUrl}}" alt="">
+                            </div>
+                        </a>
+                    </div>
+                    <div class="score">
+                        <div [class.win]="game.win" [class.lose]="!game.win" class="stat">
+                            <p>{{game.scoreTeam}}</p>
+                        </div>
+                        <div class="vs">
+                            <p> {{(game.where=='away')?'@':'vs'}} </p>
+                        </div>
+                        <div [class.win]="!game.win" [class.lose]="game.win" class="stat">
+                            <p>{{game.scoreOpponent}}</p>
+                        </div>
+                    </div>
+                    <div class="team t2">
+                        <a [routerLink]="(game.opponentTeam.id)?['/team', game.opponentTeam.id]:[]">
+                            <div class="img-wrap">
+                                <img src="{{game.opponentTeam.logoUrl}}" alt="">
+                            </div>
+                            <abbr title="{{game.opponentTeam.name}}">{{game.opponentTeam.shortName}}</abbr><span>{{game.opponentTeam.name}}</span>
+                        </a>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="fav in-fav"><span></span></div>
+                    <div class="divider"></div>
+                    <div class="type"><abbr
+                            title="{{game.getFullType()}}">{{game.gameType}}</abbr><span>{{game.getFullType()}}</span></div>
+                    <div class="divider fg10"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <pagination-template *ngIf="searchService.pagination.totalItems>searchService.pagination.itemsPerPage"
+                             class="pagination-wrap"
+                             maxSize="6"
+                             #p="paginationApi"
+                             (pageChange)="searchService.currentPage = $event; searchService.getSearchResults();">
+            <div class="container">
+                <button [class.disabled]="p.isFirstPage()" (click)="p.previous()" class="nav prew"></button>
+                <button *ngFor="let page of p.pages" class="page" (click)="p.setCurrent(page.value)"
+                        [class.active]="p.getCurrent() === page.value">{{ page.label }}
+                </button>
+
+                <button [class.disabled]="p.isLastPage()" (click)="p.next()" class="nav next"></button>
+            </div>
+        </pagination-template>
+
+    </div>
+</div>

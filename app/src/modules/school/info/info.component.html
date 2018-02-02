@@ -1,0 +1,84 @@
+<school-header></school-header>
+
+<div class="container" *ngIf="ready">
+    <div class="school-info-wrap">
+        <div class="top-info" *ngIf="description$ | async">
+            <div class="head">Our School</div>
+            <p>{{ description$ | async }}</p>
+        </div>
+
+        <div class="small-accs">
+            <div class="one" *ngFor="let person of contactPersons$ | async">
+                <div class="img-wrap">
+                    <img [src]="person.userPhotoUrl" [attr.alt]="person.name">
+                </div>
+                <p class="position">{{ person.role }}</p>
+                <div class="bottom">
+                    <p>{{ person.name }}</p>
+                    <strong>
+                        <a href="mailto:{{ person.email }}">{{ person.email }}</a>
+                    </strong>
+                    <p *ngIf="person.cellPhone">
+                        <span>m:</span>
+                        <em>{{ person.cellPhone }}
+                            <i *ngIf="person.cellPhoneExt">x{{ person.cellPhoneExt }}</i>
+                        </em>
+                    </p>
+                    <p *ngIf="person.schoolPhone">
+                        <span>t/f:</span>
+                        <em>{{ person.schoolPhone }}
+                            <i *ngIf="person.schoolPhoneExt">x{{ person.schoolPhoneExt }}</i>
+                        </em>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="big-accs">
+            <div class="one" *ngFor="let person of otherPersons$ | async">
+                <div class="w-position">{{ person.role }}</div>
+                <div class="name">{{ person.name }}</div>
+                <div class="bottom">
+                    <div class="img-wrap">
+                        <img [src]="person.userPhotoUrl" [attr.alt]="person.name">
+                    </div>
+                    <div class="right">
+                        <p>{{ person.bio }}</p>
+                        <!--<div class="social">-->
+                            <!--<a href="">-->
+                                <!--<img src="/img/fb.svg" alt="">-->
+                            <!--</a>-->
+                            <!--<a href="">-->
+                                <!--<img src="/img/gp.svg" alt="">-->
+                            <!--</a>-->
+                        <!--</div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="dark" *ngIf="ready">
+    <div class="location">
+        <div>
+            <div class="head">Location</div>
+            <div class="text">
+                {{ school.address }},<br> {{ school.city }}, {{ school.stateName }} {{ school.zip }}
+            </div>
+        </div>
+        <div *ngIf="school.phone">
+            <div class="head">Phone</div>
+            <div class="text">{{ school.phone }}
+                <span *ngIf="school.phoneExt">x{{ school.phoneExt }}</span>
+            </div>
+        </div>
+        <div *ngIf="school.fax && school.fax!=school.phone">
+            <div class="head">Fax</div>
+            <div class="text">{{ school.fax }}
+                <span *ngIf="school.faxExt">x{{ school.faxExt }}</span>
+            </div>
+        </div>
+    </div>
+    <div class="map" [innerHTML]="mapHtml"></div>
+</div>

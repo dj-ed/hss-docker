@@ -1,0 +1,408 @@
+@import '/../../../../styles/mixins';
+@import '/../../../../styles/variables';
+
+.team-standing-table {
+  &.opacity-table {
+    .t-inner-wrap .t-row {
+      opacity: .4;
+      &.active {
+        opacity: 1;
+        border-left: 2px solid #f41b1a;
+      }
+    }
+  }
+  @include fOswald;
+  counter-reset: team-standings-counter;
+  .t-row {
+    height: 30px;
+    @include fz10;
+    text-transform: uppercase;
+    border-left: 2px solid transparent;
+    color: rgb(63, 76, 94);
+    transition: opacity 180ms;
+    &.t-head {
+      border-bottom: 1px solid $grey;
+      + .t-under-head {
+        margin-top: 36px;
+      }
+      @media all and (max-width: 1000px) {
+        .fav span {
+          opacity: 0;
+          pointer-events: none;
+        }
+      }
+    }
+    &.t-under-head {
+      border-bottom: 1px solid rgba(63, 76, 94, 0.44);
+      margin-bottom: 8px;
+      .num, .total {
+        color: #000;
+      }
+      .open:after {
+        transform: rotate(0deg);
+        transition: transform 180ms;
+      }
+      .open.opened:after {
+        transform: rotate(180deg);
+        transition: transform 180ms;
+      }
+      .total {
+        position: relative;
+        &:before {
+          position: absolute;
+          content: "PTS";
+          left: -20px;
+          color: $grey-blue;
+        }
+      }
+    }
+    &:not(.t-head):not(.t-under-head):nth-child(even) {
+      background: url(/img/Noise-on-white.png);
+    }
+    &:not(.t-head):not(.t-under-head) {
+      counter-increment: team-standings-counter;
+      .num {
+        &:after {
+          content: counter(team-standings-counter) ".";
+        }
+      }
+      .total {
+        background-color: $blue-on-dark;
+        color: #fff;
+        position: relative;
+      }
+      &:last-child {
+        .total:after {
+          content: "";
+          display: inline-block;
+          width: 100%;
+          height: 6px;
+          background-color: inherit;
+          position: absolute;
+          left: 0;
+          bottom: -6px;
+        }
+      }
+    }
+    & > * {
+      display: inline-block;
+    }
+    .num {
+      width: 28px;
+      text-align: center;
+    }
+    .team {
+      width: 230px;
+      abbr {
+        vertical-align: middle;
+        color: #000;
+        line-height: 13px;
+        display: none;
+      }
+      span {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: calc(100% - 65px);
+        display: inline-block;
+        vertical-align: middle;
+        color: #000;
+        line-height: 15px;
+        @media all and (max-width: 1000px) {
+          max-width: calc(100% - 45px);
+        }
+        @media all and (max-width: 800px) {
+          max-width: calc(100% - 40px);
+        }
+      }
+      @media all and (max-width: 1000px) {
+        width: 180px;
+      }
+      @media all and (max-width: 800px) {
+        width: 120px;
+      }
+      .img-wrap {
+        width: 30px;
+        height: 30px;
+        margin-right: 28px;
+        display: inline-block;
+        vertical-align: middle;
+        @media all and (max-width: 1000px) {
+          margin-right: 10px;
+        }
+        @media all and (max-width: 800px) {
+          margin-right: 5px;
+        }
+        img {
+          max-width: 100%;
+          object-fit: contain;
+        }
+      }
+      &:hover span, &:hover abbr, &:hover em {
+        background: url(/img/hover-bg.svg) repeat-x bottom left;
+      }
+    }
+    .fav {
+      width: 16px;
+      height: 100%;
+      span {
+        display: inline-block;
+        width: 16px;
+        height: 100%;
+        opacity: 0;
+        transition: opacity 180ms;
+        @media all and (max-width: 1025px) {
+          opacity: 1;
+        }
+      }
+      &.in-fav {
+        span {
+          opacity: 1;
+          transition: opacity 180ms;
+        }
+      }
+      &:hover {
+        opacity: 1;
+        transition: opacity 180ms;
+      }
+    }
+    .county {
+      width: 95px;
+      p {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      span {
+        display: none;
+      }
+      @media all and (max-width: 900px) {
+        width: 35px;
+        p {
+          display: none;
+        }
+        span {
+          display: block;
+        }
+      }
+    }
+    .location {
+      width: 81px;
+      padding-bottom: 0;
+      padding-top: 0;
+      margin-top: 0;
+      border-top: none;
+      p {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      span {
+        display: none;
+      }
+      @media all and (max-width: 900px) {
+        width: 35px;
+        p {
+          display: none;
+        }
+        span {
+          display: block;
+        }
+      }
+    }
+    .wl {
+      width: 42px;
+      text-align: center;
+    }
+    .nd {
+      width: 12px;
+      text-align: center;
+    }
+    .pf {
+      width: 20px;
+      text-align: center;
+    }
+    .total {
+      width: 43px;
+      height: 30px;
+      line-height: 30px;
+      text-align: center;
+    }
+    .open {
+      width: 43px;
+      &.opener {
+        cursor: pointer;
+        text-align: center;
+        &:after {
+          content: "";
+          display: inline-block;
+          width: 10px;
+          height: 30px;
+          background: url(/img/dropdown.svg) no-repeat center / contain;
+        }
+      }
+    }
+    .divider {
+      flex-basis: auto;
+      flex-shrink: 1;
+      flex-grow: 2.5;
+      &.fg1 {
+        flex-grow: 1;
+      }
+      &.fg2 {
+        flex-grow: 2;
+      }
+      &.fg3 {
+        flex-grow: 3;
+      }
+      &.fg5 {
+        flex-grow: 5;
+      }
+      &.fg6 {
+        flex-grow: 6;
+      }
+    }
+  }
+  .t-inner-wrap {
+    max-height: 0;
+    transition: max-height 360ms;
+    overflow: hidden;
+    &.open {
+      max-height: 380px;
+      transition: max-height 640ms;
+    }
+    &:hover {
+      .t-row:not(.t-head):not(.t-under-head) {
+        opacity: 0.4;
+        transition: opacity 180ms;
+        @media all and (max-width: 1025px) {
+          opacity: 1;
+        }
+      }
+      .t-row:not(.t-head):not(.t-under-head):hover {
+        opacity: 1;
+        border-left: 2px solid $red;
+        transition: opacity 180ms;
+        @media all and (max-width: 1025px) {
+          border-left: 2px solid transparent;
+        }
+        .fav {
+          span {
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+}
+
+.player-stand {
+  .t-inner-wrap .t-row{
+    opacity: .4;
+    &.active{
+      opacity: 1;
+      border-left: 2px solid #f41b1a;
+    }
+  }
+  .t-row {
+    & > * {
+      white-space: nowrap;
+    }
+    .team {
+      width: 200px;
+      .number {
+        width: 15px;
+        display: inline-block;
+        vertical-align: middle;
+        color: #b2b7bf;
+        margin-right: 10px;
+        &:before {
+          text-transform: none;
+          content: "#";
+        }
+      }
+
+      .img-wrap {
+        margin-right: 8px;
+      }
+      a {
+        display: inline-block;
+        width: 100%;
+        em {
+          color: #000;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          line-height: 13px;
+          display: inline-block;
+          vertical-align: middle;
+          max-width: calc(100% - 70px);
+        }
+      }
+    }
+    &:not(.t-head):not(.t-under-head) {
+      .ps {
+        &:after {
+          content: "%";
+        }
+      }
+      .num:after{
+        content: ' ';
+      }
+    }
+    &.t-head .team {
+      padding-left: 45px;
+    }
+    &.t-under-head {
+      @media all and (max-width: 950px) {
+        .open {
+          width: 30px;
+        }
+        .total {
+          width: 45px;
+        }
+      }
+    }
+    @media all and (max-width: 1100px) {
+      &:not(.t-under-head) {
+        .open {
+          display: none;
+        }
+      }
+      .divider:first-child {
+        display: none;
+      }
+      .location {
+        width: 28px;
+        p {
+          display: none;
+        }
+        span {
+          display: block;
+        }
+      }
+      .num {
+        width: 20px;
+      }
+      .team {
+        width: 160px;
+      }
+    }
+    @media all and (max-width: 1024px) {
+      .fav, .fav + .divider {
+        display: none;
+      }
+    }
+    @media all and (max-width: 950px) {
+      .num + .divider, .location, .location + .divider {
+        display: none;
+      }
+      .total {
+        width: 30px;
+      }
+      .divider {
+        flex-basis: auto;
+      }
+    }
+  }
+}

@@ -1,0 +1,388 @@
+@import '/../../../styles/mixins';
+@import '/../../../styles/variables';
+
+.dark .container{
+  padding-bottom: 20px;
+}
+.dark .container > .team-photo{
+  width: 80%;
+  margin: 0 auto;
+  display: block;
+  height: 670px;
+  object-fit: cover;
+}
+.roster-wrap {
+  padding-bottom: 90px;
+  @include fOswald;
+  text-transform: uppercase;
+  .roster-head {
+    border-bottom: 1px solid #556278;
+    padding-bottom: 25px;
+    padding-left: 48px;
+    padding-right: 24px;
+    .head {
+      color: $light-black;
+      @include fz24;
+      line-height: 26px;
+      display: inline-block;
+    }
+    @media all and (max-width: 1025px) {
+      margin-left: 35px;
+      margin-right: 35px;
+    }
+  }
+  & + .headline-wrap {
+    background: url(/img/Noise-on-white.png);
+    padding-bottom: 1px;
+  }
+  @media all and (max-width: 1025px) {
+    padding-bottom: 0;
+    .container {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+}
+.persons-wrap {
+  .img-wrap {
+    width: 192px;
+    height: 192px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 21px;
+    border: 3px solid #000;
+    img {
+      object-fit: cover;
+    }
+  }
+  .info {
+    height: 97px;
+    padding-left: 15px;
+    @include  fz14;
+    line-height: 18px;
+    margin-bottom: 14px;
+    border-bottom: 1px solid rgba(178, 183, 191, 0.2);
+  }
+  .left {
+    float: left;
+    width: 255px;
+    padding-right: 26px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    .one {
+      min-height:405px;
+      width: 100%;
+      padding: 17px 9px 35px 9px;
+      background: url(/img/Noise-on-white.png);
+      position: relative;
+      &.head{
+        order: 1;
+      }
+      &.assistant{
+        order: 2;
+        margin-top: 40px;
+        &:before {
+          display: inline-block;
+          content: "";
+          width: 100%;
+          position: absolute;
+          left: 0;
+          top: -20px;
+          border: 1px solid rgba(178, 183, 191, 0.2);
+        }
+      }
+      .info {
+        color: $grey-blue;
+        .name {
+          margin-top: 13px;
+          @include fz18;
+          color: #000000;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        @media all and (max-width: 1025px) {
+          height: auto;
+        }
+      }
+      .bottom p {
+        color: $grey-blue;
+        @include  fz14;
+        line-height: 18px;
+        padding-left: 15px;
+        &:before {
+          content: "Experience";
+          display: inline-block;
+          width: 100%;
+          text-transform: none;
+          color: #b2b7bf;
+          @include fz11;
+          line-height: 14px;
+        }
+      }
+      @media all and (max-width: 1025px) {
+        background: none;
+        display: inline-block;
+        vertical-align: top;
+        width: auto;
+        & + .one {
+          margin-top: 0;
+          margin-left: 27px;
+          &:before {
+            display: none;
+          }
+        }
+        .info {
+          border-bottom: none;
+          margin-bottom: 0;
+          padding-bottom: 0;
+        }
+        .bottom {
+          display: none;
+        }
+      }
+      @media all and (max-width: 785px) {
+        & + .one, &:nth-child(4n+1) {
+          margin-left: 21px;
+        }
+        &:nth-child(3n+1) {
+          margin-left: 0;
+        }
+      }
+    }
+    @media all and (max-width: 1025px) {
+      float: none;
+      padding-top: 25px;
+      width: 100%;
+      padding-left: 35px;
+      padding-right: 35px;
+      background: url(/img/Noise-on-white.png);
+      &:after {
+        display: inline-block;
+        position: absolute;
+        bottom: 0;
+        left: 35px;
+        right: 35px;
+        content: "";
+        border-bottom: 1px solid rgba(63, 76, 94, 0.44);
+      }
+    }
+  }
+  .right {
+    float: right;
+    padding-left: 27px;
+    width: calc(100% - 255px);
+    border-left: 1px solid rgba(63, 76, 94, 0.44);
+    .one {
+      width: 208px;
+      padding-top: 17px;
+      padding-bottom: 34px;
+      display: inline-block;
+      vertical-align: top;
+      position: relative;
+      &:nth-child(n+1) {
+        margin-left: 31px;
+      }
+      &:nth-child(4n+1) {
+        margin-left: 0;
+      }
+      &:nth-child(n+5) {
+        margin-top: 40px;
+        &:before {
+          display: inline-block;
+          content: "";
+          width: calc(100% + 31px);
+          position: absolute;
+          left: 0;
+          top: -20px;
+          border: 1px solid rgba(178, 183, 191, 0.2);
+        }
+      }
+      &:nth-child(4n) {
+        &:before {
+          width: 100%;
+        }
+      }
+      .info {
+        .num {
+          color: $grey-blue;
+          @include fz18;
+          &:before {
+            content: "#";
+          }
+        }
+        .name-wrap {
+          margin-top: 13px;
+        }
+        .name {
+          color: #000000;
+          display: inline-block;
+          max-width: 150px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          &:hover {
+            background: url(/img/hover-bg.svg) repeat-x bottom left;
+          }
+        }
+        .fav {
+          display: inline-block;
+          vertical-align: middle;
+          float: right;
+          margin-top: -2px;
+          padding-left: 8px;
+          padding-right: 12px;
+          border-left: 1px solid rgba(227, 230, 232, 0.4);
+          span {
+            width: 19px;
+            height: 19px;
+            opacity: 0;
+            transition: opacity 180ms;
+            display: inline-block;
+            vertical-align: middle;
+            @media all and (max-width: 1025px) {
+              opacity: 1;
+            }
+          }
+          &.in-fav {
+            span {
+              opacity: 1;
+            }
+          }
+        }
+        .stats-wrap {
+          margin-top: 18px;
+          white-space: nowrap;
+          letter-spacing: -3px;
+          p {
+            display: inline-block;
+            vertical-align: middle;
+            color: $grey-blue;
+            text-align: center;
+            letter-spacing: normal;
+            padding-left: 10px;
+            padding-right: 10px;
+            text-transform: none;
+            &:first-child {
+              padding-left: 0;
+            }
+            & + p {
+              border-left: 1px solid rgba(89%, 90%, 91%, 0.4);
+            }
+          }
+        }
+      }
+      .bottom {
+        white-space: nowrap;
+        letter-spacing: -3px;
+        p {
+          display: inline-block;
+          vertical-align: middle;
+          text-align: center;
+          letter-spacing: normal;
+          padding-left: 6px;
+          padding-right: 6px;
+          text-transform: none;
+          color: #b2b7bf;
+          @include fz11;
+          line-height: 14px;
+          white-space: normal;
+          width: 42px;
+          span {
+            margin-top: 3px;
+            display: inline-block;
+            width: 100%;
+            color: $grey-blue;
+          }
+        }
+      }
+      &:hover .info .fav {
+        opacity: 1;
+        transition: opacity 180ms;
+        span {
+          opacity: 1;
+          transition: opacity 180ms;
+        }
+      }
+      @media all and (max-width: 1250px) {
+        &:nth-child(4n+1) {
+          margin-left: 31px;
+        }
+        &:nth-child(3n) {
+          margin-right: 45px;
+        }
+        &:nth-child(n+4) {
+          margin-top: 46px;
+        }
+        &:nth-child(3n+1) {
+          margin-left: 0px;
+        }
+        &:nth-child(n) {
+          &:before {
+            display: none;
+          }
+        }
+      }
+      @media all and (max-width: 1110px) {
+        &:nth-child(3n) {
+          margin-right: 0px;
+        }
+      }
+      @media all and (max-width: 1065px) {
+        & + .one, &:nth-child(3n+1) {
+          margin-left: 10px;
+        }
+        &:nth-child(n+4) {
+          margin-top: 0;
+        }
+      }
+      @media all and (max-width: 1025px) {
+        margin-top: 55px;
+        &:nth-child(n+4) {
+          margin-top: 55px;
+        }
+        & + .one {
+          margin-left: 31px;
+        }
+        &:nth-child(4n+1) {
+          margin-left: 0;
+        }
+      }
+      @media all and (max-width: 1024px) {
+        &:nth-child(4n+1) {
+          margin-left: 31px;
+        }
+        &:nth-child(3n+1) {
+          margin-left: 0;
+        }
+        &:nth-child(3n) {
+          margin-right: 35px;
+        }
+      }
+      @media all and (max-width: 820px) {
+        &:nth-child(3n) {
+          margin-right: 0;
+        }
+      }
+      @media all and (max-width: 785px) {
+        & + .one, &:nth-child(4n+1) {
+          margin-left: 24px;
+        }
+        &:nth-child(3n+1) {
+          margin-left: 0;
+        }
+      }
+    }
+    @media all and (max-width: 1025px) {
+      float: none;
+      width: 100%;
+      border-left: none;
+      padding-left: 35px;
+      padding-right: 35px;
+    }
+  }
+  @media all and (max-width: 1025px) {
+    padding-top: 0;
+  }
+}

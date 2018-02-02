@@ -1,0 +1,16 @@
+<div class="statistics_header" *ngIf="player">
+    <div class="container">
+        <div class="inner">
+            <a [routerLink]="['/player', player.id, 'stats', 'team-scoreboard']"
+               routerLinkActive="active">Team Scoreboard</a>
+
+            <a [routerLink]="['/player', player.id, 'stats', 'player-standings']"
+               routerLinkActive="active">Player Standing</a>
+
+            <a [routerLink]="['/player', player.id, 'stats', 'team-standings']"
+               routerLinkActive="active">Team Standings</a>
+        </div>
+    </div>
+</div>
+
+<router-outlet></router-outlet>

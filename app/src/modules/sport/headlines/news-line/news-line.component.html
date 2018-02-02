@@ -1,0 +1,31 @@
+<div *ngIf="rootService.isBrowser() && rootService.ready$ | async" [swiper]="{freeMode: false, slidesPerView: 'auto',observer:true}">
+    <div #sliderWrap class="carousel-news-line swiper-wrapper grab">
+            <div class="one_more_news swiper-slide"  *ngFor="let news of newsList; let i = index;" [attr.data-index]="i"
+                 [ngClass]="{'active': slider?.current?.index  == i}" (click)="fixedPost.emit({id: news.id, slug: news.slug}); swiperWrapper.setIndex(i);">
+                <div class="img-wrap">
+                    <img *ngIf="news.media.data && news.media.data[0].type !== 'iframe'" [src]="news.media.data[0].thumbUrl">
+                    <img *ngIf="news.media.data && news.media.data[0].type == 'iframe'" [src]="'https://img.youtube.com/vi/' + rootService.getYouTubeId(news.media.data[0].fileUrl) + '/0.jpg'">
+                </div>
+                <div>
+                    <p class="time">{{news.date | date:'mediumDate'}}</p>
+                    <div class="heading-wrap">
+                        <p class="heading">{{news?.title}}</p>
+                    </div>
+                    <div class="fb-lv-post-footer">
+                        <div class="fb-share-like">
+                            <div class="like">{{news.likes}}<em></em></div>
+                            <div class="comments">{{news.comments}}<em></em></div>
+                        </div>
+                        <a class="readmore" (click)="readPost.emit(news.slug)">
+                            <em>Read Article</em>
+                        </a>
+                    </div>
+                </div>
+                <span class="progress" *ngIf="slider?.current?.index == i" [style.width]="slider?.current?.percent+'%'"></span>
+            </div>
+     </div>
+</div>
+
+
+
+

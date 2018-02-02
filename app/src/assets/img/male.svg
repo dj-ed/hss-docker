@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="10px" height="16px" viewBox="0 0 10 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 40.1 (33804) - http://www.bohemiancoding.com/sketch -->
+    <title>Male</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Male" stroke="#0B131E">
+            <polygon id="Triangle-Copy" transform="translate(5.000000, 11.000000) scale(1, -1) translate(-5.000000, -11.000000) " points="5 7 10 15 0 15"></polygon>
+            <path d="M7.51168754,6.90494249 L3.74915769,13.0985796" id="Line-Copy"></path>
+            <polyline id="Triangle-Copy" points="4.28631467 3.8 3 3.8 4.875 1 6.75 3.8 5.39730667 3.8"></polyline>
+            <path d="M5,4.48859461 L5,6.56121412" id="Line-Copy"></path>
+        </g>
+    </g>
+</svg>
